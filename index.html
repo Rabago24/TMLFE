@@ -9,24 +9,139 @@
 
     <title>TMLFE | Trade Machine Liga Franquicia Extraditables</title>
 
-    <link rel="stylesheet" href="styles.css?v=22">
+    <link rel="stylesheet" href="styles.css?v=30">
 
 </head>
 
 <body>
 
-    <div id="app">
+<div class="app-shell">
 
-        <h1>TMLFE</h1>
+    <aside class="sidebar">
 
-        <p>Cargando aplicación...</p>
+        <div class="brand">
 
-    </div>
+            <div class="brand-logo">
+                T
+            </div>
 
-    <script src="database.js?v=22"></script>
+            <div>
 
-    <script src="app.js?v=22"></script>
+                <h1>TMLFE</h1>
+
+                <span>Trade Machine</span>
+
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a class="nav-link active" href="index.html">
+                🏠 Dashboard
+            </a>
+
+            <a class="nav-link" href="teams.html">
+                🏀 Franquicias
+            </a>
+
+            <a class="nav-link" href="players.html">
+                👤 Jugadores
+            </a>
+
+            <a class="nav-link" href="trade.html">
+                🔄 Trade Machine
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    DASHBOARD
+                </p>
+
+                <h2>
+                    Bienvenido al TMLFE
+                </h2>
+
+            </div>
+
+        </header>
+
+
+
+        <section class="dashboard-cards">
+
+            <div class="stat-card">
+
+                <h3 id="total-equipos">
+                    0
+                </h3>
+
+                <p>Franquicias</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3 id="total-jugadores">
+                    0
+                </h3>
+
+                <p>Jugadores</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3 id="total-trades">
+                    0
+                </h3>
+
+                <p>Traspasos</p>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="welcome-panel">
+
+            <h2>
+                Trade Machine Liga Franquicia Extraditables
+            </h2>
+
+            <p>
+
+                Bienvenido al panel de control.
+
+                Desde aquí podrás gestionar las 30 franquicias,
+                consultar plantillas,
+                controlar el Salary Cap
+                y realizar traspasos válidos automáticamente.
+
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="database.js?v=30"></script>
+<script src="app.js?v=30"></script>
 
 </body>
-
 </html>
