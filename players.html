@@ -3,121 +3,214 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>TMLFE | Jugadores</title>
+    <title>TMLFE | Jugadores</title>
 
-<link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="styles.css?v=31"
+    >
 
 </head>
 
-
 <body>
 
+    <div class="app-shell">
 
-<header class="top-bar">
+        <aside class="sidebar">
 
-    <div class="logo">
-        TMLFE
+            <div class="brand">
+
+                <div class="brand-logo">
+                    T
+                </div>
+
+                <div>
+                    <h1>TMLFE</h1>
+                    <span>Front Office</span>
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a
+                    class="nav-link"
+                    href="index.html"
+                >
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="teams.html"
+                >
+                    <span class="nav-icon">◆</span>
+                    Franquicias
+                </a>
+
+                <a
+                    class="nav-link active"
+                    href="players.html"
+                >
+                    <span class="nav-icon">♙</span>
+                    Jugadores
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="trade.html"
+                >
+                    <span class="nav-icon">⇄</span>
+                    Trade Machine
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <div class="league-status">
+
+                    <span class="status-dot"></span>
+
+                    <div>
+                        <strong>Liga activa</strong>
+                        <small>Temporada 2026/27</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="eyebrow">
+                        PLAYER DATABASE
+                    </p>
+
+                    <h2 id="titulo-pagina">
+                        Jugadores
+                    </h2>
+
+                </div>
+
+                <a
+                    class="primary-button"
+                    href="teams.html"
+                >
+                    Volver a franquicias
+                </a>
+
+            </header>
+
+
+            <section class="teams-hero">
+
+                <div>
+
+                    <p
+                        class="hero-label"
+                        id="equipo-codigo"
+                    >
+                        TODA LA LIGA
+                    </p>
+
+                    <h3 id="equipo-nombre">
+                        Base de jugadores TMLFE
+                    </h3>
+
+                    <p id="equipo-descripcion">
+                        Consulta las plantillas, contratos y salarios
+                        de todos los jugadores de la liga.
+                    </p>
+
+                </div>
+
+                <div class="teams-hero-number">
+
+                    <strong id="numero-jugadores">
+                        0
+                    </strong>
+
+                    <span>
+                        jugadores
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <section class="teams-toolbar">
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="player-search"
+                        type="search"
+                        placeholder="Buscar jugador, posición o equipo..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+                <select id="orden-jugadores">
+
+                    <option value="nombre">
+                        Orden alfabético
+                    </option>
+
+                    <option value="media-desc">
+                        Mayor media
+                    </option>
+
+                    <option value="salario-desc">
+                        Mayor salario
+                    </option>
+
+                    <option value="edad-asc">
+                        Menor edad
+                    </option>
+
+                </select>
+
+            </section>
+
+
+            <section
+                class="players-grid franchises-grid"
+                id="players-container"
+            >
+
+                <div class="loading-message">
+                    Cargando jugadores...
+                </div>
+
+            </section>
+
+        </main>
+
     </div>
 
 
-    <div class="title">
-        Gestión de Jugadores
-    </div>
-
-</header>
-
-
-
-
-<nav class="menu">
-
-<button onclick="window.location.href='index.html'">
-Dashboard
-</button>
-
-
-<button>
-Jugadores
-</button>
-
-
-<button onclick="window.location.href='teams.html'">
-Plantillas
-</button>
-
-
-<button onclick="window.location.href='trade.html'">
-Traspasos
-</button>
-
-</nav>
-
-
-
-
-
-<main>
-
-
-<section class="hero">
-
-<h1>
-Base de jugadores TMLFE
-</h1>
-
-
-<p>
-Editor y gestión de jugadores de la Liga Franquicia Extraditables
-</p>
-
-</section>
-
-
-
-
-
-<section class="search-box">
-
-
-<input 
-id="player-search"
-type="text"
-placeholder="Buscar jugador..."
-onkeyup="buscarDesdeUI()">
-
-
-</section>
-
-
-
-
-
-<section id="players-container">
-
-
-</section>
-
-
-
-
-</main>
-
-
-
-
-
-<script src="database.js"></script>
-<script src="teams.js"></script>
-<script src="players.js"></script>
-<script src="salary.js"></script>
-<script src="trades.js"></script>
-<script src="ui.js"></script>
-<script src="app.js"></script>
-
+    <script src="database.js?v=102"></script>
+    <script src="players.js?v=102"></script>
 
 </body>
 
