@@ -3,121 +3,222 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>TMLFE | Franquicias</title>
+    <title>TMLFE | Franquicias</title>
 
-<link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="styles.css?v=30"
+    >
 
 </head>
 
-
 <body>
 
+    <div class="app-shell">
 
-<header class="top-bar">
+        <aside class="sidebar">
 
-    <div class="logo">
-        TMLFE
+            <div class="brand">
+
+                <div class="brand-logo">
+                    T
+                </div>
+
+                <div>
+                    <h1>TMLFE</h1>
+                    <span>Front Office</span>
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </a>
+
+                <a class="nav-link active" href="teams.html">
+                    <span class="nav-icon">◆</span>
+                    Franquicias
+                </a>
+
+                <a class="nav-link" href="players.html">
+                    <span class="nav-icon">♙</span>
+                    Jugadores
+                </a>
+
+                <a class="nav-link" href="trade.html">
+                    <span class="nav-icon">⇄</span>
+                    Trade Machine
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <div class="league-status">
+
+                    <span class="status-dot"></span>
+
+                    <div>
+                        <strong>Liga activa</strong>
+                        <small>Temporada 2026/27</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="eyebrow">
+                        LEAGUE DIRECTORY
+                    </p>
+
+                    <h2>
+                        Franquicias
+                    </h2>
+
+                </div>
+
+                <a
+                    class="primary-button"
+                    href="trade.html"
+                >
+                    Nueva operación
+                </a>
+
+            </header>
+
+
+            <section class="teams-hero">
+
+                <div>
+
+                    <p class="hero-label">
+                        30 FRONT OFFICES
+                    </p>
+
+                    <h3>
+                        Todas las franquicias de la liga
+                    </h3>
+
+                    <p>
+                        Consulta plantillas, contratos, salarios y
+                        situación económica de cada equipo.
+                    </p>
+
+                </div>
+
+                <div class="teams-hero-number">
+
+                    <strong id="numero-franquicias">
+                        0
+                    </strong>
+
+                    <span>
+                        franquicias
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <section class="teams-toolbar">
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="buscar-equipo"
+                        type="search"
+                        placeholder="Buscar franquicia o general manager..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+                <select id="filtro-conferencia">
+
+                    <option value="">
+                        Todas las conferencias
+                    </option>
+
+                    <option value="Este">
+                        Conferencia Este
+                    </option>
+
+                    <option value="Oeste">
+                        Conferencia Oeste
+                    </option>
+
+                </select>
+
+                <select id="orden-equipos">
+
+                    <option value="nombre">
+                        Orden alfabético
+                    </option>
+
+                    <option value="salario-desc">
+                        Mayor salario
+                    </option>
+
+                    <option value="salario-asc">
+                        Menor salario
+                    </option>
+
+                    <option value="jugadores-desc">
+                        Más jugadores
+                    </option>
+
+                </select>
+
+            </section>
+
+
+            <section
+                class="franchises-grid"
+                id="lista-franquicias"
+            >
+
+                <div class="loading-message">
+                    Cargando las franquicias...
+                </div>
+
+            </section>
+
+        </main>
+
     </div>
 
 
-    <div class="title">
-        Gestión de Franquicias
-    </div>
-
-</header>
-
-
+    <div
+        class="toast"
+        id="toast"
+        aria-live="polite"
+    ></div>
 
 
-<nav class="menu">
-
-
-<button onclick="window.location.href='index.html'">
-Dashboard
-</button>
-
-
-<button onclick="window.location.href='players.html'">
-Jugadores
-</button>
-
-
-<button>
-Plantillas
-</button>
-
-
-<button onclick="window.location.href='trade.html'">
-Traspasos
-</button>
-
-
-</nav>
-
-
-
-
-
-
-<main>
-
-
-
-<section class="hero">
-
-<h1>
-Franquicias TMLFE
-</h1>
-
-
-<p>
-Gestión de equipos, salarios y plantillas
-</p>
-
-
-</section>
-
-
-
-
-
-<section 
-id="teams-container"
-class="dashboard">
-
-
-</section>
-
-
-
-
-</main>
-
-
-
-
-
-
-
-<script src="database.js"></script>
-
-<script src="teams.js"></script>
-
-<script src="players.js"></script>
-
-<script src="salary.js"></script>
-
-<script src="trades.js"></script>
-
-<script src="ui.js"></script>
-
-<script src="app.js"></script>
-
-
+    <script src="database.js?v=30"></script>
+    <script src="teams.js?v=30"></script>
 
 </body>
 
