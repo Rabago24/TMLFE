@@ -3,49 +3,92 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TMLFE | Trade Machine Liga Franquicia Extraditables</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="styles.css">
+    <title>
+        TMLFE | Trade Machine Liga Franquicia Extraditables
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="./styles.css?v=10"
+    >
 </head>
 
 <body>
 
-    <header>
-        <h1>TMLFE</h1>
-        <p>Trade Machine Liga Franquicia Extraditables</p>
+    <header class="main-header">
+
+        <div>
+            <h1>TMLFE</h1>
+
+            <p>
+                Trade Machine Liga Franquicia Extraditables
+            </p>
+        </div>
+
     </header>
+
 
     <nav class="menu">
 
-        <button onclick="location.href='index.html'">
+        <button
+            type="button"
+            onclick="window.location.href='./index.html'"
+        >
             Dashboard
         </button>
 
-        <button onclick="location.href='players.html'">
+        <button
+            type="button"
+            onclick="window.location.href='./players.html'"
+        >
             Jugadores
         </button>
 
-        <button onclick="location.href='teams.html'">
+        <button
+            type="button"
+            onclick="window.location.href='./teams.html'"
+        >
             Plantillas
         </button>
 
-        <button onclick="location.href='trade.html'">
+        <button
+            type="button"
+            onclick="window.location.href='./trade.html'"
+        >
             Traspasos
-        </button>
-
-        <button>
-            Configuración
         </button>
 
     </nav>
 
+
     <main id="app">
+
+        <section class="loading-screen">
+
+            <h2>
+                Cargando TMLFE...
+            </h2>
+
+            <p>
+                Preparando la base de datos de la liga.
+            </p>
+
+        </section>
+
     </main>
 
-    <script src="database.js"></script>
-    <script src="app.js"></script>
+
+    <!-- La base de datos debe cargarse primero -->
+    <script src="./database.js?v=10"></script>
+
+    <!-- El controlador debe cargarse después -->
+    <script src="./app.js?v=10"></script>
 
 </body>
 
