@@ -727,36 +727,36 @@ button {
 
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 10px;
 }
 
 
-/* CAJA DEL ESCUDO REDUCIDA */
+/* =========================================================
+   ESCUDOS PEQUEÑOS
+========================================================= */
 
 .franchise-logo-box {
-    width: 58px;
-    height: 58px;
+    width: 30px;
+    height: 30px;
 
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    flex: 0 0 auto;
+    flex: 0 0 30px;
 
-    padding: 7px;
+    padding: 0;
 
-    border: 1px solid var(--border);
-    border-radius: 15px;
+    border: none;
+    border-radius: 0;
 
-    background:
-        rgba(255, 255, 255, 0.035);
+    background: transparent;
+    box-shadow: none;
 }
 
-
-/* ESCUDO REDUCIDO */
-
 .franchise-logo {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
 
     display: block;
 
@@ -764,7 +764,7 @@ button {
 
     filter:
         drop-shadow(
-            0 6px 8px
+            0 2px 3px
             rgba(0, 0, 0, 0.35)
         );
 }
@@ -1200,12 +1200,13 @@ button {
     }
 
     .franchise-logo-box {
-        width: 54px;
-        height: 54px;
+        width: 28px;
+        height: 28px;
+        flex-basis: 28px;
     }
 
     .franchise-logo {
-        width: 37px;
-        height: 37px;
+        width: 18px;
+        height: 18px;
     }
 }
