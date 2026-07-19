@@ -1210,3 +1210,20 @@ button {
         height: 18px;
     }
 }
+/* =========================================================
+   CORRECCIÓN DE VISIBILIDAD DE FRANQUICIAS
+========================================================= */
+
+#lista-franquicias {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#lista-franquicias .franchise-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+}
