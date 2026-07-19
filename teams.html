@@ -216,8 +216,162 @@
         aria-live="polite"
     ></div>
 
+<script src="database.js?v=100"></script>
 
-<script src="./database.js?v=40"></script>
-<script src="./teams.js?v=40"></script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const contenedor =
+            document.getElementById("lista-franquicias");
+
+        const contador =
+            document.getElementById("numero-franquicias");
+
+        if (!contenedor) {
+            alert("ERROR: No existe lista-franquicias");
+            return;
+        }
+
+        contenedor.style.display = "grid";
+        contenedor.style.opacity = "1";
+        contenedor.style.visibility = "visible";
+
+        if (!window.TMLFE) {
+
+            contenedor.innerHTML = `
+                <div style="
+                    grid-column: 1 / -1;
+                    padding: 30px;
+                    border-radius: 16px;
+                    background: #7f1d1d;
+                    color: white;
+                    font-size: 20px;
+                    font-weight: bold;
+                ">
+                    database.js NO está cargando
+                </div>
+            `;
+
+            return;
+        }
+
+        if (!Array.isArray(window.TMLFE.teams)) {
+
+            contenedor.innerHTML = `
+                <div style="
+                    grid-column: 1 / -1;
+                    padding: 30px;
+                    border-radius: 16px;
+                    background: #7f1d1d;
+                    color: white;
+                    font-size: 20px;
+                    font-weight: bold;
+                ">
+                    Existe TMLFE, pero no existe TMLFE.teams
+                </div>
+            `;
+
+            return;
+        }
+
+        const equipos = window.TMLFE.teams;
+
+        if (contador) {
+            contador.textContent = equipos.length;
+        }
+
+        contenedor.innerHTML = "";
+
+        equipos.forEach(function (equipo) {
+
+            const tarjeta =
+                document.createElement("article");
+
+            tarjeta.style.cssText = `
+                display: block;
+                visibility: visible;
+                opacity: 1;
+                transform: none;
+                animation: none;
+                padding: 24px;
+                border-radius: 18px;
+                background: #171b2e;
+                border: 1px solid rgba(255,255,255,0.12);
+                color: white;
+            `;
+
+            tarjeta.innerHTML = `
+
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                ">
+
+                    <img
+                        src="assets/logos/${String(
+                            equipo.short || ""
+                        ).toLowerCase()}.png"
+                        alt="${equipo.name}"
+                        style="
+                            width: 42px;
+                            height: 42px;
+                            object-fit: contain;
+                        "
+                    >
+
+                    <div>
+
+                        <div style="
+                            font-size: 12px;
+                            color: #9299b5;
+                            text-transform: uppercase;
+                        ">
+                            ${equipo.conference || ""}
+                            ·
+                            ${equipo.division || ""}
+                        </div>
+
+                        <h3 style="
+                            margin: 5px 0 0;
+                            font-size: 19px;
+                        ">
+                            ${equipo.name}
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <div style="
+                    margin-top: 20px;
+                    padding-top: 16px;
+                    border-top: 1px solid rgba(255,255,255,0.1);
+                ">
+
+                    <span style="
+                        display: block;
+                        color: #9299b5;
+                        font-size: 12px;
+                    ">
+                        General Manager
+                    </span>
+
+                    <strong>
+                        ${equipo.manager || "Sin asignar"}
+                    </strong>
+
+                </div>
+
+            `;
+
+            contenedor.appendChild(tarjeta);
+
+        });
+
+    });
+
+</script>
 </body>
 </html>
