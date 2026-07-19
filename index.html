@@ -2,231 +2,294 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="description"
+        content="Trade Machine Liga Franquicia Extraditables: gestión de franquicias, jugadores, contratos y traspasos."
+    >
+
     <title>TMLFE | Trade Machine Liga Franquicia Extraditables</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
+    <header class="top-bar">
 
-<header class="top-bar">
+        <a class="logo" href="index.html" aria-label="Ir al Dashboard">
+            TMLFE
+        </a>
 
-    <div class="logo">
-        TMLFE
-    </div>
+        <div class="title">
+            Trade Machine Liga Franquicia Extraditables
+        </div>
 
+    </header>
 
-    <div class="title">
-        Trade Machine Liga Franquicia Extraditables
-    </div>
 
-</header>
+    <nav class="menu" aria-label="Navegación principal">
 
+        <a class="menu-link active" href="index.html">
+            Dashboard
+        </a>
 
+        <a class="menu-link" href="players.html">
+            Jugadores
+        </a>
 
+        <a class="menu-link" href="teams.html">
+            Plantillas
+        </a>
 
+        <a class="menu-link" href="trade.html">
+            Traspasos
+        </a>
 
-<nav class="menu">
+        <button
+            class="menu-link menu-button"
+            id="boton-configuracion"
+            type="button"
+        >
+            Configuración
+        </button>
 
+    </nav>
 
-    <button onclick="window.location.href='index.html'">
-        Dashboard
-    </button>
 
+    <main class="main-content">
 
-    <button onclick="window.location.href='players.html'">
-        Jugadores
-    </button>
+        <section class="hero">
 
+            <p class="hero-label">
+                Front Office TMLFE
+            </p>
 
-    <button onclick="window.location.href='teams.html'">
-        Plantillas
-    </button>
+            <h1>
+                Bienvenido a la TMLFE
+            </h1>
 
+            <p class="hero-description">
+                El centro de gestión de la Liga Franquicia Extraditables.
+            </p>
 
-    <button onclick="window.location.href='trade.html'">
-        Traspasos
-    </button>
+            <p class="hero-description secondary">
+                Consulta plantillas, contratos, salarios y valida operaciones
+                entre las franquicias de la liga.
+            </p>
 
+            <div class="hero-actions">
 
-    <button>
-        Configuración
-    </button>
+                <a class="primary-button" href="trade.html">
+                    Crear traspaso
+                </a>
 
+                <a class="secondary-button" href="teams.html">
+                    Ver franquicias
+                </a>
 
-</nav>
+            </div>
 
+        </section>
 
 
+        <section class="dashboard" aria-label="Resumen de la liga">
 
+            <article class="card dashboard-card">
 
+                <div class="card-header">
+                    <span class="card-icon">🏀</span>
 
+                    <h2>
+                        Franquicias
+                    </h2>
+                </div>
 
-<main>
+                <p class="dashboard-number" id="total-equipos">
+                    0
+                </p>
 
+                <p class="dashboard-label">
+                    Equipos registrados
+                </p>
 
+            </article>
 
-<section class="hero">
 
+            <article class="card dashboard-card">
 
-    <h1>
-        Bienvenido a la TMLFE
-    </h1>
+                <div class="card-header">
+                    <span class="card-icon">👤</span>
 
+                    <h2>
+                        Jugadores
+                    </h2>
+                </div>
 
-    <p>
-        El simulador de traspasos de la Liga Franquicia Extraditables.
-    </p>
+                <p class="dashboard-number" id="total-jugadores">
+                    0
+                </p>
 
+                <p class="dashboard-label">
+                    Jugadores registrados
+                </p>
 
-    <p>
-        Gestión de plantillas, jugadores, contratos y movimientos de franquicia.
-    </p>
+            </article>
 
 
-</section>
+            <article class="card dashboard-card">
 
+                <div class="card-header">
+                    <span class="card-icon">🔁</span>
 
+                    <h2>
+                        Traspasos
+                    </h2>
+                </div>
 
+                <p class="dashboard-number" id="total-trades">
+                    0
+                </p>
 
+                <p class="dashboard-label">
+                    Operaciones guardadas
+                </p>
 
+            </article>
 
 
+            <article class="card dashboard-card">
 
-<section class="dashboard">
+                <div class="card-header">
+                    <span class="card-icon">💰</span>
 
+                    <h2>
+                        Temporada
+                    </h2>
+                </div>
 
+                <p class="dashboard-number">
+                    26/27
+                </p>
 
-<div class="card">
+                <p class="dashboard-label">
+                    Control salarial activo
+                </p>
 
-    <h2>
-        Equipos
-    </h2>
+            </article>
 
-    <p id="total-equipos">
-        Cargando franquicias...
-    </p>
+        </section>
 
-</div>
 
+        <section class="dashboard-sections">
 
+            <article class="card system-card">
 
+                <div class="section-heading">
 
+                    <div>
+                        <p class="section-label">
+                            Sistema
+                        </p>
 
-<div class="card">
+                        <h2>
+                            Estado de la aplicación
+                        </h2>
+                    </div>
 
-    <h2>
-        Jugadores
-    </h2>
+                    <span class="status-indicator" id="status-indicator"></span>
 
-    <p id="total-jugadores">
-        Cargando jugadores...
-    </p>
+                </div>
 
-</div>
+                <p id="estado-sistema">
+                    Comprobando la base de datos de la TMLFE...
+                </p>
 
+                <div class="system-details">
 
+                    <div class="system-detail">
+                        <span>Base de datos</span>
 
+                        <strong id="estado-database">
+                            Comprobando
+                        </strong>
+                    </div>
 
+                    <div class="system-detail">
+                        <span>Franquicias esperadas</span>
 
-<div class="card">
+                        <strong>
+                            30
+                        </strong>
+                    </div>
 
-    <h2>
-        Trades
-    </h2>
+                    <div class="system-detail">
+                        <span>Temporada</span>
 
-    <p id="total-trades">
-        Cargando movimientos...
-    </p>
+                        <strong>
+                            2026/27
+                        </strong>
+                    </div>
 
-</div>
+                </div>
 
+            </article>
 
 
+            <article class="card quick-access-card">
 
+                <p class="section-label">
+                    Acceso rápido
+                </p>
 
-<div class="card">
+                <h2>
+                    Herramientas del Front Office
+                </h2>
 
-    <h2>
-        Economía
-    </h2>
+                <div class="quick-access-grid">
 
-    <p>
-        Control salarial TMLFE
-    </p>
+                    <a class="quick-access-link" href="teams.html">
+                        <span>Plantillas</span>
+                        <small>Consulta las 30 franquicias</small>
+                    </a>
 
-</div>
+                    <a class="quick-access-link" href="players.html">
+                        <span>Buscador de jugadores</span>
+                        <small>Contratos, rating y posición</small>
+                    </a>
 
+                    <a class="quick-access-link" href="trade.html">
+                        <span>Trade Machine</span>
+                        <small>Construye y valida traspasos</small>
+                    </a>
 
+                </div>
 
-</section>
+            </article>
 
+        </section>
 
+    </main>
 
 
+    <footer class="footer">
 
-<section class="card">
+        <p>
+            TMLFE © 2026 | Liga Franquicia Extraditables
+        </p>
 
+        <p class="footer-tribute">
+            Mamba mentality · Loyalty · The Answer · Carrollismo
+        </p>
 
-<h2>
-Estado del sistema
-</h2>
+    </footer>
 
 
-<p id="estado-sistema">
-TMLFE preparada para cargar datos.
-</p>
-
-
-</section>
-
-
-
-
-
-</main>
-
-
-
-
-
-
-
-<footer>
-
-
-<p>
-TMLFE © 2026 | Liga Franquicia Extraditables
-</p>
-
-
-</footer>
-
-
-
-
-
-
-
-<script src="database.js"></script>
-<script src="lfe_data.js"></script>
-<script src="teams.js"></script>
-<script src="players.js"></script>
-<script src="salary.js"></script>
-<script src="trades.js"></script>
-<script src="ui.js"></script>
-<script src="trade.js"></script>
-<script src="app.js"></script>
-
-
+    <script src="database.js"></script>
+    <script src="app.js"></script>
 
 </body>
 
