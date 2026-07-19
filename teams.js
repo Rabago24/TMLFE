@@ -1,683 +1,466 @@
 // =========================================================
-// TMLFE - FRANCHISES CONTROLLER
-// Pantalla general de franquicias
+// TMLFE - PÁGINA DE FRANQUICIAS
 // =========================================================
 
 "use strict";
 
-const SALARY_CAP = 170000000;
-const TEMPORADA_ACTUAL = "2026/27";
+document.addEventListener("DOMContentLoaded", function () {
 
-let todasLasFranquicias = [];
+    const contenedor = document.getElementById("lista-franquicias");
+    const contador = document.getElementById("numero-franquicias");
+    const buscador = document.getElementById("buscar-equipo");
+    const filtroConferencia = document.getElementById("filtro-conferencia");
+    const selectorOrden = document.getElementById("orden-equipos");
 
-document.addEventListener("DOMContentLoaded", iniciarPantallaFranquicias);
-
-
-// =========================================================
-// INICIO
-// =========================================================
-
-function iniciarPantallaFranquicias() {
-
-    todasLasFranquicias = obtenerFranquiciasBaseDatos();
-
-    console.log(
-        "Franquicias cargadas:",
-        todasLasFranquicias.length
-    );
-
-    console.log(
-        "Jugadores cargados:",
-        obtenerListaGeneralJugadores().length
-    );
-
-    configurarBuscador();
-    configurarFiltros();
-
-    renderizarFranquicias(todasLasFranquicias);
-    actualizarNumeroFranquicias(todasLasFranquicias.length);
-}
-
-
-// =========================================================
-// OBTENER FRANQUICIAS
-// =========================================================
-
-function obtenerFranquiciasBaseDatos() {
-
-    if (
-        typeof TMLFE !== "undefined" &&
-        Array.isArray(TMLFE.teams)
-    ) {
-        return TMLFE.teams;
-    }
-
-    console.error(
-        "No se encontró TMLFE.teams. Comprueba que database.js carga antes que teams.js."
-    );
-
-    return [];
-}
-
-
-// =========================================================
-// OBTENER JUGADORES
-// =========================================================
-
-function obtenerListaGeneralJugadores() {
-
-    if (
-        typeof TMLFE !== "undefined" &&
-        Array.isArray(TMLFE.players)
-    ) {
-        return TMLFE.players;
-    }
-
-    console.error(
-        "No se encontró TMLFE.players en database.js."
-    );
-
-    return [];
-}
-
-
-// =========================================================
-// RENDERIZAR FRANQUICIAS
-// =========================================================
-
-function renderizarFranquicias(lista) {
-
-    const contenedor = obtenerContenedorFranquicias();
+    const SALARY_CAP = 170000000;
+    const TEMPORADA = "2026/27";
 
     if (!contenedor) {
-
-        console.error(
-            "No se encontró el contenedor de franquicias."
-        );
-
+        console.error("No existe #lista-franquicias");
         return;
     }
 
-    contenedor.innerHTML = "";
-
-    if (!Array.isArray(lista) || lista.length === 0) {
-
+    if (
+        typeof window.TMLFE === "undefined" ||
+        !Array.isArray(window.TMLFE.teams)
+    ) {
         contenedor.innerHTML = `
             <div class="empty-state">
-                <strong>No se encontraron franquicias</strong>
-                <span>
-                    Comprueba que database.js se carga antes que teams.js.
-                </span>
+                <strong>Error al cargar database.js</strong>
+                <span>No se encuentra window.TMLFE.teams.</span>
             </div>
         `;
 
+        console.error(
+            "TMLFE no está disponible:",
+            window.TMLFE
+        );
+
         return;
     }
 
-    lista.forEach((franquicia, indice) => {
+    const equipos = window.TMLFE.teams;
+    const jugadores = Array.isArray(window.TMLFE.players)
+        ? window.TMLFE.players
+        : [];
 
-        const tarjeta = crearTarjetaFranquicia(
-            franquicia,
-            indice
-        );
+    console.log("TMLFE cargado correctamente");
+    console.log("Equipos:", equipos.length);
+    console.log("Jugadores:", jugadores.length);
 
-        contenedor.appendChild(tarjeta);
-    });
-}
+    function normalizar(valor) {
+        return String(valor || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim()
+            .toLowerCase();
+    }
 
+    function escaparHTML(valor) {
+        return String(valor ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
 
-// =========================================================
-// CREAR TARJETA
-// =========================================================
+    function obtenerJugadoresEquipo(equipo) {
 
-function crearTarjetaFranquicia(franquicia, indice) {
+        return jugadores.filter(function (jugador) {
 
-    const nombre = franquicia.name || "Franquicia TMLFE";
-    const abreviatura = franquicia.short || "";
-    const conferencia = franquicia.conference || "";
-    const division = franquicia.division || "";
-    const manager = franquicia.manager || "Sin asignar";
-
-    const jugadores = obtenerJugadoresFranquicia(franquicia);
-    const salario = calcularSalarioPlantilla(jugadores);
-    const espacio = SALARY_CAP - salario;
-
-    const porcentaje = SALARY_CAP > 0
-        ? (salario / SALARY_CAP) * 100
-        : 0;
-
-    const porcentajeBarra = Math.min(
-        Math.max(porcentaje, 0),
-        100
-    );
-
-    const logo = obtenerLogoFranquicia(abreviatura);
-
-    const tarjeta = document.createElement("article");
-
-    tarjeta.className = "franchise-card";
-    tarjeta.style.animationDelay = `${indice * 0.025}s`;
-
-    tarjeta.innerHTML = `
-
-        <div class="franchise-card-glow"></div>
-
-        <div class="franchise-header">
-
-            <div class="franchise-logo-box">
-
-                <img
-                    class="franchise-logo"
-                    src="${escaparHTML(logo)}"
-                    alt="Escudo de ${escaparHTML(nombre)}"
-                >
-
-            </div>
-
-            <div class="franchise-identity">
-
-                <span>
-                    ${escaparHTML(
-                        construirUbicacion(
-                            conferencia,
-                            division
-                        )
-                    )}
-                </span>
-
-                <h3>
-                    ${escaparHTML(nombre)}
-                </h3>
-
-                <p>
-                    ${escaparHTML(abreviatura)}
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="franchise-manager">
-
-            <span>
-                General Manager
-            </span>
-
-            <strong>
-                ${escaparHTML(manager)}
-            </strong>
-
-        </div>
-
-        <div class="franchise-numbers">
-
-            <div>
-
-                <span>
-                    Plantilla
-                </span>
-
-                <strong>
-                    ${jugadores.length}
-                </strong>
-
-                <small>
-                    jugadores
-                </small>
-
-            </div>
-
-            <div>
-
-                <span>
-                    Salario
-                </span>
-
-                <strong>
-                    ${formatearMillones(salario)}
-                </strong>
-
-                <small>
-                    comprometido
-                </small>
-
-            </div>
-
-        </div>
-
-        <div class="salary-progress">
-
-            <div class="salary-progress-header">
-
-                <span>
-                    Salary Cap
-                </span>
-
-                <strong class="${obtenerClaseSalarial(espacio)}">
-                    ${formatearEspacioSalarial(espacio)}
-                </strong>
-
-            </div>
-
-            <div class="salary-track">
-
-                <span
-                    style="width: ${porcentajeBarra}%"
-                ></span>
-
-            </div>
-
-            <div class="salary-progress-footer">
-
-                <span>
-                    ${formatearMillones(salario)}
-                </span>
-
-                <span>
-                    170,0 M
-                </span>
-
-            </div>
-
-        </div>
-
-        <div class="franchise-footer">
-
-            <a
-                class="franchise-open-button"
-                href="players.html?team=${encodeURIComponent(abreviatura)}"
-            >
-
-                <span>
-                    Ver plantilla
-                </span>
-
-                <span>
-                    →
-                </span>
-
-            </a>
-
-        </div>
-    `;
-
-    const imagen = tarjeta.querySelector(".franchise-logo");
-
-    if (imagen) {
-
-        imagen.addEventListener("error", function () {
-            this.style.visibility = "hidden";
+            return (
+                normalizar(jugador.team) === normalizar(equipo.name) ||
+                normalizar(jugador.teamShort) === normalizar(equipo.short)
+            );
         });
     }
 
-    return tarjeta;
-}
+    function obtenerCantidadSalario(valor) {
 
+        if (typeof valor === "number") {
+            return Number.isFinite(valor) ? valor : 0;
+        }
 
-// =========================================================
-// OBTENER JUGADORES DE LA FRANQUICIA
-// =========================================================
+        if (typeof valor !== "string") {
+            return 0;
+        }
 
-function obtenerJugadoresFranquicia(franquicia) {
+        const coincidencia = valor.match(/\d+/g);
 
-    const jugadores = obtenerListaGeneralJugadores();
+        if (!coincidencia) {
+            return 0;
+        }
 
-    const nombreEquipo = normalizarTexto(
-        franquicia.name
-    );
+        return Number(coincidencia.join("")) || 0;
+    }
 
-    const codigoEquipo = normalizarTexto(
-        franquicia.short
-    );
+    function obtenerSalarioEquipo(equipo) {
 
-    return jugadores.filter(jugador => {
+        const plantilla = obtenerJugadoresEquipo(equipo);
 
-        const equipoNombre = normalizarTexto(
-            jugador.team
-        );
+        return plantilla.reduce(function (total, jugador) {
 
-        const equipoCodigo = normalizarTexto(
-            jugador.teamShort
-        );
+            const salarioTemporada =
+                jugador.salaries &&
+                jugador.salaries[TEMPORADA] !== undefined
+                    ? jugador.salaries[TEMPORADA]
+                    : 0;
+
+            return total + obtenerCantidadSalario(salarioTemporada);
+
+        }, 0);
+    }
+
+    function formatearMillones(cantidad) {
 
         return (
-            equipoNombre === nombreEquipo ||
-            equipoCodigo === codigoEquipo
-        );
-    });
-}
-
-
-// =========================================================
-// CALCULAR SALARIO
-// =========================================================
-
-function calcularSalarioPlantilla(jugadores) {
-
-    return jugadores.reduce((total, jugador) => {
-
-        return total + obtenerSalarioJugador(jugador);
-
-    }, 0);
-}
-
-
-function obtenerSalarioJugador(jugador) {
-
-    if (
-        jugador.salaries &&
-        jugador.salaries[TEMPORADA_ACTUAL] !== undefined
-    ) {
-        return convertirSalarioANumero(
-            jugador.salaries[TEMPORADA_ACTUAL]
+            (cantidad / 1000000).toLocaleString(
+                "es-ES",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }
+            ) + " M"
         );
     }
 
-    if (jugador.salary !== undefined) {
-        return convertirSalarioANumero(jugador.salary);
+    function formatearEspacio(cantidad) {
+
+        if (cantidad >= 0) {
+            return `+${formatearMillones(cantidad)} libres`;
+        }
+
+        return `-${formatearMillones(Math.abs(cantidad))} excedido`;
     }
 
-    if (jugador.salario !== undefined) {
-        return convertirSalarioANumero(jugador.salario);
+    function obtenerClaseSalarial(cantidad) {
+
+        if (cantidad < 0) {
+            return "salary-negative";
+        }
+
+        if (cantidad < 15000000) {
+            return "salary-warning";
+        }
+
+        return "salary-positive";
     }
 
-    return 0;
-}
+    function obtenerRutaLogo(equipo) {
 
+        const codigo = String(equipo.short || "")
+            .trim()
+            .toLowerCase();
 
-function convertirSalarioANumero(salario) {
-
-    if (typeof salario === "number") {
-        return Number.isFinite(salario) ? salario : 0;
+        return `assets/logos/${codigo}.png`;
     }
 
-    if (typeof salario !== "string") {
-        return 0;
-    }
+    function crearTarjeta(equipo, indice) {
 
-    /*
-        Admite valores como:
+        const plantilla = obtenerJugadoresEquipo(equipo);
+        const salario = obtenerSalarioEquipo(equipo);
+        const espacio = SALARY_CAP - salario;
 
-        "10183200 TO"
-        "16438275 PO"
-        "7,2 M"
-        "$7200000"
-    */
-
-    let texto = salario
-        .trim()
-        .toUpperCase()
-        .replace("TO", "")
-        .replace("PO", "")
-        .replace("RFA", "")
-        .replace("UFA", "")
-        .replace(/\$/g, "")
-        .replace(/€/g, "")
-        .trim();
-
-    const expresadoEnMillones = texto.includes("M");
-
-    texto = texto
-        .replace(/M/g, "")
-        .replace(/\s/g, "");
-
-    if (texto.includes(".") && texto.includes(",")) {
-
-        texto = texto
-            .replace(/\./g, "")
-            .replace(",", ".");
-
-    } else {
-
-        texto = texto.replace(",", ".");
-    }
-
-    const numero = Number(texto);
-
-    if (!Number.isFinite(numero)) {
-        return 0;
-    }
-
-    if (expresadoEnMillones) {
-        return numero * 1000000;
-    }
-
-    return numero;
-}
-
-
-// =========================================================
-// LOGOS
-// =========================================================
-
-function obtenerLogoFranquicia(abreviatura) {
-
-    const codigo = String(abreviatura || "")
-        .trim()
-        .toLowerCase();
-
-    return `assets/logos/${codigo}.png`;
-}
-
-
-// =========================================================
-// CONTENEDOR
-// =========================================================
-
-function obtenerContenedorFranquicias() {
-
-    return (
-        document.getElementById("franchisesGrid") ||
-        document.getElementById("teamsGrid") ||
-        document.getElementById("franquiciasGrid") ||
-        document.querySelector(".franchises-grid")
-    );
-}
-
-
-// =========================================================
-// BUSCADOR
-// =========================================================
-
-function configurarBuscador() {
-
-    const buscador =
-        document.getElementById("teamSearch") ||
-        document.getElementById("franchiseSearch") ||
-        document.querySelector(
-            '.teams-toolbar input[type="search"]'
+        const porcentaje = Math.min(
+            Math.max(
+                (salario / SALARY_CAP) * 100,
+                0
+            ),
+            100
         );
 
-    if (!buscador) {
-        return;
+        const tarjeta = document.createElement("article");
+
+        tarjeta.className = "franchise-card";
+        tarjeta.style.animationDelay = `${indice * 0.025}s`;
+
+        tarjeta.innerHTML = `
+
+            <div class="franchise-card-glow"></div>
+
+            <div class="franchise-header">
+
+                <div class="franchise-logo-box">
+
+                    <img
+                        class="franchise-logo"
+                        src="${escaparHTML(obtenerRutaLogo(equipo))}"
+                        alt="${escaparHTML(equipo.name)}"
+                    >
+
+                </div>
+
+                <div class="franchise-identity">
+
+                    <span>
+                        ${escaparHTML(equipo.conference)}
+                        ·
+                        ${escaparHTML(equipo.division)}
+                    </span>
+
+                    <h3>
+                        ${escaparHTML(equipo.name)}
+                    </h3>
+
+                    <p>
+                        ${escaparHTML(equipo.short)}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="franchise-manager">
+
+                <span>
+                    General Manager
+                </span>
+
+                <strong>
+                    ${escaparHTML(
+                        equipo.manager || "Sin asignar"
+                    )}
+                </strong>
+
+            </div>
+
+            <div class="franchise-numbers">
+
+                <div>
+
+                    <span>
+                        Plantilla
+                    </span>
+
+                    <strong>
+                        ${plantilla.length}
+                    </strong>
+
+                    <small>
+                        jugadores
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Salario
+                    </span>
+
+                    <strong>
+                        ${formatearMillones(salario)}
+                    </strong>
+
+                    <small>
+                        comprometido
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="salary-progress">
+
+                <div class="salary-progress-header">
+
+                    <span>
+                        Salary Cap
+                    </span>
+
+                    <strong class="${obtenerClaseSalarial(espacio)}">
+                        ${formatearEspacio(espacio)}
+                    </strong>
+
+                </div>
+
+                <div class="salary-track">
+
+                    <span style="width: ${porcentaje}%"></span>
+
+                </div>
+
+                <div class="salary-progress-footer">
+
+                    <span>
+                        ${formatearMillones(salario)}
+                    </span>
+
+                    <span>
+                        170,0 M
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="franchise-footer">
+
+                <a
+                    class="franchise-open-button"
+                    href="players.html?team=${encodeURIComponent(equipo.short)}"
+                >
+
+                    <span>
+                        Ver plantilla
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+        `;
+
+        const imagen = tarjeta.querySelector(".franchise-logo");
+
+        if (imagen) {
+
+            imagen.addEventListener("error", function () {
+                this.style.visibility = "hidden";
+            });
+        }
+
+        return tarjeta;
     }
 
-    buscador.addEventListener(
-        "input",
-        aplicarFiltros
-    );
-}
+    function renderizar(lista) {
 
+        contenedor.innerHTML = "";
 
-// =========================================================
-// FILTROS
-// =========================================================
+        if (!Array.isArray(lista) || lista.length === 0) {
 
-function configurarFiltros() {
+            contenedor.innerHTML = `
+                <div class="empty-state">
+                    <strong>No se encontraron franquicias</strong>
+                    <span>Revisa la búsqueda o los filtros.</span>
+                </div>
+            `;
 
-    const filtros = document.querySelectorAll(
-        ".teams-toolbar select"
-    );
+            if (contador) {
+                contador.textContent = "0";
+            }
 
-    filtros.forEach(filtro => {
+            return;
+        }
 
-        filtro.addEventListener(
-            "change",
-            aplicarFiltros
-        );
-    });
-}
+        lista.forEach(function (equipo, indice) {
 
+            contenedor.appendChild(
+                crearTarjeta(equipo, indice)
+            );
+        });
 
-function aplicarFiltros() {
+        if (contador) {
+            contador.textContent = lista.length;
+        }
+    }
 
-    const buscador =
-        document.getElementById("teamSearch") ||
-        document.getElementById("franchiseSearch") ||
-        document.querySelector(
-            '.teams-toolbar input[type="search"]'
-        );
+    function aplicarFiltros() {
 
-    const selects = Array.from(
-        document.querySelectorAll(
-            ".teams-toolbar select"
-        )
-    );
-
-    const termino = normalizarTexto(
-        buscador ? buscador.value : ""
-    );
-
-    const valoresSelect = selects
-        .map(select => normalizarTexto(select.value))
-        .filter(valor =>
-            valor &&
-            valor !== "todos" &&
-            valor !== "todas" &&
-            valor !== "all"
+        const textoBusqueda = normalizar(
+            buscador ? buscador.value : ""
         );
 
-    const resultados = todasLasFranquicias.filter(
-        franquicia => {
+        const conferencia = filtroConferencia
+            ? normalizar(filtroConferencia.value)
+            : "";
 
-            const textoFranquicia = normalizarTexto(
+        let resultados = equipos.filter(function (equipo) {
+
+            const textoEquipo = normalizar(
                 [
-                    franquicia.name,
-                    franquicia.short,
-                    franquicia.conference,
-                    franquicia.division,
-                    franquicia.manager
+                    equipo.name,
+                    equipo.short,
+                    equipo.manager,
+                    equipo.conference,
+                    equipo.division
                 ].join(" ")
             );
 
             const coincideBusqueda =
-                !termino ||
-                textoFranquicia.includes(termino);
+                !textoBusqueda ||
+                textoEquipo.includes(textoBusqueda);
 
-            const coincideSelects =
-                valoresSelect.every(valor =>
-                    textoFranquicia.includes(valor)
+            const coincideConferencia =
+                !conferencia ||
+                normalizar(equipo.conference) === conferencia;
+
+            return coincideBusqueda && coincideConferencia;
+        });
+
+        const orden = selectorOrden
+            ? selectorOrden.value
+            : "nombre";
+
+        resultados = [...resultados];
+
+        if (orden === "nombre") {
+
+            resultados.sort(function (a, b) {
+                return a.name.localeCompare(
+                    b.name,
+                    "es"
                 );
-
-            return coincideBusqueda && coincideSelects;
+            });
         }
-    );
 
-    renderizarFranquicias(resultados);
-    actualizarNumeroFranquicias(resultados.length);
-}
+        if (orden === "salario-desc") {
 
+            resultados.sort(function (a, b) {
+                return (
+                    obtenerSalarioEquipo(b) -
+                    obtenerSalarioEquipo(a)
+                );
+            });
+        }
 
-// =========================================================
-// FORMATOS
-// =========================================================
+        if (orden === "salario-asc") {
 
-function construirUbicacion(conferencia, division) {
+            resultados.sort(function (a, b) {
+                return (
+                    obtenerSalarioEquipo(a) -
+                    obtenerSalarioEquipo(b)
+                );
+            });
+        }
 
-    if (conferencia && division) {
-        return `${conferencia} · ${division}`;
+        if (orden === "jugadores-desc") {
+
+            resultados.sort(function (a, b) {
+                return (
+                    obtenerJugadoresEquipo(b).length -
+                    obtenerJugadoresEquipo(a).length
+                );
+            });
+        }
+
+        renderizar(resultados);
     }
 
-    return conferencia || division || "FRANQUICIA TMLFE";
-}
-
-
-function formatearMillones(cantidad) {
-
-    const numero = Number(cantidad) || 0;
-
-    return (
-        numero / 1000000
-    ).toLocaleString(
-        "es-ES",
-        {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1
-        }
-    ) + " M";
-}
-
-
-function formatearEspacioSalarial(cantidad) {
-
-    const simbolo = cantidad >= 0 ? "+" : "-";
-
-    return (
-        simbolo +
-        formatearMillones(Math.abs(cantidad)) +
-        (
-            cantidad >= 0
-                ? " libres"
-                : " excedido"
-        )
-    );
-}
-
-
-function obtenerClaseSalarial(espacio) {
-
-    if (espacio < 0) {
-        return "salary-negative";
+    if (buscador) {
+        buscador.addEventListener(
+            "input",
+            aplicarFiltros
+        );
     }
 
-    if (espacio < 15000000) {
-        return "salary-warning";
+    if (filtroConferencia) {
+        filtroConferencia.addEventListener(
+            "change",
+            aplicarFiltros
+        );
     }
 
-    return "salary-positive";
-}
+    if (selectorOrden) {
+        selectorOrden.addEventListener(
+            "change",
+            aplicarFiltros
+        );
+    }
 
-
-// =========================================================
-// UTILIDADES
-// =========================================================
-
-function normalizarTexto(valor) {
-
-    return String(valor || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-}
-
-
-function escaparHTML(valor) {
-
-    return String(valor ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-
-function actualizarNumeroFranquicias(numero) {
-
-    const elementos = [
-        document.getElementById("teamsCount"),
-        document.getElementById("franchiseCount"),
-        document.getElementById("totalTeams"),
-        document.querySelector(".teams-hero-number strong")
-    ];
-
-    elementos.forEach(elemento => {
-
-        if (elemento) {
-            elemento.textContent = numero;
-        }
-    });
-}
+    renderizar(equipos);
+});
