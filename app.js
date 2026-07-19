@@ -1,375 +1,544 @@
-// =======================================
-// TMLFE - CONTROLADOR PRINCIPAL
-// Trade Machine Liga Franquicia Extraditables
-// =======================================
+// ========================================
+// TMLFE - DASHBOARD CONTROLLER
+// ========================================
 
-document.addEventListener("DOMContentLoaded", iniciarAplicacion);
+document.addEventListener(
+    "DOMContentLoaded",
+    iniciarDashboard
+);
 
 
-// =======================================
-// INICIAR APLICACIÓN
-// =======================================
+// ========================================
+// INICIO
+// ========================================
 
-function iniciarAplicacion() {
+function iniciarDashboard() {
 
-    console.log("🏀 TMLFE iniciada correctamente");
+    console.log("🏀 Iniciando Dashboard TMLFE");
 
-    if (!window.TMLFE) {
-        console.error("❌ No se ha cargado database.js");
-        mostrarErrorBaseDatos();
+    const datos = obtenerDatosTMLFE();
+
+    if (!datos) {
+
+        mostrarErrorDatabase();
+
         return;
     }
 
-    if (!Array.isArray(window.TMLFE.teams)) {
-        console.error("❌ TMLFE.teams no existe o no es un array");
-        mostrarErrorBaseDatos();
-        return;
-    }
+    actualizarEstadisticas(datos);
 
-    if (!Array.isArray(window.TMLFE.players)) {
-        console.error("❌ TMLFE.players no existe o no es un array");
-        mostrarErrorBaseDatos();
-        return;
-    }
+    renderizarEquiposDestacados(datos);
+
+    configurarBotones(datos);
 
     console.log(
-        `✅ Equipos cargados: ${window.TMLFE.teams.length}`
+        `✅ ${datos.equipos.length} equipos cargados`
     );
 
     console.log(
-        `✅ Jugadores cargados: ${window.TMLFE.players.length}`
+        `✅ ${datos.jugadores.length} jugadores cargados`
     );
-
-    actualizarDashboardPrincipal();
 }
 
 
-// =======================================
-// ACTUALIZAR DASHBOARD
-// =======================================
+// ========================================
+// OBTENER DATOS
+// Compatible con ambas estructuras
+// ========================================
 
-function actualizarDashboardPrincipal() {
+function obtenerDatosTMLFE() {
 
-    const totalEquipos = document.getElementById("total-equipos");
-    const totalJugadores = document.getElementById("total-jugadores");
-    const totalTrades = document.getElementById("total-trades");
+    const base =
+        window.TMLFE ||
+        window.TMLFE_DATABASE;
 
-    if (totalEquipos) {
-        totalEquipos.textContent =
-            `${window.TMLFE.teams.length} franquicias cargadas`;
-    }
+    if (!base) {
 
-    if (totalJugadores) {
-        totalJugadores.textContent =
-            `${window.TMLFE.players.length} jugadores registrados`;
-    }
-
-    if (totalTrades) {
-
-        let cantidadTrades = 0;
-
-        if (
-            window.TradesDB &&
-            Array.isArray(window.TradesDB.trades)
-        ) {
-            cantidadTrades = window.TradesDB.trades.length;
-        }
-
-        totalTrades.textContent =
-            `${cantidadTrades} trades realizados`;
-    }
-
-    mostrarResumenDashboard();
-}
-
-
-// =======================================
-// MOSTRAR RESUMEN EN EL DASHBOARD
-// =======================================
-
-function mostrarResumenDashboard() {
-
-    const app = document.getElementById("app");
-
-    if (!app) {
-        return;
-    }
-
-    const equipos = window.TMLFE.teams;
-    const jugadores = window.TMLFE.players;
-
-    const ratingMedio = jugadores.length
-        ? (
-            jugadores.reduce(
-                (total, jugador) =>
-                    total + Number(jugador.rating || 0),
-                0
-            ) / jugadores.length
-        ).toFixed(1)
-        : "0.0";
-
-    app.innerHTML = `
-        <section class="dashboard">
-
-            <div class="dashboard-header">
-                <p class="dashboard-kicker">
-                    LEAGUE COMMAND CENTER
-                </p>
-
-                <h2>
-                    Trade Machine Liga Franquicia Extraditables
-                </h2>
-
-                <p>
-                    Base de datos oficial de la temporada 2026/27.
-                </p>
-            </div>
-
-            <div class="dashboard-grid">
-
-                <article class="dashboard-card">
-                    <span class="dashboard-card-label">
-                        Franquicias
-                    </span>
-
-                    <strong id="total-equipos">
-                        ${equipos.length}
-                    </strong>
-
-                    <small>
-                        Equipos registrados
-                    </small>
-                </article>
-
-                <article class="dashboard-card">
-                    <span class="dashboard-card-label">
-                        Jugadores
-                    </span>
-
-                    <strong id="total-jugadores">
-                        ${jugadores.length}
-                    </strong>
-
-                    <small>
-                        Jugadores registrados
-                    </small>
-                </article>
-
-                <article class="dashboard-card">
-                    <span class="dashboard-card-label">
-                        Rating medio
-                    </span>
-
-                    <strong>
-                        ${ratingMedio}
-                    </strong>
-
-                    <small>
-                        Media general de la liga
-                    </small>
-                </article>
-
-                <article class="dashboard-card">
-                    <span class="dashboard-card-label">
-                        Traspasos
-                    </span>
-
-                    <strong id="total-trades">
-                        0
-                    </strong>
-
-                    <small>
-                        Operaciones registradas
-                    </small>
-                </article>
-
-            </div>
-
-            <div class="dashboard-actions">
-
-                <button
-                    type="button"
-                    onclick="location.href='teams.html'"
-                >
-                    Ver las 30 franquicias
-                </button>
-
-                <button
-                    type="button"
-                    onclick="location.href='players.html'"
-                >
-                    Consultar jugadores
-                </button>
-
-                <button
-                    type="button"
-                    onclick="location.href='trade.html'"
-                >
-                    Abrir Trade Machine
-                </button>
-
-            </div>
-
-        </section>
-    `;
-}
-
-
-// =======================================
-// ERROR DE BASE DE DATOS
-// =======================================
-
-function mostrarErrorBaseDatos() {
-
-    const app = document.getElementById("app");
-
-    if (!app) {
-        return;
-    }
-
-    app.innerHTML = `
-        <section class="database-error">
-
-            <h2>
-                No se ha podido cargar la base de datos
-            </h2>
-
-            <p>
-                Comprueba que database.js está cargado antes que app.js.
-            </p>
-
-            <p>
-                Abre la consola del navegador para ver más información.
-            </p>
-
-        </section>
-    `;
-}
-
-
-// =======================================
-// NAVEGACIÓN
-// =======================================
-
-function abrirModulo(modulo) {
-
-    const rutas = {
-        dashboard: "index.html",
-        jugadores: "players.html",
-        equipos: "teams.html",
-        traspasos: "trade.html"
-    };
-
-    if (rutas[modulo]) {
-        window.location.href = rutas[modulo];
-        return;
-    }
-
-    console.warn("⚠️ Módulo desconocido:", modulo);
-}
-
-
-// =======================================
-// GUARDADO LOCAL
-// =======================================
-
-function guardarEstado() {
-
-    if (!window.TMLFE) {
         console.error(
-            "❌ No se puede guardar: TMLFE no está disponible"
+            "❌ No existe TMLFE ni TMLFE_DATABASE"
         );
+
+        return null;
+    }
+
+    const equipos =
+        base.teams ||
+        base.equipos ||
+        [];
+
+    const jugadores =
+        base.players ||
+        base.jugadores ||
+        [];
+
+    if (!Array.isArray(equipos)) {
+
+        console.error(
+            "❌ La lista de equipos no es válida"
+        );
+
+        return null;
+    }
+
+    if (!Array.isArray(jugadores)) {
+
+        console.error(
+            "❌ La lista de jugadores no es válida"
+        );
+
+        return null;
+    }
+
+    return {
+        base,
+        equipos,
+        jugadores
+    };
+}
+
+
+// ========================================
+// ESTADÍSTICAS
+// ========================================
+
+function actualizarEstadisticas(datos) {
+
+    const totalEquipos =
+        document.getElementById("total-equipos");
+
+    const totalJugadores =
+        document.getElementById("total-jugadores");
+
+    const ratingMedio =
+        document.getElementById("rating-medio");
+
+    const totalTrades =
+        document.getElementById("total-trades");
+
+    const estadoDatabase =
+        document.getElementById("estado-database");
+
+
+    totalEquipos.textContent =
+        datos.equipos.length;
+
+    totalJugadores.textContent =
+        datos.jugadores.length;
+
+    ratingMedio.textContent =
+        calcularRatingMedio(datos.jugadores);
+
+    totalTrades.textContent =
+        obtenerTotalTrades();
+
+    estadoDatabase.textContent =
+        `${datos.equipos.length} equipos y ` +
+        `${datos.jugadores.length} jugadores`;
+}
+
+
+function calcularRatingMedio(jugadores) {
+
+    if (jugadores.length === 0) {
+        return "0.0";
+    }
+
+    const suma = jugadores.reduce(
+        function(total, jugador) {
+
+            const rating = Number(
+                jugador.rating ??
+                jugador.overall ??
+                jugador.media ??
+                0
+            );
+
+            return total + rating;
+        },
+        0
+    );
+
+    return (
+        suma / jugadores.length
+    ).toFixed(1);
+}
+
+
+function obtenerTotalTrades() {
+
+    if (
+        window.TradesDB &&
+        Array.isArray(window.TradesDB.trades)
+    ) {
+        return window.TradesDB.trades.length;
+    }
+
+    const guardados =
+        localStorage.getItem("TMLFE_TRADES");
+
+    if (!guardados) {
+        return 0;
+    }
+
+    try {
+
+        const trades =
+            JSON.parse(guardados);
+
+        return Array.isArray(trades)
+            ? trades.length
+            : 0;
+
+    } catch (error) {
+
+        return 0;
+    }
+}
+
+
+// ========================================
+// EQUIPOS DESTACADOS
+// ========================================
+
+function renderizarEquiposDestacados(datos) {
+
+    const contenedor =
+        document.getElementById(
+            "equipos-destacados"
+        );
+
+    if (!contenedor) {
         return;
     }
+
+    if (datos.equipos.length === 0) {
+
+        contenedor.innerHTML = `
+            <div class="error-message">
+                No hay franquicias registradas.
+            </div>
+        `;
+
+        return;
+    }
+
+    const equiposMostrar =
+        datos.equipos.slice(0, 6);
+
+    contenedor.innerHTML =
+        equiposMostrar.map(
+            function(equipo) {
+
+                const nombre =
+                    obtenerNombreEquipo(equipo);
+
+                const manager =
+                    equipo.manager ||
+                    equipo.generalManager ||
+                    "Sin manager";
+
+                const division =
+                    equipo.division ||
+                    "Sin división";
+
+                const cantidadJugadores =
+                    contarJugadoresEquipo(
+                        equipo,
+                        datos.jugadores
+                    );
+
+                return `
+                    <a
+                        class="team-preview"
+                        href="./teams.html"
+                    >
+
+                        <div class="team-badge">
+                            ${obtenerIniciales(nombre)}
+                        </div>
+
+                        <div>
+                            <h4>${escaparHTML(nombre)}</h4>
+
+                            <p>
+                                ${escaparHTML(division)}
+                                ·
+                                ${escaparHTML(manager)}
+                            </p>
+                        </div>
+
+                        <span class="team-player-count">
+                            ${cantidadJugadores} jugadores
+                        </span>
+
+                    </a>
+                `;
+            }
+        ).join("");
+}
+
+
+function obtenerNombreEquipo(equipo) {
+
+    return (
+        equipo.name ||
+        equipo.nombre ||
+        equipo.teamName ||
+        "Franquicia"
+    );
+}
+
+
+function obtenerIdEquipo(equipo) {
+
+    return (
+        equipo.id ||
+        equipo.teamId ||
+        equipo.equipoId ||
+        equipo.slug ||
+        obtenerNombreEquipo(equipo)
+    );
+}
+
+
+function contarJugadoresEquipo(
+    equipo,
+    jugadores
+) {
+
+    const idEquipo =
+        String(obtenerIdEquipo(equipo));
+
+    const nombreEquipo =
+        obtenerNombreEquipo(equipo)
+            .toLowerCase();
+
+    return jugadores.filter(
+        function(jugador) {
+
+            const jugadorEquipoId =
+                String(
+                    jugador.teamId ??
+                    jugador.equipoId ??
+                    jugador.team_id ??
+                    ""
+                );
+
+            const jugadorEquipoNombre =
+                String(
+                    jugador.team ??
+                    jugador.equipo ??
+                    jugador.teamName ??
+                    ""
+                ).toLowerCase();
+
+            return (
+                jugadorEquipoId === idEquipo ||
+                jugadorEquipoNombre === nombreEquipo
+            );
+        }
+    ).length;
+}
+
+
+function obtenerIniciales(nombre) {
+
+    const palabras =
+        nombre
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+    if (palabras.length === 1) {
+
+        return palabras[0]
+            .slice(0, 3)
+            .toUpperCase();
+    }
+
+    return palabras
+        .slice(-2)
+        .map(
+            palabra =>
+                palabra.charAt(0)
+        )
+        .join("")
+        .toUpperCase();
+}
+
+
+// ========================================
+// BOTONES
+// ========================================
+
+function configurarBotones(datos) {
+
+    const botonActualizar =
+        document.getElementById(
+            "actualizar-dashboard"
+        );
+
+    const botonGuardar =
+        document.getElementById(
+            "guardar-datos"
+        );
+
+
+    if (botonActualizar) {
+
+        botonActualizar.addEventListener(
+            "click",
+            function() {
+
+                actualizarEstadisticas(datos);
+
+                renderizarEquiposDestacados(
+                    datos
+                );
+
+                mostrarToast(
+                    "Dashboard actualizado"
+                );
+            }
+        );
+    }
+
+
+    if (botonGuardar) {
+
+        botonGuardar.addEventListener(
+            "click",
+            function() {
+
+                guardarLiga(datos.base);
+            }
+        );
+    }
+}
+
+
+// ========================================
+// GUARDADO LOCAL
+// ========================================
+
+function guardarLiga(baseDatos) {
 
     try {
 
         localStorage.setItem(
             "TMLFE_DATA",
-            JSON.stringify(window.TMLFE)
+            JSON.stringify(baseDatos)
         );
 
-        console.log("💾 Datos guardados correctamente");
+        mostrarToast(
+            "Liga guardada correctamente"
+        );
+
+        console.log(
+            "💾 Liga guardada en localStorage"
+        );
 
     } catch (error) {
 
         console.error(
-            "❌ Error al guardar los datos:",
+            "❌ Error al guardar:",
             error
+        );
+
+        mostrarToast(
+            "No se ha podido guardar la liga"
         );
     }
 }
 
 
-// =======================================
-// CARGAR DATOS GUARDADOS
-// =======================================
+// ========================================
+// ERROR DE BASE DE DATOS
+// ========================================
 
-function cargarEstado() {
+function mostrarErrorDatabase() {
 
-    const datosGuardados =
-        localStorage.getItem("TMLFE_DATA");
-
-    if (!datosGuardados) {
-        console.log("ℹ️ No hay datos guardados");
-        return false;
-    }
-
-    try {
-
-        const datos = JSON.parse(datosGuardados);
-
-        if (
-            !Array.isArray(datos.teams) ||
-            !Array.isArray(datos.players)
-        ) {
-            console.error(
-                "❌ Los datos guardados no tienen el formato correcto"
-            );
-
-            return false;
-        }
-
-        window.TMLFE = datos;
-
-        console.log("📂 Datos recuperados correctamente");
-
-        actualizarDashboardPrincipal();
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "❌ Error al recuperar los datos:",
-            error
+    const estado =
+        document.getElementById(
+            "estado-database"
         );
 
-        return false;
+    const equipos =
+        document.getElementById(
+            "equipos-destacados"
+        );
+
+    if (estado) {
+
+        estado.textContent =
+            "Error al cargar database.js";
     }
+
+    if (equipos) {
+
+        equipos.innerHTML = `
+            <div class="error-message">
+                No se ha cargado database.js.
+                Revisa la consola del navegador.
+            </div>
+        `;
+    }
+
+    mostrarToast(
+        "Error al cargar la base de datos"
+    );
 }
 
 
-// =======================================
-// RESTABLECER DATOS GUARDADOS
-// =======================================
+// ========================================
+// TOAST
+// ========================================
 
-function borrarEstadoGuardado() {
+function mostrarToast(mensaje) {
 
-    localStorage.removeItem("TMLFE_DATA");
+    const toast =
+        document.getElementById("toast");
 
-    console.log("🗑️ Datos locales eliminados");
+    if (!toast) {
+        return;
+    }
+
+    toast.textContent = mensaje;
+
+    toast.classList.add("visible");
+
+    window.clearTimeout(
+        mostrarToast.timeout
+    );
+
+    mostrarToast.timeout =
+        window.setTimeout(
+            function() {
+
+                toast.classList.remove(
+                    "visible"
+                );
+            },
+            2500
+        );
 }
 
 
-// =======================================
-// HACER FUNCIONES ACCESIBLES
-// =======================================
+// ========================================
+// SEGURIDAD HTML
+// ========================================
 
-window.abrirModulo = abrirModulo;
-window.guardarEstado = guardarEstado;
-window.cargarEstado = cargarEstado;
-window.borrarEstadoGuardado = borrarEstadoGuardado;
+function escaparHTML(valor) {
+
+    return String(valor)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
 
 
-console.log("⚙️ app.js cargado correctamente");
+console.log(
+    "⚙️ app.js cargado correctamente"
+);
