@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        TMLFE | Plantilla
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css?v=40"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+
+        <!-- =========================================
+             BARRA LATERAL
+        ========================================== -->
+
+        <aside class="sidebar">
+
+
+            <a
+                class="brand"
+                href="index.html"
+            >
+
+                <div class="brand-logo">
+                    T
+                </div>
+
+                <div>
+
+                    <h1>
+                        TMLFE
+                    </h1>
+
+                    <span>
+                        Front Office
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <nav class="sidebar-nav">
+
+
+                <a
+                    class="nav-link"
+                    href="index.html"
+                >
+                    🏠 Dashboard
+                </a>
+
+
+                <a
+                    class="nav-link active"
+                    href="teams.html"
+                >
+                    🏀 Franquicias
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="players.html"
+                >
+                    👤 Jugadores
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="trade.html"
+                >
+                    🔄 Traspasos
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="#"
+                >
+                    ⚙️ Configuración
+                </a>
+
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <div class="league-status">
+
+                    <span class="status-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Liga activa
+                        </strong>
+
+                        <small>
+                            Temporada TMLFE
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =========================================
+             CONTENIDO PRINCIPAL
+        ========================================== -->
+
+        <main class="main-content">
+
+
+            <!-- CABECERA -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="eyebrow">
+                        Gestión de franquicia
+                    </p>
+
+                    <h2 id="pageTitle">
+                        Plantilla
+                    </h2>
+
+                </div>
+
+
+                <a
+                    class="primary-button"
+                    href="teams.html"
+                >
+                    ← Volver a franquicias
+                </a>
+
+            </header>
+
+
+
+            <!-- MENSAJE DE CARGA -->
+
+            <section
+                id="rosterLoading"
+                class="loading-message"
+            >
+                Cargando plantilla...
+            </section>
+
+
+
+            <!-- CONTENIDO DE LA FRANQUICIA -->
+
+            <div
+                id="rosterContent"
+                class="roster-content"
+                hidden
+            >
+
+
+                <!-- PANEL PRINCIPAL -->
+
+                <section class="roster-hero">
+
+
+                    <div class="roster-team-identity">
+
+
+                        <div class="roster-logo-box">
+
+                            <img
+                                id="teamLogo"
+                                class="roster-team-logo"
+                                src=""
+                                alt="Escudo de la franquicia"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <p
+                                id="teamConference"
+                                class="hero-label"
+                            >
+                                FRANQUICIA TMLFE
+                            </p>
+
+                            <h3 id="teamName">
+                                Franquicia
+                            </h3>
+
+                            <p id="teamManager">
+                                General Manager
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="roster-overall">
+
+                        <span>
+                            MEDIA DEL EQUIPO
+                        </span>
+
+                        <strong id="teamOverall">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- RESUMEN ECONÓMICO -->
+
+                <section class="roster-summary">
+
+
+                    <article class="roster-summary-card">
+
+                        <span>
+                            Plantilla
+                        </span>
+
+                        <strong id="playerCount">
+                            0
+                        </strong>
+
+                        <small>
+                            jugadores
+                        </small>
+
+                    </article>
+
+
+                    <article class="roster-summary-card">
+
+                        <span>
+                            Salario comprometido
+                        </span>
+
+                        <strong id="teamSalary">
+                            0,0 M
+                        </strong>
+
+                        <small>
+                            temporada actual
+                        </small>
+
+                    </article>
+
+
+                    <article class="roster-summary-card">
+
+                        <span>
+                            Salary Cap
+                        </span>
+
+                        <strong>
+                            170,0 M
+                        </strong>
+
+                        <small>
+                            límite salarial
+                        </small>
+
+                    </article>
+
+
+                    <article class="roster-summary-card">
+
+                        <span>
+                            Situación salarial
+                        </span>
+
+                        <strong id="capSpace">
+                            +170,0 M
+                        </strong>
+
+                        <small id="capStatus">
+                            espacio disponible
+                        </small>
+
+                    </article>
+
+
+                </section>
+
+
+
+                <!-- BARRA SALARIAL -->
+
+                <section class="roster-cap-panel">
+
+
+                    <div class="roster-cap-header">
+
+                        <div>
+
+                            <span>
+                                Uso del límite salarial
+                            </span>
+
+                            <strong id="salaryUsage">
+                                0,0 M / 170,0 M
+                            </strong>
+
+                        </div>
+
+
+                        <span id="salaryPercentage">
+                            0 %
+                        </span>
+
+                    </div>
+
+
+                    <div class="roster-cap-track">
+
+                        <span id="salaryBar"></span>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- CABECERA DE LA TABLA -->
+
+                <section class="roster-table-panel">
+
+
+                    <div class="roster-table-header">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                Roster oficial
+                            </p>
+
+                            <h3>
+                                Jugadores
+                            </h3>
+
+                        </div>
+
+
+                        <div class="roster-search-box">
+
+                            <span>
+                                ⌕
+                            </span>
+
+                            <input
+                                id="rosterSearch"
+                                type="search"
+                                placeholder="Buscar jugador..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TABLA -->
+
+                    <div class="roster-table-wrapper">
+
+                        <table class="roster-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Jugador
+                                    </th>
+
+                                    <th>
+                                        Posición
+                                    </th>
+
+                                    <th>
+                                        Edad
+                                    </th>
+
+                                    <th>
+                                        Media
+                                    </th>
+
+                                    <th>
+                                        Salario
+                                    </th>
+
+                                    <th>
+                                        Contrato
+                                    </th>
+
+                                    <th>
+                                        Estado
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="rosterTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div
+                        id="rosterEmpty"
+                        class="empty-state"
+                        hidden
+                    >
+
+                        <strong>
+                            No se encontraron jugadores
+                        </strong>
+
+                        <span>
+                            Prueba con otro nombre.
+                        </span>
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+
+
+            <!-- MENSAJE DE ERROR -->
+
+            <section
+                id="rosterError"
+                class="error-message"
+                hidden
+            >
+
+                No se pudo cargar la franquicia.
+
+                <br><br>
+
+                <a
+                    class="primary-button"
+                    href="teams.html"
+                >
+                    Volver a franquicias
+                </a>
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         ARCHIVOS JAVASCRIPT
+    ========================================== -->
+
+    <script src="database.js?v=40"></script>
+
+    <script src="roster.js?v=40"></script>
+
+
+</body>
+
+</html>
