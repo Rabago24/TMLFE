@@ -4,17 +4,21 @@
 // =======================================
 
 
+
 const TMLFE_DATABASE = {
 
-    temporada:"2026/27",
 
-    equipos:[],
-
-
-    jugadores:[],
+    temporada: "2026/27",
 
 
-    historialCambios:[]
+    equipos: [],
+
+
+    jugadores: [],
+
+
+    historialCambios: []
+
 
 
 };
@@ -24,32 +28,36 @@ const TMLFE_DATABASE = {
 
 
 // =======================================
-// CREAR EQUIPO EN DATABASE
+// CREAR EQUIPO
 // =======================================
 
 
 function databaseCrearEquipo(datos){
 
 
-    const equipo={
+    const equipo = {
 
 
-        id:Date.now(),
+        id: Date.now(),
 
 
-        nombre:datos.nombre,
+        nombre: datos.nombre || "Sin nombre",
 
 
-        ciudad:datos.ciudad || "",
+        ciudad: datos.ciudad || "",
 
 
-        conferencia:datos.conferencia || "",
+        conferencia: datos.conferencia || "",
 
 
-        salarioTotal:0,
+        division: datos.division || "",
 
 
-        jugadores:[]
+        salarioTotal: 0,
+
+
+        jugadores: []
+
 
 
     };
@@ -63,6 +71,7 @@ function databaseCrearEquipo(datos){
     return equipo;
 
 
+
 }
 
 
@@ -70,60 +79,61 @@ function databaseCrearEquipo(datos){
 
 
 // =======================================
-// CREAR JUGADOR EN DATABASE
+// CREAR JUGADOR
 // =======================================
 
 
 function databaseCrearJugador(datos){
 
 
-
-    const jugador={
-
-
-        id:Date.now(),
+    const jugador = {
 
 
-        nombre:datos.nombre,
+        id: Date.now(),
 
 
-        equipo:datos.equipo,
+        nombre: datos.nombre || "Sin nombre",
 
 
-        posicion:datos.posicion || "",
+        equipo: datos.equipo || "Libre",
 
 
-        media:datos.media || 70,
+        posicion: datos.posicion || "",
 
 
-        edad:datos.edad || 0,
+        media: datos.media || 70,
 
 
-        salario:datos.salario || 0,
+        edad: datos.edad || 0,
 
 
-        añosContrato:datos.añosContrato || 1,
+        salario: datos.salario || 0,
+
+
+        añosContrato: datos.añosContrato || 1,
 
 
 
-        // Datos editables estilo 2K
+        // atributos editables
 
-        tiro3:datos.tiro3 || 0,
-
-
-        tiroMedia:datos.tiroMedia || 0,
+        tiro3: datos.tiro3 || 0,
 
 
-        defensa:datos.defensa || 0,
+        tiroMedia: datos.tiroMedia || 0,
 
 
-        rebote:datos.rebote || 0,
+        defensa: datos.defensa || 0,
 
 
-        atletismo:datos.atletismo || 0,
+        rebote: datos.rebote || 0,
 
 
-        insignias:datos.insignias || []
+        atletismo: datos.atletismo || 0,
+
+
+        insignias: datos.insignias || []
+
+
 
     };
 
@@ -136,41 +146,6 @@ function databaseCrearJugador(datos){
     return jugador;
 
 
-}
-
-
-
-
-
-// =======================================
-// ASIGNAR JUGADOR A EQUIPO
-// =======================================
-
-
-function asignarJugadorEquipo(
-    jugadorId,
-    equipo
-){
-
-
-    const jugador =
-
-    TMLFE_DATABASE.jugadores.find(
-
-        j=>j.id===jugadorId
-
-    );
-
-
-
-    if(jugador){
-
-
-        jugador.equipo=equipo;
-
-
-    }
-
 
 }
 
@@ -179,13 +154,11 @@ function asignarJugadorEquipo(
 
 
 // =======================================
-// BUSCAR JUGADORES
+// BUSCAR JUGADOR
 // =======================================
 
 
-function databaseBuscarJugador(
-    nombre
-){
+function databaseBuscarJugador(nombre){
 
 
     return TMLFE_DATABASE.jugadores.filter(
@@ -215,139 +188,198 @@ function databaseBuscarJugador(
 
 
 // =======================================
-// EDITAR CUALQUIER DATO
+// EDITAR JUGADOR
 // =======================================
 
 
-function editarDatoJugador(
+function databaseEditarJugador(
     id,
-    campo,
-    valor
+    cambios
 ){
 
 
-
-    const jugador=
+    const jugador =
 
     TMLFE_DATABASE.jugadores.find(
 
-        j=>j.id===id
+        j => j.id === id
 
     );
 
 
 
-    if(jugador){
+    if(!jugador)
+        return null;
 
 
-        jugador[campo]=valor;
+
+
+    Object.assign(
+
+        jugador,
+
+        cambios
+
+    );
 
 
 
-        TMLFE_DATABASE.historialCambios.push({
+    TMLFE_DATABASE.historialCambios.push({
 
 
-            jugador:jugador.nombre,
+        jugador: jugador.nombre,
 
 
-            campo:campo,
+        cambios: cambios,
 
 
-            nuevoValor:valor,
+        fecha: new Date()
 
 
-            fecha:new Date()
+    });
 
 
-        });
+
+    return jugador;
+
+
+
+}
+
+
+
+
+
+// =======================================
+// ELIMINAR JUGADOR
+// =======================================
+
+
+function databaseEliminarJugador(id){
+
+
+    TMLFE_DATABASE.jugadores =
+
+    TMLFE_DATABASE.jugadores.filter(
+
+
+        jugador =>
+
+        jugador.id !== id
+
+
+    );
+
+
+}
+
+
+
+
+
+// =======================================
+// OBTENER EQUIPOS
+// =======================================
+
+
+function obtenerEquipos(){
+
+
+    return TMLFE_DATABASE.equipos;
+
+
+}
+
+
+
+
+
+// =======================================
+// OBTENER JUGADORES
+// =======================================
+
+
+function obtenerJugadores(){
+
+
+    return TMLFE_DATABASE.jugadores;
+
+
+}
+
+
+
+
+
+// =======================================
+// GUARDAR DATOS LOCALMENTE
+// =======================================
+
+
+function guardarBaseDatos(){
+
+
+    localStorage.setItem(
+
+        "TMLFE_DATABASE",
+
+        JSON.stringify(
+            TMLFE_DATABASE
+        )
+
+    );
+
+
+}
+
+
+
+
+
+// =======================================
+// CARGAR DATOS LOCALES
+// =======================================
+
+
+function cargarBaseDatos(){
+
+
+    const datos =
+
+    localStorage.getItem(
+        "TMLFE_DATABASE"
+    );
+
+
+
+    if(datos){
+
+
+        const recuperado =
+
+        JSON.parse(datos);
+
+
+
+        TMLFE_DATABASE.equipos =
+
+        recuperado.equipos || [];
+
+
+
+        TMLFE_DATABASE.jugadores =
+
+        recuperado.jugadores || [];
+
+
+
+        TMLFE_DATABASE.historialCambios =
+
+        recuperado.historialCambios || [];
 
 
 
     }
-
-
-}
-
-
-
-
-
-// =======================================
-// CARGA DE PLANTILLAS
-// =======================================
-
-
-function cargarPlantillaLiga(
-    datos
-){
-
-
-    datos.forEach(
-
-        jugador=>{
-
-
-            databaseCrearJugador(jugador);
-
-
-        }
-
-    );
-
-
-    console.log(
-
-        "Plantilla cargada correctamente"
-
-    );
-
-
-}
-
-
-
-
-
-// =======================================
-// EXPORTAR DATOS
-// =======================================
-
-
-function exportarBaseDatos(){
-
-
-    return JSON.stringify(
-
-        TMLFE_DATABASE,
-
-        null,
-
-        2
-
-    );
-
-
-}
-
-
-
-
-
-// =======================================
-// LIMPIAR BASE
-// =======================================
-
-
-function limpiarBaseDatos(){
-
-
-    TMLFE_DATABASE.equipos=[];
-
-
-    TMLFE_DATABASE.jugadores=[];
-
-
-    TMLFE_DATABASE.historialCambios=[];
 
 
 }
