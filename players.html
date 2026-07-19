@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TMLFE | Jugadores</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="top-bar">
+
+    <div class="logo">
+        TMLFE
+    </div>
+
+
+    <div class="title">
+        Gestión de Jugadores
+    </div>
+
+</header>
+
+
+
+
+<nav class="menu">
+
+<button onclick="window.location.href='index.html'">
+Dashboard
+</button>
+
+
+<button>
+Jugadores
+</button>
+
+
+<button onclick="window.location.href='teams.html'">
+Plantillas
+</button>
+
+
+<button onclick="window.location.href='trade.html'">
+Traspasos
+</button>
+
+</nav>
+
+
+
+
+
+<main>
+
+
+<section class="hero">
+
+<h1>
+Base de jugadores TMLFE
+</h1>
+
+
+<p>
+Editor y gestión de jugadores de la Liga Franquicia Extraditables
+</p>
+
+</section>
+
+
+
+
+
+<section class="search-box">
+
+
+<input 
+id="player-search"
+type="text"
+placeholder="Buscar jugador..."
+onkeyup="buscarDesdeUI()">
+
+
+</section>
+
+
+
+
+
+<section id="players-container">
+
+
+</section>
+
+
+
+
+</main>
+
+
+
+
+
+<script src="database.js"></script>
+<script src="teams.js"></script>
+<script src="players.js"></script>
+<script src="salary.js"></script>
+<script src="trades.js"></script>
+<script src="ui.js"></script>
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
