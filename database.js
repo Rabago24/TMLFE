@@ -1,393 +1,91 @@
-// =======================================
-// TMLFE - Database System
-// Base central de datos
-// =======================================
+// =======================================================
+// TMLFE DATABASE
+// Trade Machine Liga Franquicia Extraditables
+// Base de datos principal
+// =======================================================
 
+const TMLFE = {
 
+    version: "1.0",
 
-const TMLFE_DATABASE = {
+    season: "2026/27",
 
+    salaryCap: 155000000,
 
-    temporada: "2026/27",
+    tradeHistory: [],
 
+    teams: [],
 
-    equipos: [],
-
-
-    jugadores: [],
-
-
-    historialCambios: []
-
-
+    players: []
 
 };
 
 
+// =======================================================
+// FRANQUICIAS
+// =======================================================
+
+TMLFE.teams = [
+
+    { id: 1, name: "Boston Celtics", short: "BOS", conference: "Este" },
+    { id: 2, name: "Brooklyn Nets", short: "BKN", conference: "Este" },
+    { id: 3, name: "New York Knicks", short: "NYK", conference: "Este" },
+    { id: 4, name: "Philadelphia 76ers", short: "PHI", conference: "Este" },
+    { id: 5, name: "Toronto Raptors", short: "TOR", conference: "Este" },
+
+    { id: 6, name: "Chicago Bulls", short: "CHI", conference: "Este" },
+    { id: 7, name: "Cleveland Cavaliers", short: "CLE", conference: "Este" },
+    { id: 8, name: "Detroit Pistons", short: "DET", conference: "Este" },
+    { id: 9, name: "Indiana Pacers", short: "IND", conference: "Este" },
+    { id: 10, name: "Milwaukee Bucks", short: "MIL", conference: "Este" },
+
+    { id: 11, name: "Atlanta Hawks", short: "ATL", conference: "Este" },
+    { id: 12, name: "Charlotte Hornets", short: "CHA", conference: "Este" },
+    { id: 13, name: "Miami Heat", short: "MIA", conference: "Este" },
+    { id: 14, name: "Orlando Magic", short: "ORL", conference: "Este" },
+    { id: 15, name: "Washington Wizards", short: "WAS", conference: "Este" },
+
+    { id: 16, name: "Denver Nuggets", short: "DEN", conference: "Oeste" },
+    { id: 17, name: "Minnesota Timberwolves", short: "MIN", conference: "Oeste" },
+    { id: 18, name: "Oklahoma City Thunder", short: "OKC", conference: "Oeste" },
+    { id: 19, name: "Portland Trail Blazers", short: "POR", conference: "Oeste" },
+    { id: 20, name: "Utah Jazz", short: "UTA", conference: "Oeste" },
+
+    { id: 21, name: "Golden State Warriors", short: "GSW", conference: "Oeste" },
+    { id: 22, name: "LA Clippers", short: "LAC", conference: "Oeste" },
+    { id: 23, name: "Los Angeles Lakers", short: "LAL", conference: "Oeste" },
+    { id: 24, name: "Phoenix Suns", short: "PHX", conference: "Oeste" },
+    { id: 25, name: "Sacramento Kings", short: "SAC", conference: "Oeste" },
+
+    { id: 26, name: "Dallas Mavericks", short: "DAL", conference: "Oeste" },
+    { id: 27, name: "Houston Rockets", short: "HOU", conference: "Oeste" },
+    { id: 28, name: "Memphis Grizzlies", short: "MEM", conference: "Oeste" },
+    { id: 29, name: "New Orleans Pelicans", short: "NOP", conference: "Oeste" },
+    { id: 30, name: "San Antonio Spurs", short: "SAS", conference: "Oeste" }
+
+];
 
 
+// =======================================================
+// JUGADORES
+// Aquí iremos metiendo las plantillas oficiales
+// =======================================================
 
-// =======================================
-// CREAR EQUIPO
-// =======================================
-
-
-function databaseCrearEquipo(datos){
-
-
-    const equipo = {
+TMLFE.players = [];
 
 
-        id: Date.now(),
+// =======================================================
+// FUNCIONES AUXILIARES
+// =======================================================
 
-
-        nombre: datos.nombre || "Sin nombre",
-
-
-        ciudad: datos.ciudad || "",
-
-
-        conferencia: datos.conferencia || "",
-
-
-        division: datos.division || "",
-
-
-        salarioTotal: 0,
-
-
-        jugadores: []
-
-
-
-    };
-
-
-
-    TMLFE_DATABASE.equipos.push(equipo);
-
-
-
-    return equipo;
-
-
-
+function getTeamById(id) {
+    return TMLFE.teams.find(team => team.id === id);
 }
 
-
-
-
-
-// =======================================
-// CREAR JUGADOR
-// =======================================
-
-
-function databaseCrearJugador(datos){
-
-
-    const jugador = {
-
-
-        id: Date.now(),
-
-
-        nombre: datos.nombre || "Sin nombre",
-
-
-        equipo: datos.equipo || "Libre",
-
-
-        posicion: datos.posicion || "",
-
-
-        media: datos.media || 70,
-
-
-        edad: datos.edad || 0,
-
-
-        salario: datos.salario || 0,
-
-
-        añosContrato: datos.añosContrato || 1,
-
-
-
-        // atributos editables
-
-        tiro3: datos.tiro3 || 0,
-
-
-        tiroMedia: datos.tiroMedia || 0,
-
-
-        defensa: datos.defensa || 0,
-
-
-        rebote: datos.rebote || 0,
-
-
-        atletismo: datos.atletismo || 0,
-
-
-        insignias: datos.insignias || []
-
-
-
-    };
-
-
-
-    TMLFE_DATABASE.jugadores.push(jugador);
-
-
-
-    return jugador;
-
-
-
+function getTeamByName(name) {
+    return TMLFE.teams.find(team => team.name === name);
 }
 
-
-
-
-
-// =======================================
-// BUSCAR JUGADOR
-// =======================================
-
-
-function databaseBuscarJugador(nombre){
-
-
-    return TMLFE_DATABASE.jugadores.filter(
-
-
-        jugador =>
-
-
-        jugador.nombre
-
-        .toLowerCase()
-
-        .includes(
-
-            nombre.toLowerCase()
-
-        )
-
-
-    );
-
-
+function getPlayersByTeam(teamName) {
+    return TMLFE.players.filter(player => player.team === teamName);
 }
-
-
-
-
-
-// =======================================
-// EDITAR JUGADOR
-// =======================================
-
-
-function databaseEditarJugador(
-    id,
-    cambios
-){
-
-
-    const jugador =
-
-    TMLFE_DATABASE.jugadores.find(
-
-        j => j.id === id
-
-    );
-
-
-
-    if(!jugador)
-        return null;
-
-
-
-
-    Object.assign(
-
-        jugador,
-
-        cambios
-
-    );
-
-
-
-    TMLFE_DATABASE.historialCambios.push({
-
-
-        jugador: jugador.nombre,
-
-
-        cambios: cambios,
-
-
-        fecha: new Date()
-
-
-    });
-
-
-
-    return jugador;
-
-
-
-}
-
-
-
-
-
-// =======================================
-// ELIMINAR JUGADOR
-// =======================================
-
-
-function databaseEliminarJugador(id){
-
-
-    TMLFE_DATABASE.jugadores =
-
-    TMLFE_DATABASE.jugadores.filter(
-
-
-        jugador =>
-
-        jugador.id !== id
-
-
-    );
-
-
-}
-
-
-
-
-
-// =======================================
-// OBTENER EQUIPOS
-// =======================================
-
-
-function obtenerEquipos(){
-
-
-    return TMLFE_DATABASE.equipos;
-
-
-}
-
-
-
-
-
-// =======================================
-// OBTENER JUGADORES
-// =======================================
-
-
-function obtenerJugadores(){
-
-
-    return TMLFE_DATABASE.jugadores;
-
-
-}
-
-
-
-
-
-// =======================================
-// GUARDAR DATOS LOCALMENTE
-// =======================================
-
-
-function guardarBaseDatos(){
-
-
-    localStorage.setItem(
-
-        "TMLFE_DATABASE",
-
-        JSON.stringify(
-            TMLFE_DATABASE
-        )
-
-    );
-
-
-}
-
-
-
-
-
-// =======================================
-// CARGAR DATOS LOCALES
-// =======================================
-
-
-function cargarBaseDatos(){
-
-
-    const datos =
-
-    localStorage.getItem(
-        "TMLFE_DATABASE"
-    );
-
-
-
-    if(datos){
-
-
-        const recuperado =
-
-        JSON.parse(datos);
-
-
-
-        TMLFE_DATABASE.equipos =
-
-        recuperado.equipos || [];
-
-
-
-        TMLFE_DATABASE.jugadores =
-
-        recuperado.jugadores || [];
-
-
-
-        TMLFE_DATABASE.historialCambios =
-
-        recuperado.historialCambios || [];
-
-
-
-    }
-
-
-}
-
-
-
-
-
-console.log(
-"🗄️ Database.js cargado correctamente"
-);
