@@ -295,6 +295,9 @@ button {
     min-width: 0;
 
     padding: 28px;
+
+    animation:
+        pageEnter 0.45s ease;
 }
 
 .topbar {
@@ -542,6 +545,9 @@ button {
             rgba(36, 200, 229, 0.04)
         ),
         var(--surface);
+
+    animation:
+        cardEnter 0.5s ease both;
 }
 
 .hero-label {
@@ -679,6 +685,9 @@ button {
         ),
         var(--surface);
 
+    animation:
+        cardEnter 0.5s ease both;
+
     transition:
         transform 0.25s ease,
         border-color 0.25s ease,
@@ -718,30 +727,36 @@ button {
 
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 13px;
 }
 
+
+/* CAJA DEL ESCUDO REDUCIDA */
+
 .franchise-logo-box {
-    width: 72px;
-    height: 72px;
+    width: 58px;
+    height: 58px;
 
     display: grid;
     place-items: center;
 
     flex: 0 0 auto;
 
-    padding: 8px;
+    padding: 7px;
 
     border: 1px solid var(--border);
-    border-radius: 18px;
+    border-radius: 15px;
 
     background:
         rgba(255, 255, 255, 0.035);
 }
 
+
+/* ESCUDO REDUCIDO */
+
 .franchise-logo {
-    width: 54px;
-    height: 54px;
+    width: 40px;
+    height: 40px;
 
     display: block;
 
@@ -749,8 +764,8 @@ button {
 
     filter:
         drop-shadow(
-            0 8px 10px
-            rgba(0, 0, 0, 0.4)
+            0 6px 8px
+            rgba(0, 0, 0, 0.35)
         );
 }
 
@@ -989,15 +1004,8 @@ button {
    ANIMACIONES
 ========================================================= */
 
-.main-content {
-    animation:
-        pageEnter 0.45s ease;
-}
-
 .stat-card,
-.franchise-card,
-.welcome-panel,
-.teams-hero {
+.welcome-panel {
     animation:
         cardEnter 0.5s ease both;
 }
@@ -1078,15 +1086,15 @@ button {
         justify-content: center;
     }
 
-    .brand > div:not(.brand-logo),
-    .nav-link {
-        font-size: 0;
+    .brand > div:not(.brand-logo) {
+        display: none;
     }
 
     .nav-link {
         justify-content: center;
-
         padding: 0;
+
+        font-size: 0;
     }
 
     .nav-link::first-letter {
@@ -1189,5 +1197,15 @@ button {
 
     .welcome-panel::after {
         display: none;
+    }
+
+    .franchise-logo-box {
+        width: 54px;
+        height: 54px;
+    }
+
+    .franchise-logo {
+        width: 37px;
+        height: 37px;
     }
 }
