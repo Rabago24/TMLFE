@@ -1,32 +1,4 @@
-// =======================================
-// TMLFE - Main Controller
-// Trade Machine Liga Franquicia Extraditables
-// =======================================
-
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    iniciarAplicacion
-);
-
-
-
-
-
-function iniciarAplicacion(){
-
-
-    console.log(
-        "🏀 TMLFE iniciada correctamente"
-    );
-
-
-
-    inicializarDatos();
-
-
-    actualizarDashboardPrincipal();
+cargarFranquiciasLFE();
 
 
 }
