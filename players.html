@@ -12,7 +12,9 @@
 
     <title>TMLFE | Jugadores</title>
 
-    <link rel="stylesheet" href="styles.css?v=104">
+    <link
+        rel="stylesheet"
+        href="styles.css?v=105"
     >
 
 </head>
@@ -116,25 +118,44 @@
             </header>
 
 
-            <section class="teams-hero">
+            <section class="teams-hero players-hero">
 
-                <div>
+                <div class="players-hero-main">
 
-                    <p
-                        class="hero-label"
-                        id="equipo-codigo"
+                    <div
+                        class="players-team-logo-box"
+                        id="equipo-logo-contenedor"
+                        hidden
                     >
-                        TODA LA LIGA
-                    </p>
 
-                    <h3 id="equipo-nombre">
-                        Base de jugadores TMLFE
-                    </h3>
+                        <img
+                            class="players-team-logo"
+                            id="equipo-logo"
+                            src=""
+                            alt=""
+                        >
 
-                    <p id="equipo-descripcion">
-                        Consulta las plantillas, contratos y salarios
-                        de todos los jugadores de la liga.
-                    </p>
+                    </div>
+
+                    <div>
+
+                        <p
+                            class="hero-label"
+                            id="equipo-codigo"
+                        >
+                            TODA LA LIGA
+                        </p>
+
+                        <h3 id="equipo-nombre">
+                            Base de jugadores TMLFE
+                        </h3>
+
+                        <p id="equipo-descripcion">
+                            Consulta las plantillas, contratos y salarios
+                            de todos los jugadores de la liga.
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -153,7 +174,7 @@
             </section>
 
 
-            <section class="teams-toolbar">
+            <section class="teams-toolbar players-toolbar">
 
                 <div class="search-box">
 
@@ -192,7 +213,7 @@
 
 
             <section
-                class="players-grid franchises-grid"
+                class="players-grid"
                 id="players-container"
             >
 
@@ -207,8 +228,15 @@
     </div>
 
 
-<script src="database.js?v=104"></script>
-<script src="players.js?v=104"></script>
+    <div
+        class="toast"
+        id="toast"
+        aria-live="polite"
+    ></div>
+
+
+    <script src="database.js?v=105"></script>
+    <script src="players.js?v=105"></script>
 
 </body>
 
