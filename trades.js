@@ -1,409 +1,246 @@
-// =======================================
-// TMLFE - Trade Engine
-// Sistema de traspasos
-// =======================================
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
 
-const TradesDB = {
+<meta charset="UTF-8">
 
-    trades: []
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-};
+<title>TMLFE | Trade Machine</title>
 
+<link rel="stylesheet" href="style.css">
 
+</head>
 
 
+<body>
 
-// =======================================
-// CREAR TRASPASO
-// =======================================
 
 
-function crearTrade(datos){
+<header class="top-bar">
 
+<div class="logo">
+TMLFE
+</div>
 
-    const trade = {
 
+<div class="title">
+Trade Machine
+</div>
 
-        id: Date.now(),
 
+</header>
 
-        equipoOrigen: datos.equipoOrigen,
 
 
-        equipoDestino: datos.equipoDestino,
 
 
-        jugadoresEnviados:
-        datos.jugadoresEnviados || [],
+<nav class="menu">
 
 
-        jugadoresRecibidos:
-        datos.jugadoresRecibidos || [],
+<button onclick="window.location.href='index.html'">
+Dashboard
+</button>
 
 
-        salarioEnviado:
-        datos.salarioEnviado || 0,
+<button onclick="window.location.href='players.html'">
+Jugadores
+</button>
 
 
-        salarioRecibido:
-        datos.salarioRecibido || 0,
+<button onclick="window.location.href='teams.html'">
+Plantillas
+</button>
 
 
-        fecha:
-        new Date(),
+<button>
+Traspasos
+</button>
 
 
-        estado:
-        "pendiente"
 
+</nav>
 
-    };
 
 
 
-    TradesDB.trades.push(trade);
 
 
+<main>
 
-    console.log(
-        "Trade creado:",
-        trade
-    );
 
 
+<section class="hero">
 
-    return trade;
 
+<h1>
+Simulador de Traspasos
+</h1>
 
-}
 
+<p>
+Crea y valida movimientos entre franquicias
+</p>
 
 
+</section>
 
 
-// =======================================
-// CALCULAR SALARIO DEL MOVIMIENTO
-// =======================================
 
 
-function calcularMovimientoSalarial(
-    jugadores
-){
 
 
-    let total = 0;
 
+<section class="trade-box">
 
 
-    jugadores.forEach(
 
-        jugador => {
+<div class="card">
 
 
-            total += jugador.salario;
+<h2>
+Equipo que envía
+</h2>
 
 
-        }
+<select id="equipo-origen">
 
-    );
+<option>
+Seleccionar equipo
+</option>
 
+</select>
 
 
-    return total;
 
+<h3>
+Jugadores enviados
+</h3>
 
-}
 
+<textarea
+id="jugadores-sale"
+placeholder="Ejemplo:
+Jugador 1
+Jugador 2">
+</textarea>
 
 
 
+</div>
 
-// =======================================
-// VALIDACIÓN SALARIAL
-// =======================================
 
 
-function validarSalarios(
-    salarioActual,
-    salarioSale,
-    salarioEntra
-){
 
 
-    const nuevoSalario =
 
-    salarioActual
-    -
-    salarioSale
-    +
-    salarioEntra;
 
+<div class="card">
 
 
+<h2>
+Equipo que recibe
+</h2>
 
-    return {
 
+<select id="equipo-destino">
 
-        salarioFinal:
-        nuevoSalario,
 
+<option>
+Seleccionar equipo
+</option>
 
-        valido:
-        true,
 
+</select>
 
-        mensaje:
-        "Movimiento salarial calculado"
 
 
-    };
 
+<h3>
+Jugadores recibidos
+</h3>
 
-}
 
 
+<textarea
+id="jugadores-llegan"
+placeholder="Ejemplo:
+Jugador 3">
+</textarea>
 
 
 
-// =======================================
-// VALIDACIÓN GENERAL DEL TRADE
-// =======================================
+</div>
 
 
-function validarTrade(trade){
 
+</section>
 
 
-    let resultado = {
 
 
-        valido:true,
 
 
-        errores:[]
 
 
-    };
+<section class="card">
 
 
+<h2>
+Análisis del movimiento
+</h2>
 
-    if(!trade.equipoOrigen){
 
 
-        resultado.valido=false;
+<button
+onclick="analizarTrade()">
 
+VALIDAR TRADE
 
-        resultado.errores.push(
-            "Falta equipo origen"
-        );
+</button>
 
 
-    }
 
 
+<div id="resultado-trade">
 
-    if(!trade.equipoDestino){
+</div>
 
 
-        resultado.valido=false;
+</section>
 
 
-        resultado.errores.push(
-            "Falta equipo destino"
-        );
 
 
-    }
 
 
+</main>
 
 
-    if(
-        trade.jugadoresEnviados.length===0
-        &&
-        trade.jugadoresRecibidos.length===0
-    ){
 
 
-        resultado.valido=false;
 
 
-        resultado.errores.push(
-            "El trade está vacío"
-        );
 
+<script src="database.js"></script>
 
-    }
+<script src="teams.js"></script>
 
+<script src="players.js"></script>
 
+<script src="salary.js"></script>
 
+<script src="trades.js"></script>
 
-    return resultado;
+<script src="ui.js"></script>
 
+<script src="trade.js"></script>
 
-}
+<script src="app.js"></script>
 
 
 
+</body>
 
-
-// =======================================
-// ACEPTAR TRADE
-// =======================================
-
-
-function aceptarTrade(id){
-
-
-
-    const trade =
-
-    TradesDB.trades.find(
-
-        t=>t.id===id
-
-    );
-
-
-
-    if(trade){
-
-
-        trade.estado="aprobado";
-
-
-        console.log(
-            "Trade aprobado",
-            trade
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-// =======================================
-// RECHAZAR TRADE
-// =======================================
-
-
-function rechazarTrade(id){
-
-
-
-    const trade =
-
-    TradesDB.trades.find(
-
-        t=>t.id===id
-
-    );
-
-
-
-    if(trade){
-
-
-        trade.estado="rechazado";
-
-
-    }
-
-
-}
-
-
-
-
-
-// =======================================
-// HISTORIAL
-// =======================================
-
-
-function historialTrades(){
-
-
-    return TradesDB.trades;
-
-
-}
-
-
-
-
-
-// =======================================
-// BORRAR TRADE
-// =======================================
-
-
-function eliminarTrade(id){
-
-
-
-    TradesDB.trades =
-
-    TradesDB.trades.filter(
-
-        trade => trade.id !== id
-
-    );
-
-
-}
-
-
-
-
-
-// =======================================
-// EJEMPLO DE PRUEBA
-// =======================================
-
-
-crearTrade({
-
-    equipoOrigen:
-    "Charlotte Hornets",
-
-
-    equipoDestino:
-    "Dallas Mavericks",
-
-
-    jugadoresEnviados:
-    [
-        "Jugador A"
-    ],
-
-
-    jugadoresRecibidos:
-    [
-        "Jugador B"
-    ],
-
-
-    salarioEnviado:
-    10000000,
-
-
-    salarioRecibido:
-    8000000
-
-
-});
-
-
-
-
-
-console.log(
-"🔄 Trades.js cargado correctamente"
-);
+</html>
