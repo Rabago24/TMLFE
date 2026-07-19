@@ -1,4 +1,32 @@
-cargarFranquiciasLFE();
+// =======================================
+// TMLFE - Main Controller
+// Trade Machine Liga Franquicia Extraditables
+// =======================================
+
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    iniciarAplicacion
+);
+
+
+
+
+
+function iniciarAplicacion(){
+
+
+    console.log(
+        "🏀 TMLFE iniciada correctamente"
+    );
+
+
+
+    inicializarDatos();
+
+
+    actualizarDashboardPrincipal();
 
 
 }
@@ -8,51 +36,26 @@ cargarFranquiciasLFE();
 
 
 // =======================================
-// DATOS INICIALES
+// CARGA INICIAL DE DATOS
 // =======================================
 
 
 function inicializarDatos(){
 
 
-    // Evita cargar dos veces la información
 
+    // Evitamos duplicar franquicias
 
     if(
         TMLFE_DATABASE.equipos.length === 0
     ){
 
 
-        databaseCrearEquipo({
-
-            nombre:
-            "Charlotte Hornets",
-
-            ciudad:
-            "Charlotte",
-
-            conferencia:
-            "Este"
-
-        });
-
-
-
-        databaseCrearEquipo({
-
-            nombre:
-            "Dallas Mavericks",
-
-            ciudad:
-            "Dallas",
-
-            conferencia:
-            "Oeste"
-
-        });
+        cargarFranquiciasLFE();
 
 
     }
+
 
 
 }
@@ -62,36 +65,42 @@ function inicializarDatos(){
 
 
 // =======================================
-// DASHBOARD PRINCIPAL
+// ACTUALIZAR DASHBOARD
 // =======================================
 
 
 function actualizarDashboardPrincipal(){
 
 
+
     const equipos =
 
-    document.querySelector(
-        ".card:nth-child(1) p"
+    document.getElementById(
+        "total-equipos"
     );
+
 
 
     const jugadores =
 
-    document.querySelector(
-        ".card:nth-child(2) p"
+    document.getElementById(
+        "total-jugadores"
     );
+
 
 
     const trades =
 
-    document.querySelector(
-        ".card:nth-child(3) p"
+    document.getElementById(
+        "total-trades"
     );
 
 
 
+
+
     if(equipos){
+
 
         equipos.innerHTML =
 
@@ -99,11 +108,15 @@ function actualizarDashboardPrincipal(){
         +
         " franquicias cargadas";
 
+
     }
 
 
 
+
+
     if(jugadores){
+
 
         jugadores.innerHTML =
 
@@ -111,17 +124,22 @@ function actualizarDashboardPrincipal(){
         +
         " jugadores registrados";
 
+
     }
 
 
 
+
+
     if(trades){
+
 
         trades.innerHTML =
 
         TradesDB.trades.length
         +
         " trades realizados";
+
 
     }
 
@@ -156,11 +174,12 @@ function abrirModulo(modulo){
 
 
 // =======================================
-// SISTEMA
+// GUARDADO LOCAL
 // =======================================
 
 
 function guardarEstado(){
+
 
 
     localStorage.setItem(
@@ -174,13 +193,25 @@ function guardarEstado(){
     );
 
 
+
+    console.log(
+        "💾 Datos guardados"
+    );
+
+
 }
 
 
 
 
 
+// =======================================
+// CARGAR DATOS GUARDADOS
+// =======================================
+
+
 function cargarEstado(){
+
 
 
     const datos =
@@ -195,11 +226,12 @@ function cargarEstado(){
 
 
         console.log(
-            "Datos recuperados"
+            "📂 Datos recuperados"
         );
 
 
     }
+
 
 
 }
@@ -209,5 +241,5 @@ function cargarEstado(){
 
 
 console.log(
-"⚙️ App.js actualizado"
+"⚙️ App.js cargado correctamente"
 );
