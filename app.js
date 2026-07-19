@@ -1,5 +1,112 @@
 // ========================================
 // TMLFE - DASHBOARD CONTROLLER
+// Trade Machine Liga Franquicia Extraditables
+// ========================================
+
+
+// ========================================
+// LOGOS REALES DE LAS 30 FRANQUICIAS
+// ========================================
+
+const LOGOS_NBA = {
+
+    "Atlanta Hawks":
+        "https://a.espncdn.com/i/teamlogos/nba/500/atl.png",
+
+    "Boston Celtics":
+        "https://a.espncdn.com/i/teamlogos/nba/500/bos.png",
+
+    "Brooklyn Nets":
+        "https://a.espncdn.com/i/teamlogos/nba/500/bkn.png",
+
+    "Charlotte Hornets":
+        "https://a.espncdn.com/i/teamlogos/nba/500/cha.png",
+
+    "Chicago Bulls":
+        "https://a.espncdn.com/i/teamlogos/nba/500/chi.png",
+
+    "Cleveland Cavaliers":
+        "https://a.espncdn.com/i/teamlogos/nba/500/cle.png",
+
+    "Dallas Mavericks":
+        "https://a.espncdn.com/i/teamlogos/nba/500/dal.png",
+
+    "Denver Nuggets":
+        "https://a.espncdn.com/i/teamlogos/nba/500/den.png",
+
+    "Detroit Pistons":
+        "https://a.espncdn.com/i/teamlogos/nba/500/det.png",
+
+    "Golden State Warriors":
+        "https://a.espncdn.com/i/teamlogos/nba/500/gs.png",
+
+    "Houston Rockets":
+        "https://a.espncdn.com/i/teamlogos/nba/500/hou.png",
+
+    "Indiana Pacers":
+        "https://a.espncdn.com/i/teamlogos/nba/500/ind.png",
+
+    "Los Angeles Clippers":
+        "https://a.espncdn.com/i/teamlogos/nba/500/lac.png",
+
+    "LA Clippers":
+        "https://a.espncdn.com/i/teamlogos/nba/500/lac.png",
+
+    "Los Angeles Lakers":
+        "https://a.espncdn.com/i/teamlogos/nba/500/lal.png",
+
+    "Memphis Grizzlies":
+        "https://a.espncdn.com/i/teamlogos/nba/500/mem.png",
+
+    "Miami Heat":
+        "https://a.espncdn.com/i/teamlogos/nba/500/mia.png",
+
+    "Milwaukee Bucks":
+        "https://a.espncdn.com/i/teamlogos/nba/500/mil.png",
+
+    "Minnesota Timberwolves":
+        "https://a.espncdn.com/i/teamlogos/nba/500/min.png",
+
+    "New Orleans Pelicans":
+        "https://a.espncdn.com/i/teamlogos/nba/500/no.png",
+
+    "New York Knicks":
+        "https://a.espncdn.com/i/teamlogos/nba/500/ny.png",
+
+    "Oklahoma City Thunder":
+        "https://a.espncdn.com/i/teamlogos/nba/500/okc.png",
+
+    "Orlando Magic":
+        "https://a.espncdn.com/i/teamlogos/nba/500/orl.png",
+
+    "Philadelphia 76ers":
+        "https://a.espncdn.com/i/teamlogos/nba/500/phi.png",
+
+    "Phoenix Suns":
+        "https://a.espncdn.com/i/teamlogos/nba/500/phx.png",
+
+    "Portland Trail Blazers":
+        "https://a.espncdn.com/i/teamlogos/nba/500/por.png",
+
+    "Sacramento Kings":
+        "https://a.espncdn.com/i/teamlogos/nba/500/sac.png",
+
+    "San Antonio Spurs":
+        "https://a.espncdn.com/i/teamlogos/nba/500/sa.png",
+
+    "Toronto Raptors":
+        "https://a.espncdn.com/i/teamlogos/nba/500/tor.png",
+
+    "Utah Jazz":
+        "https://a.espncdn.com/i/teamlogos/nba/500/utah.png",
+
+    "Washington Wizards":
+        "https://a.espncdn.com/i/teamlogos/nba/500/wsh.png"
+};
+
+
+// ========================================
+// INICIO DE LA APLICACIÓN
 // ========================================
 
 document.addEventListener(
@@ -8,13 +115,11 @@ document.addEventListener(
 );
 
 
-// ========================================
-// INICIO
-// ========================================
-
 function iniciarDashboard() {
 
-    console.log("🏀 Iniciando Dashboard TMLFE");
+    console.log(
+        "🏀 Iniciando Dashboard TMLFE"
+    );
 
     const datos = obtenerDatosTMLFE();
 
@@ -42,8 +147,7 @@ function iniciarDashboard() {
 
 
 // ========================================
-// OBTENER DATOS
-// Compatible con ambas estructuras
+// OBTENER BASE DE DATOS
 // ========================================
 
 function obtenerDatosTMLFE() {
@@ -55,7 +159,7 @@ function obtenerDatosTMLFE() {
     if (!base) {
 
         console.error(
-            "❌ No existe TMLFE ni TMLFE_DATABASE"
+            "❌ No se ha cargado database.js"
         );
 
         return null;
@@ -98,48 +202,84 @@ function obtenerDatosTMLFE() {
 
 
 // ========================================
-// ESTADÍSTICAS
+// ESTADÍSTICAS DEL DASHBOARD
 // ========================================
 
 function actualizarEstadisticas(datos) {
 
     const totalEquipos =
-        document.getElementById("total-equipos");
+        document.getElementById(
+            "total-equipos"
+        );
 
     const totalJugadores =
-        document.getElementById("total-jugadores");
+        document.getElementById(
+            "total-jugadores"
+        );
 
     const ratingMedio =
-        document.getElementById("rating-medio");
+        document.getElementById(
+            "rating-medio"
+        );
 
     const totalTrades =
-        document.getElementById("total-trades");
+        document.getElementById(
+            "total-trades"
+        );
 
     const estadoDatabase =
-        document.getElementById("estado-database");
+        document.getElementById(
+            "estado-database"
+        );
 
 
-    totalEquipos.textContent =
-        datos.equipos.length;
+    if (totalEquipos) {
 
-    totalJugadores.textContent =
-        datos.jugadores.length;
+        totalEquipos.textContent =
+            datos.equipos.length;
+    }
 
-    ratingMedio.textContent =
-        calcularRatingMedio(datos.jugadores);
 
-    totalTrades.textContent =
-        obtenerTotalTrades();
+    if (totalJugadores) {
 
-    estadoDatabase.textContent =
-        `${datos.equipos.length} equipos y ` +
-        `${datos.jugadores.length} jugadores`;
+        totalJugadores.textContent =
+            datos.jugadores.length;
+    }
+
+
+    if (ratingMedio) {
+
+        ratingMedio.textContent =
+            calcularRatingMedio(
+                datos.jugadores
+            );
+    }
+
+
+    if (totalTrades) {
+
+        totalTrades.textContent =
+            obtenerTotalTrades();
+    }
+
+
+    if (estadoDatabase) {
+
+        estadoDatabase.textContent =
+            `${datos.equipos.length} equipos y ` +
+            `${datos.jugadores.length} jugadores`;
+    }
 }
 
+
+// ========================================
+// CALCULAR RATING MEDIO
+// ========================================
 
 function calcularRatingMedio(jugadores) {
 
     if (jugadores.length === 0) {
+
         return "0.0";
     }
 
@@ -147,9 +287,11 @@ function calcularRatingMedio(jugadores) {
         function(total, jugador) {
 
             const rating = Number(
+
                 jugador.rating ??
                 jugador.overall ??
                 jugador.media ??
+                jugador.ovr ??
                 0
             );
 
@@ -164,19 +306,29 @@ function calcularRatingMedio(jugadores) {
 }
 
 
+// ========================================
+// TOTAL DE TRASPASOS
+// ========================================
+
 function obtenerTotalTrades() {
 
     if (
         window.TradesDB &&
-        Array.isArray(window.TradesDB.trades)
+        Array.isArray(
+            window.TradesDB.trades
+        )
     ) {
+
         return window.TradesDB.trades.length;
     }
 
     const guardados =
-        localStorage.getItem("TMLFE_TRADES");
+        localStorage.getItem(
+            "TMLFE_TRADES"
+        );
 
     if (!guardados) {
+
         return 0;
     }
 
@@ -191,13 +343,18 @@ function obtenerTotalTrades() {
 
     } catch (error) {
 
+        console.error(
+            "Error leyendo los trades:",
+            error
+        );
+
         return 0;
     }
 }
 
 
 // ========================================
-// EQUIPOS DESTACADOS
+// RENDERIZAR FRANQUICIAS DESTACADAS
 // ========================================
 
 function renderizarEquiposDestacados(datos) {
@@ -208,6 +365,7 @@ function renderizarEquiposDestacados(datos) {
         );
 
     if (!contenedor) {
+
         return;
     }
 
@@ -230,16 +388,20 @@ function renderizarEquiposDestacados(datos) {
             function(equipo) {
 
                 const nombre =
-                    obtenerNombreEquipo(equipo);
+                    obtenerNombreEquipo(
+                        equipo
+                    );
 
                 const manager =
                     equipo.manager ||
                     equipo.generalManager ||
+                    equipo.gm ||
                     "Sin manager";
 
                 const division =
                     equipo.division ||
-                    "Sin división";
+                    equipo.conference ||
+                    "Liga Franquicia Extraditables";
 
                 const cantidadJugadores =
                     contarJugadoresEquipo(
@@ -247,28 +409,76 @@ function renderizarEquiposDestacados(datos) {
                         datos.jugadores
                     );
 
+                const logo =
+                    obtenerLogoEquipo(
+                        equipo
+                    );
+
+                const idEquipo =
+                    obtenerIdEquipo(
+                        equipo
+                    );
+
+                const logoHTML = logo
+                    ? `
+                        <img
+                            class="team-logo"
+                            src="${escaparHTML(logo)}"
+                            alt="Escudo de ${escaparHTML(nombre)}"
+                            loading="lazy"
+                            onerror="
+                                this.style.display='none';
+                                this.nextElementSibling.style.display='grid';
+                            "
+                        >
+
+                        <span
+                            class="team-logo-fallback"
+                            style="display:none;"
+                        >
+                            ${obtenerIniciales(nombre)}
+                        </span>
+                    `
+                    : `
+                        <span
+                            class="team-logo-fallback"
+                            style="display:grid;"
+                        >
+                            ${obtenerIniciales(nombre)}
+                        </span>
+                    `;
+
                 return `
                     <a
                         class="team-preview"
-                        href="./teams.html"
+                        href="./teams.html?team=${encodeURIComponent(idEquipo)}"
                     >
 
                         <div class="team-badge">
-                            ${obtenerIniciales(nombre)}
+                            ${logoHTML}
                         </div>
 
-                        <div>
-                            <h4>${escaparHTML(nombre)}</h4>
+                        <div class="team-preview-info">
+
+                            <h4>
+                                ${escaparHTML(nombre)}
+                            </h4>
 
                             <p>
                                 ${escaparHTML(division)}
-                                ·
-                                ${escaparHTML(manager)}
                             </p>
+
+                            <small>
+                                GM: ${escaparHTML(manager)}
+                            </small>
+
                         </div>
 
                         <span class="team-player-count">
-                            ${cantidadJugadores} jugadores
+
+                            ${cantidadJugadores}
+                            jugadores
+
                         </span>
 
                     </a>
@@ -278,12 +488,17 @@ function renderizarEquiposDestacados(datos) {
 }
 
 
+// ========================================
+// DATOS DE CADA EQUIPO
+// ========================================
+
 function obtenerNombreEquipo(equipo) {
 
     return (
         equipo.name ||
         equipo.nombre ||
         equipo.teamName ||
+        equipo.fullName ||
         "Franquicia"
     );
 }
@@ -301,17 +516,54 @@ function obtenerIdEquipo(equipo) {
 }
 
 
+function obtenerLogoEquipo(equipo) {
+
+    const nombre =
+        obtenerNombreEquipo(equipo)
+            .trim();
+
+    if (equipo.logo) {
+
+        return equipo.logo;
+    }
+
+    if (equipo.logoUrl) {
+
+        return equipo.logoUrl;
+    }
+
+    if (equipo.logoURL) {
+
+        return equipo.logoURL;
+    }
+
+    if (LOGOS_NBA[nombre]) {
+
+        return LOGOS_NBA[nombre];
+    }
+
+    return "";
+}
+
+
+// ========================================
+// CONTAR JUGADORES DE CADA EQUIPO
+// ========================================
+
 function contarJugadoresEquipo(
     equipo,
     jugadores
 ) {
 
     const idEquipo =
-        String(obtenerIdEquipo(equipo));
+        String(
+            obtenerIdEquipo(equipo)
+        ).toLowerCase();
 
     const nombreEquipo =
         obtenerNombreEquipo(equipo)
-            .toLowerCase();
+            .toLowerCase()
+            .trim();
 
     return jugadores.filter(
         function(jugador) {
@@ -321,16 +573,20 @@ function contarJugadoresEquipo(
                     jugador.teamId ??
                     jugador.equipoId ??
                     jugador.team_id ??
+                    jugador.franchiseId ??
                     ""
-                );
+                ).toLowerCase();
 
             const jugadorEquipoNombre =
                 String(
                     jugador.team ??
                     jugador.equipo ??
                     jugador.teamName ??
+                    jugador.franchise ??
                     ""
-                ).toLowerCase();
+                )
+                .toLowerCase()
+                .trim();
 
             return (
                 jugadorEquipoId === idEquipo ||
@@ -340,6 +596,10 @@ function contarJugadoresEquipo(
     ).length;
 }
 
+
+// ========================================
+// INICIALES DEL EQUIPO
+// ========================================
 
 function obtenerIniciales(nombre) {
 
@@ -359,8 +619,10 @@ function obtenerIniciales(nombre) {
     return palabras
         .slice(-2)
         .map(
-            palabra =>
-                palabra.charAt(0)
+            function(palabra) {
+
+                return palabra.charAt(0);
+            }
         )
         .join("")
         .toUpperCase();
@@ -368,7 +630,7 @@ function obtenerIniciales(nombre) {
 
 
 // ========================================
-// BOTONES
+// BOTONES DEL DASHBOARD
 // ========================================
 
 function configurarBotones(datos) {
@@ -390,7 +652,9 @@ function configurarBotones(datos) {
             "click",
             function() {
 
-                actualizarEstadisticas(datos);
+                actualizarEstadisticas(
+                    datos
+                );
 
                 renderizarEquiposDestacados(
                     datos
@@ -410,7 +674,9 @@ function configurarBotones(datos) {
             "click",
             function() {
 
-                guardarLiga(datos.base);
+                guardarLiga(
+                    datos.base
+                );
             }
         );
     }
@@ -418,7 +684,7 @@ function configurarBotones(datos) {
 
 
 // ========================================
-// GUARDADO LOCAL
+// GUARDAR LIGA
 // ========================================
 
 function guardarLiga(baseDatos) {
@@ -435,7 +701,7 @@ function guardarLiga(baseDatos) {
         );
 
         console.log(
-            "💾 Liga guardada en localStorage"
+            "💾 Liga guardada"
         );
 
     } catch (error) {
@@ -468,18 +734,24 @@ function mostrarErrorDatabase() {
             "equipos-destacados"
         );
 
+
     if (estado) {
 
         estado.textContent =
             "Error al cargar database.js";
     }
 
+
     if (equipos) {
 
         equipos.innerHTML = `
             <div class="error-message">
+
                 No se ha cargado database.js.
-                Revisa la consola del navegador.
+
+                Abre la consola del navegador
+                para ver el error.
+
             </div>
         `;
     }
@@ -491,21 +763,27 @@ function mostrarErrorDatabase() {
 
 
 // ========================================
-// TOAST
+// MENSAJE EMERGENTE
 // ========================================
 
 function mostrarToast(mensaje) {
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
     if (!toast) {
+
         return;
     }
 
-    toast.textContent = mensaje;
+    toast.textContent =
+        mensaje;
 
-    toast.classList.add("visible");
+    toast.classList.add(
+        "visible"
+    );
 
     window.clearTimeout(
         mostrarToast.timeout
@@ -538,6 +816,10 @@ function escaparHTML(valor) {
         .replaceAll("'", "&#039;");
 }
 
+
+// ========================================
+// CONFIRMACIÓN DE CARGA
+// ========================================
 
 console.log(
     "⚙️ app.js cargado correctamente"
