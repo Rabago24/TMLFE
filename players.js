@@ -60,7 +60,7 @@ window.addEventListener("load", function () {
             <div class="error-message">
 
                 ERROR: No se han encontrado los jugadores
-                dentro de database.js.
+                dentro de base de datos.js.
 
             </div>
 
@@ -332,9 +332,8 @@ window.addEventListener("load", function () {
                 .trim()
                 .toLowerCase();
 
-
         return limpio
-            ? `assets/logos/${limpio}.png`
+            ? `${limpio}.png`
             : "";
     }
 
@@ -904,7 +903,7 @@ window.addEventListener("load", function () {
 
                 <a
                     class="player-action-button primary"
-                    href="trade.html?player=${
+                    href="comercio.html?player=${
                         encodeURIComponent(nombre)
                     }&team=${
                         encodeURIComponent(codigoEquipo)
@@ -1063,7 +1062,7 @@ window.addEventListener("load", function () {
 
                         La franquicia seleccionada
                         todavía no tiene jugadores
-                        asociados en database.js.
+                        asociados en la base de datos.
 
                     </span>
 
