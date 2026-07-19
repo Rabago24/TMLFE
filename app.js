@@ -1,55 +1,37 @@
 // =======================================
-// TMLFE - Trade Machine Liga Franquicia Extraditables
-// Archivo principal de lógica
+// TMLFE - Main Controller
+// Trade Machine Liga Franquicia Extraditables
 // =======================================
 
 
-// Base de datos inicial
 
-const TMLFE = {
-
-    equipos: [],
-
-    jugadores: [],
-
-    trades: [],
-
-
-    configuracion: {
-
-        limiteSalarial: 155000000,
-
-        impuestoLujo: false,
-
-        temporada: "2026/27"
-
-    }
-
-};
+document.addEventListener(
+    "DOMContentLoaded",
+    iniciarAplicacion
+);
 
 
 
-// =======================================
-// CARGA INICIAL
-// =======================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    iniciarTMLFE();
-
-});
 
 
+function iniciarAplicacion(){
 
-function iniciarTMLFE(){
 
-    console.log("TMLFE iniciada correctamente");
+    console.log(
+        "🏀 TMLFE iniciada correctamente"
+    );
 
-    cargarDatosIniciales();
 
-    actualizarDashboard();
+
+    inicializarDatos();
+
+
+    actualizarDashboardPrincipal();
+
 
 }
+
+
 
 
 
@@ -58,59 +40,44 @@ function iniciarTMLFE(){
 // =======================================
 
 
-function cargarDatosIniciales(){
+function inicializarDatos(){
 
 
-    // Ejemplo de estructura.
-    // Aquí añadiremos las plantillas reales de la liga.
-
-    TMLFE.equipos = [
-
-        {
-            id:1,
-            nombre:"Charlotte Hornets",
-            salario:0,
-            jugadores:[]
-        },
-
-        {
-            id:2,
-            nombre:"Dallas Mavericks",
-            salario:0,
-            jugadores:[]
-        }
-
-    ];
+    // Evita cargar dos veces la información
 
 
-}
+    if(
+        TMLFE_DATABASE.equipos.length === 0
+    ){
+
+
+        databaseCrearEquipo({
+
+            nombre:
+            "Charlotte Hornets",
+
+            ciudad:
+            "Charlotte",
+
+            conferencia:
+            "Este"
+
+        });
 
 
 
-// =======================================
-// DASHBOARD
-// =======================================
+        databaseCrearEquipo({
 
+            nombre:
+            "Dallas Mavericks",
 
-function actualizarDashboard(){
+            ciudad:
+            "Dallas",
 
+            conferencia:
+            "Oeste"
 
-    const tarjetas = document.querySelectorAll(".card");
-
-
-    if(tarjetas.length >= 4){
-
-
-        tarjetas[0].querySelector("p").innerHTML =
-        TMLFE.equipos.length + " franquicias cargadas";
-
-
-        tarjetas[1].querySelector("p").innerHTML =
-        TMLFE.jugadores.length + " jugadores registrados";
-
-
-        tarjetas[2].querySelector("p").innerHTML =
-        TMLFE.trades.length + " trades realizados";
+        });
 
 
     }
@@ -120,102 +87,72 @@ function actualizarDashboard(){
 
 
 
+
+
 // =======================================
-// JUGADORES
+// DASHBOARD PRINCIPAL
 // =======================================
 
 
-function añadirJugador(jugador){
+function actualizarDashboardPrincipal(){
 
 
-    TMLFE.jugadores.push(jugador);
+    const equipos =
 
-
-    console.log(
-        "Jugador añadido:",
-        jugador.nombre
+    document.querySelector(
+        ".card:nth-child(1) p"
     );
 
 
-    actualizarDashboard();
+    const jugadores =
 
-}
-
-
-
-// =======================================
-// EQUIPOS
-// =======================================
-
-
-function añadirEquipo(equipo){
-
-
-    TMLFE.equipos.push(equipo);
-
-
-    console.log(
-        "Equipo añadido:",
-        equipo.nombre
+    document.querySelector(
+        ".card:nth-child(2) p"
     );
 
 
-    actualizarDashboard();
+    const trades =
 
-}
-
-
-
-// =======================================
-// SISTEMA DE TRASPASOS
-// =======================================
-
-
-function crearTrade(equipoA, equipoB, jugadoresA, jugadoresB){
-
-
-    const trade = {
-
-
-        id:
-        Date.now(),
-
-
-        equipoOrigen:
-        equipoA,
-
-
-        equipoDestino:
-        equipoB,
-
-
-        salen:
-        jugadoresA,
-
-
-        llegan:
-        jugadoresB,
-
-
-        fecha:
-        new Date()
-
-    };
-
-
-
-    TMLFE.trades.push(trade);
-
-
-
-    console.log(
-        "Nuevo trade creado:",
-        trade
+    document.querySelector(
+        ".card:nth-child(3) p"
     );
 
 
 
-    actualizarDashboard();
+    if(equipos){
+
+        equipos.innerHTML =
+
+        TMLFE_DATABASE.equipos.length
+        +
+        " franquicias cargadas";
+
+    }
+
+
+
+    if(jugadores){
+
+        jugadores.innerHTML =
+
+        TMLFE_DATABASE.jugadores.length
+        +
+        " jugadores registrados";
+
+    }
+
+
+
+    if(trades){
+
+        trades.innerHTML =
+
+        TradesDB.trades.length
+        +
+        " trades realizados";
+
+    }
+
 
 
 }
@@ -223,67 +160,82 @@ function crearTrade(equipoA, equipoB, jugadoresA, jugadoresB){
 
 
 
+
 // =======================================
-// VALIDACIÓN SALARIAL
+// NAVEGACIÓN
 // =======================================
 
 
-function comprobarTrade(salarioAntes, salarioRecibido){
+function abrirModulo(modulo){
 
 
-    const nuevoSalario =
-    salarioAntes + salarioRecibido;
+    console.log(
+
+        "Abriendo módulo:",
+        modulo
+
+    );
+
+
+}
 
 
 
-    if(nuevoSalario <= TMLFE.configuracion.limiteSalarial){
 
 
-        return {
+// =======================================
+// SISTEMA
+// =======================================
 
-            valido:true,
 
-            mensaje:
-            "Trade válido según reglas salariales"
+function guardarEstado(){
 
-        };
+
+    localStorage.setItem(
+
+        "TMLFE_DATA",
+
+        JSON.stringify(
+            TMLFE_DATABASE
+        )
+
+    );
+
+
+}
+
+
+
+
+
+function cargarEstado(){
+
+
+    const datos =
+
+    localStorage.getItem(
+        "TMLFE_DATA"
+    );
+
+
+
+    if(datos){
+
+
+        console.log(
+            "Datos recuperados"
+        );
 
 
     }
 
 
-    return {
-
-
-        valido:false,
-
-
-        mensaje:
-        "Trade pendiente de revisión salarial"
-
-
-    };
-
-
 }
 
 
-
-// =======================================
-// FUTURAS FUNCIONES
-// =======================================
-
-
-// - Cargar plantillas oficiales LFE
-// - Editor de jugadores
-// - Ratings NBA 2K
-// - Contratos
-// - Reglas de traspasos
-// - Modo franquicia
-// - Historial de movimientos
 
 
 
 console.log(
-"🏀 TMLFE preparada para construir la franquicia"
+"⚙️ App.js actualizado"
 );
