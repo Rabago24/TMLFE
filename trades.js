@@ -1,246 +1,197 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TMLFE | Trade Machine</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-
-<body>
+// =======================================
+// TMLFE - Trade Machine Interface
+// =======================================
 
 
 
-<header class="top-bar">
-
-<div class="logo">
-TMLFE
-</div>
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 
-<div class="title">
-Trade Machine
-</div>
+cargarEquiposTrade();
 
 
-</header>
+});
 
 
 
 
 
-<nav class="menu">
+function cargarEquiposTrade(){
 
 
-<button onclick="window.location.href='index.html'">
-Dashboard
-</button>
+const origen =
+document.getElementById(
+"equipo-origen"
+);
 
 
-<button onclick="window.location.href='players.html'">
-Jugadores
-</button>
-
-
-<button onclick="window.location.href='teams.html'">
-Plantillas
-</button>
-
-
-<button>
-Traspasos
-</button>
+const destino =
+document.getElementById(
+"equipo-destino"
+);
 
 
 
-</nav>
+if(!origen || !destino)
+return;
 
 
 
 
+TMLFE_DATABASE.equipos.forEach(
+
+equipo=>{
 
 
-<main>
+let op1 =
+document.createElement(
+"option"
+);
+
+
+op1.textContent =
+equipo.nombre;
+
+
+op1.value =
+equipo.nombre;
 
 
 
-<section class="hero">
+let op2 =
+op1.cloneNode(true);
 
 
-<h1>
-Simulador de Traspasos
-</h1>
 
+origen.appendChild(op1);
+
+
+destino.appendChild(op2);
+
+
+
+}
+
+);
+
+
+}
+
+
+
+
+
+
+
+function analizarTrade(){
+
+
+
+const origen =
+
+document.getElementById(
+"equipo-origen"
+).value;
+
+
+
+const destino =
+
+document.getElementById(
+"equipo-destino"
+).value;
+
+
+
+
+const salen =
+
+document.getElementById(
+"jugadores-sale"
+).value;
+
+
+
+
+const llegan =
+
+document.getElementById(
+"jugadores-llegan"
+).value;
+
+
+
+
+const resultado =
+
+document.getElementById(
+"resultado-trade"
+);
+
+
+
+
+
+if(
+origen==="Seleccionar equipo"
+||
+destino==="Seleccionar equipo"
+){
+
+
+resultado.innerHTML =
+
+"❌ Selecciona dos franquicias";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+const trade = crearTrade({
+
+equipoOrigen:origen,
+
+equipoDestino:destino,
+
+jugadoresEnviados:
+salen.split("\n"),
+
+jugadoresRecibidos:
+llegan.split("\n")
+
+});
+
+
+
+
+
+
+resultado.innerHTML =
+
+`
+<h3>✅ Trade creado</h3>
 
 <p>
-Crea y valida movimientos entre franquicias
+${origen}
+ ➡️ 
+${destino}
 </p>
 
+<p>
+Estado:
+${trade.estado}
+</p>
+`;
 
-</section>
 
 
-
-
-
-
-
-<section class="trade-box">
-
-
-
-<div class="card">
-
-
-<h2>
-Equipo que envía
-</h2>
-
-
-<select id="equipo-origen">
-
-<option>
-Seleccionar equipo
-</option>
-
-</select>
-
-
-
-<h3>
-Jugadores enviados
-</h3>
-
-
-<textarea
-id="jugadores-sale"
-placeholder="Ejemplo:
-Jugador 1
-Jugador 2">
-</textarea>
-
-
-
-</div>
-
-
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-Equipo que recibe
-</h2>
-
-
-<select id="equipo-destino">
-
-
-<option>
-Seleccionar equipo
-</option>
-
-
-</select>
-
-
-
-
-<h3>
-Jugadores recibidos
-</h3>
-
-
-
-<textarea
-id="jugadores-llegan"
-placeholder="Ejemplo:
-Jugador 3">
-</textarea>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-<section class="card">
-
-
-<h2>
-Análisis del movimiento
-</h2>
-
-
-
-<button
-onclick="analizarTrade()">
-
-VALIDAR TRADE
-
-</button>
-
-
-
-
-<div id="resultado-trade">
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-</main>
-
-
-
-
-
-
-
-<script src="database.js"></script>
-
-<script src="teams.js"></script>
-
-<script src="players.js"></script>
-
-<script src="salary.js"></script>
-
-<script src="trades.js"></script>
-
-<script src="ui.js"></script>
-
-<script src="trade.js"></script>
-
-<script src="app.js"></script>
-
-
-
-</body>
-
-</html>
+}
