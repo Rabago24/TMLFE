@@ -961,18 +961,15 @@ const jugadores =
                 </button>
 
 
-                <a
-                    class="player-action-button primary"
-                    href="comercio.html?player=${
-                        encodeURIComponent(nombre)
-                    }&team=${
-                        encodeURIComponent(codigoEquipo)
-                    }"
-                >
+               <button
+    class="player-action-button primary"
+    type="button"
+    data-action="add-trade"
+>
 
-                    Añadir al Trade
+    Añadir al Trade
 
-                </a>
+</button>
 
             </div>
 
