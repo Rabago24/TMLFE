@@ -70,9 +70,69 @@ window.addEventListener("load", function () {
     }
 
 
-    const jugadores =
-        window.TMLFE.players;
+   const STORAGE_KEY = "tmlfe-player-edits";
 
+function obtenerIdJugador(jugador) {
+
+    return String(
+        obtenerValor(
+            jugador,
+            [
+                "id",
+                "playerId",
+                "name",
+                "nombre",
+                "playerName",
+                "fullName"
+            ],
+            ""
+        )
+    );
+}
+
+function cargarEdicionesGuardadas(listaJugadores) {
+
+    let ediciones = {};
+
+    try {
+
+        ediciones =
+            JSON.parse(
+                localStorage.getItem(STORAGE_KEY)
+            ) || {};
+
+    } catch (error) {
+
+        ediciones = {};
+    }
+
+    listaJugadores.forEach(
+        function (jugador) {
+
+            const id =
+                obtenerIdJugador(jugador);
+
+            if (
+                id &&
+                ediciones[id] &&
+                typeof ediciones[id] === "object"
+            ) {
+
+                Object.assign(
+                    jugador,
+                    ediciones[id]
+                );
+            }
+        }
+    );
+
+    return listaJugadores;
+}
+
+const jugadores =
+    cargarEdicionesGuardadas(
+        window.TMLFE.players
+    );
     const equipos =
         Array.isArray(window.TMLFE.teams)
             ? window.TMLFE.teams
