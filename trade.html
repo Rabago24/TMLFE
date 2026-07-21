@@ -3,13 +3,21 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>TMLFE | Trade Machine</title>
+    <title>
+        TMLFE | Trade Machine
+    </title>
 
-<link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="./styles.css?v=120"
+    >
 
 </head>
 
@@ -17,228 +25,283 @@
 <body>
 
 
+    <header class="top-bar">
 
-<header class="top-bar">
+        <div class="logo">
+            TMLFE
+        </div>
 
-<div class="logo">
-TMLFE
-</div>
 
+        <div class="title">
+            Trade Machine
+        </div>
 
-<div class="title">
-Trade Machine
-</div>
+    </header>
 
 
-</header>
+    <nav class="menu">
 
+        <button
+            onclick="window.location.href='index.html'"
+        >
+            Dashboard
+        </button>
 
 
+        <button
+            onclick="window.location.href='players.html'"
+        >
+            Jugadores
+        </button>
 
 
-<nav class="menu">
+        <button
+            onclick="window.location.href='teams.html'"
+        >
+            Plantillas
+        </button>
 
 
-<button onclick="window.location.href='index.html'">
-Dashboard
-</button>
+        <button class="active">
+            Traspasos
+        </button>
 
+    </nav>
 
-<button onclick="window.location.href='players.html'">
-Jugadores
-</button>
 
+    <main class="trade-page">
 
-<button onclick="window.location.href='teams.html'">
-Plantillas
-</button>
 
+        <section class="hero trade-hero">
 
-<button>
-Traspasos
-</button>
+            <div>
 
+                <p class="section-kicker">
+                    Front Office
+                </p>
 
 
-</nav>
+                <h1>
+                    Trade Machine
+                </h1>
 
 
+                <p>
+                    Construye y analiza un traspaso entre dos franquicias.
+                </p>
 
+            </div>
 
 
+            <button
+                id="vaciar-trade"
+                class="secondary-button"
+                type="button"
+            >
+                Vaciar traspaso
+            </button>
 
-<main>
+        </section>
 
 
+        <section class="trade-machine-grid">
 
-<section class="hero">
 
+            <article class="trade-team-panel">
 
-<h1>
-Simulador de Traspasos
-</h1>
+                <div class="trade-team-header">
 
+                    <div
+                        id="logo-equipo-a"
+                        class="trade-team-logo"
+                    >
+                        A
+                    </div>
 
-<p>
-Crea y valida movimientos entre franquicias
-</p>
 
+                    <div>
 
-</section>
+                        <span class="trade-team-label">
+                            Equipo A
+                        </span>
 
 
+                        <h2 id="nombre-equipo-a">
+                            Sin seleccionar
+                        </h2>
 
+                    </div>
 
+                </div>
 
 
+                <div
+                    id="jugadores-equipo-a"
+                    class="trade-player-list"
+                >
+                </div>
 
-<section class="trade-box">
 
+                <div class="trade-team-total">
 
+                    <span>
+                        Salario enviado
+                    </span>
 
-<div class="card">
 
+                    <strong id="salario-equipo-a">
+                        0,0 M
+                    </strong>
 
-<h2>
-Equipo que envía
-</h2>
+                </div>
 
+            </article>
 
-<select id="equipo-origen">
 
-<option>
-Seleccionar equipo
-</option>
+            <article class="trade-summary-panel">
 
-</select>
+                <p class="section-kicker">
+                    Resumen
+                </p>
 
 
+                <h2>
+                    Análisis del movimiento
+                </h2>
 
-<h3>
-Jugadores enviados
-</h3>
 
+                <div class="trade-summary-row">
 
-<textarea
-id="jugadores-sale"
-placeholder="Ejemplo:
-Jugador 1
-Jugador 2">
-</textarea>
+                    <span>
+                        Jugadores del equipo A
+                    </span>
 
 
+                    <strong id="cantidad-jugadores-a">
+                        0
+                    </strong>
 
-</div>
+                </div>
 
 
+                <div class="trade-summary-row">
 
+                    <span>
+                        Jugadores del equipo B
+                    </span>
 
 
+                    <strong id="cantidad-jugadores-b">
+                        0
+                    </strong>
 
+                </div>
 
-<div class="card">
 
+                <div class="trade-summary-row">
 
-<h2>
-Equipo que recibe
-</h2>
+                    <span>
+                        Diferencia salarial
+                    </span>
 
 
-<select id="equipo-destino">
+                    <strong id="diferencia-salarial">
+                        0,0 M
+                    </strong>
 
+                </div>
 
-<option>
-Seleccionar equipo
-</option>
 
+                <div
+                    id="estado-trade"
+                    class="trade-status pending"
+                >
 
-</select>
+                    Añade jugadores de dos franquicias para analizar el traspaso.
 
+                </div>
 
 
+                <button
+                    id="validar-trade"
+                    class="primary-button"
+                    type="button"
+                >
+                    Validar Trade
+                </button>
 
-<h3>
-Jugadores recibidos
-</h3>
+            </article>
 
 
+            <article class="trade-team-panel">
 
-<textarea
-id="jugadores-llegan"
-placeholder="Ejemplo:
-Jugador 3">
-</textarea>
+                <div class="trade-team-header">
 
+                    <div
+                        id="logo-equipo-b"
+                        class="trade-team-logo"
+                    >
+                        B
+                    </div>
 
 
-</div>
+                    <div>
 
+                        <span class="trade-team-label">
+                            Equipo B
+                        </span>
 
 
-</section>
+                        <h2 id="nombre-equipo-b">
+                            Sin seleccionar
+                        </h2>
 
+                    </div>
 
+                </div>
 
 
+                <div
+                    id="jugadores-equipo-b"
+                    class="trade-player-list"
+                >
+                </div>
 
 
+                <div class="trade-team-total">
 
+                    <span>
+                        Salario enviado
+                    </span>
 
-<section class="card">
 
+                    <strong id="salario-equipo-b">
+                        0,0 M
+                    </strong>
 
-<h2>
-Análisis del movimiento
-</h2>
+                </div>
 
+            </article>
 
+        </section>
 
-<button
-onclick="analizarTrade()">
 
-VALIDAR TRADE
+        <div
+            id="toast"
+            class="toast"
+            role="status"
+            aria-live="polite"
+        >
+        </div>
 
-</button>
+    </main>
 
 
+    <script src="./database.js?v=106"></script>
 
+    <script src="./trade-manager.js?v=3"></script>
 
-<div id="resultado-trade">
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-</main>
-
-
-
-
-
-
-
-<script src="database.js"></script>
-
-<script src="teams.js"></script>
-
-<script src="players.js"></script>
-
-<script src="salary.js"></script>
-
-<script src="trades.js"></script>
-
-<script src="ui.js"></script>
-
-<script src="trade.js"></script>
-
-<script src="app.js"></script>
-
+    <script src="./trade-page.js?v=1"></script>
 
 
 </body>
