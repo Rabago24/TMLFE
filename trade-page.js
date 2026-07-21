@@ -12,11 +12,13 @@ window.addEventListener("load", function () {
         return;
     }
 
+
     const equipos =
         window.TMLFE &&
         Array.isArray(window.TMLFE.teams)
             ? window.TMLFE.teams
             : [];
+
 
     const jugadoresA =
         document.getElementById(
@@ -88,6 +90,32 @@ window.addEventListener("load", function () {
             "validar-trade"
         );
 
+
+    if (
+        !jugadoresA ||
+        !jugadoresB ||
+        !nombreEquipoA ||
+        !nombreEquipoB ||
+        !logoEquipoA ||
+        !logoEquipoB ||
+        !salarioEquipoA ||
+        !salarioEquipoB ||
+        !cantidadJugadoresA ||
+        !cantidadJugadoresB ||
+        !diferenciaSalarial ||
+        !estadoTrade ||
+        !botonVaciar ||
+        !botonValidar
+    ) {
+
+        console.error(
+            "Faltan elementos necesarios en trade.html."
+        );
+
+        return;
+    }
+
+
     function escaparHTML(valor) {
 
         return String(valor ?? "")
@@ -98,6 +126,7 @@ window.addEventListener("load", function () {
             .replace(/'/g, "&#039;");
     }
 
+
     function convertirNumero(valor) {
 
         const numero =
@@ -107,6 +136,7 @@ window.addEventListener("load", function () {
             ? numero
             : 0;
     }
+
 
     function formatearMillones(valor) {
 
@@ -121,6 +151,7 @@ window.addEventListener("load", function () {
             }
         ) + " M";
     }
+
 
     function buscarEquipo(codigo) {
 
@@ -144,6 +175,7 @@ window.addEventListener("load", function () {
         );
     }
 
+
     function obtenerNombreEquipo(codigo) {
 
         const equipo =
@@ -153,6 +185,7 @@ window.addEventListener("load", function () {
             ? equipo.name
             : codigo || "Sin seleccionar";
     }
+
 
     function obtenerRutaEscudo(codigo) {
 
@@ -165,6 +198,7 @@ window.addEventListener("load", function () {
             ? `./assets/logos/${limpio}.png`
             : "";
     }
+
 
     function mostrarToast(mensaje) {
 
@@ -187,6 +221,7 @@ window.addEventListener("load", function () {
         mostrarToast.temporizador =
             window.setTimeout(
                 function () {
+
                     toast.classList.remove(
                         "show"
                     );
@@ -194,6 +229,7 @@ window.addEventListener("load", function () {
                 2500
             );
     }
+
 
     function crearJugadorTrade(jugador) {
 
@@ -209,21 +245,24 @@ window.addEventListener("load", function () {
 
                 <div class="trade-player-rating">
 
-                    ${
-                        escaparHTML(
-                            jugador.overall || "—"
-                        )
-                    }
+                    ${escaparHTML(
+                        jugador.overall || "—"
+                    )}
 
                 </div>
 
-                <div>
+
+                <div class="trade-player-data">
 
                     <strong>
+
                         ${escaparHTML(
-                            jugador.name
+                            jugador.name ||
+                            "Jugador sin nombre"
                         )}
+
                     </strong>
+
 
                     <span>
 
@@ -243,10 +282,11 @@ window.addEventListener("load", function () {
 
             </div>
 
+
             <button
                 class="trade-remove-player"
                 type="button"
-                aria-label="Quitar jugador"
+                aria-label="Quitar jugador del trade"
             >
 
                 ×
@@ -255,10 +295,12 @@ window.addEventListener("load", function () {
 
         `;
 
+
         const botonQuitar =
             elemento.querySelector(
                 ".trade-remove-player"
             );
+
 
         botonQuitar.addEventListener(
             "click",
@@ -276,15 +318,19 @@ window.addEventListener("load", function () {
             }
         );
 
+
         return elemento;
     }
+
 
     function renderizarLista(
         contenedor,
         lista
     ) {
 
-        contenedor.innerHTML = "";
+        contenedor.innerHTML =
+            "";
+
 
         if (
             !Array.isArray(lista) ||
@@ -304,6 +350,7 @@ window.addEventListener("load", function () {
             return;
         }
 
+
         lista.forEach(
             function (jugador) {
 
@@ -314,19 +361,25 @@ window.addEventListener("load", function () {
         );
     }
 
+
     function actualizarLogo(
         contenedor,
         codigo,
         letra
     ) {
 
-        contenedor.innerHTML = "";
+        contenedor.innerHTML =
+            "";
+
 
         if (!codigo) {
+
             contenedor.textContent =
                 letra;
+
             return;
         }
+
 
         const imagen =
             document.createElement("img");
@@ -335,11 +388,15 @@ window.addEventListener("load", function () {
             obtenerRutaEscudo(codigo);
 
         imagen.alt =
-            codigo;
+            `Escudo de ${codigo}`;
+
 
         imagen.addEventListener(
             "error",
             function () {
+
+                contenedor.innerHTML =
+                    "";
 
                 contenedor.textContent =
                     codigo;
@@ -349,8 +406,22 @@ window.addEventListener("load", function () {
             }
         );
 
-        contenedor.appendChild(imagen);
+
+        contenedor.appendChild(
+            imagen
+        );
     }
+
+
+    function mostrarEstadoPendiente() {
+
+        estadoTrade.className =
+            "trade-status pending";
+
+        estadoTrade.textContent =
+            "Añade jugadores de dos franquicias para analizar el traspaso.";
+    }
+
 
     function renderizar() {
 
@@ -359,6 +430,7 @@ window.addEventListener("load", function () {
 
         const resumen =
             manager.getSummary();
+
 
         nombreEquipoA.textContent =
             obtenerNombreEquipo(
@@ -369,6 +441,7 @@ window.addEventListener("load", function () {
             obtenerNombreEquipo(
                 estado.teamB
             );
+
 
         actualizarLogo(
             logoEquipoA,
@@ -382,6 +455,7 @@ window.addEventListener("load", function () {
             "B"
         );
 
+
         renderizarLista(
             jugadoresA,
             estado.playersA
@@ -391,6 +465,7 @@ window.addEventListener("load", function () {
             jugadoresB,
             estado.playersB
         );
+
 
         salarioEquipoA.textContent =
             formatearMillones(
@@ -402,11 +477,13 @@ window.addEventListener("load", function () {
                 resumen.salaryB
             );
 
+
         cantidadJugadoresA.textContent =
             resumen.playersA;
 
         cantidadJugadoresB.textContent =
             resumen.playersB;
+
 
         diferenciaSalarial.textContent =
             formatearMillones(
@@ -414,6 +491,7 @@ window.addEventListener("load", function () {
                     resumen.difference
                 )
             );
+
 
         if (
             resumen.playersA > 0 &&
@@ -431,16 +509,13 @@ window.addEventListener("load", function () {
 
         } else {
 
-            estadoTrade.className =
-                "trade-status pending";
-
-            estadoTrade.textContent =
-                "Añade jugadores de dos franquicias para analizar el traspaso.";
+            mostrarEstadoPendiente();
 
             botonValidar.disabled =
                 true;
         }
     }
+
 
     botonVaciar.addEventListener(
         "click",
@@ -456,19 +531,192 @@ window.addEventListener("load", function () {
         }
     );
 
-    window.addEventListener(
-    "tmlfe-trade-updated",
-    renderizar
-);
 
-renderizar();
+    botonValidar.addEventListener(
+        "click",
+        function () {
 
-});
+            if (
+                !window.TMLFETradeValidator ||
+                typeof window.TMLFETradeValidator.validate !==
+                    "function"
+            ) {
+
+                mostrarToast(
+                    "No se ha podido cargar el validador salarial."
+                );
+
+                return;
+            }
+
+
+            const resultado =
+                window.TMLFETradeValidator.validate();
+
+
+            if (
+                !resultado.teamA ||
+                !resultado.teamB
+            ) {
+
+                estadoTrade.className =
+                    "trade-status invalid";
+
+                estadoTrade.textContent =
+                    resultado.message;
+
+                mostrarToast(
+                    resultado.message
+                );
+
+                return;
+            }
+
+
+            const nombreA =
+                obtenerNombreEquipo(
+                    resultado.teamA.team
+                );
+
+            const nombreB =
+                obtenerNombreEquipo(
+                    resultado.teamB.team
+                );
+
+
+            estadoTrade.className =
+                resultado.valid
+                    ? "trade-status valid"
+                    : "trade-status invalid";
+
+
+            estadoTrade.innerHTML = `
+
+                <div class="trade-validation-result">
+
+
+                    <div class="trade-validation-team">
+
+                        <strong>
+                            ${escaparHTML(nombreA)}
+                        </strong>
+
+                        <span>
+                            Antes:
+                            ${formatearMillones(
+                                resultado.teamA.before
+                            )}
+                        </span>
+
+                        <span>
+                            Envía:
+                            ${formatearMillones(
+                                resultado.teamA.sends
+                            )}
+                        </span>
+
+                        <span>
+                            Recibe:
+                            ${formatearMillones(
+                                resultado.teamA.receives
+                            )}
+                        </span>
+
+                        <span>
+                            Después:
+                            ${formatearMillones(
+                                resultado.teamA.after
+                            )}
+                        </span>
+
+                        <p>
+
+                            ${
+                                resultado.teamA.valid
+                                    ? "✅ Cumple la regla salarial."
+                                    : "❌ No cumple la regla salarial."
+                            }
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="trade-validation-team">
+
+                        <strong>
+                            ${escaparHTML(nombreB)}
+                        </strong>
+
+                        <span>
+                            Antes:
+                            ${formatearMillones(
+                                resultado.teamB.before
+                            )}
+                        </span>
+
+                        <span>
+                            Envía:
+                            ${formatearMillones(
+                                resultado.teamB.sends
+                            )}
+                        </span>
+
+                        <span>
+                            Recibe:
+                            ${formatearMillones(
+                                resultado.teamB.receives
+                            )}
+                        </span>
+
+                        <span>
+                            Después:
+                            ${formatearMillones(
+                                resultado.teamB.after
+                            )}
+                        </span>
+
+                        <p>
+
+                            ${
+                                resultado.teamB.valid
+                                    ? "✅ Cumple la regla salarial."
+                                    : "❌ No cumple la regla salarial."
+                            }
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="trade-validation-final">
+
+                        ${
+                            resultado.valid
+                                ? "🟢 TRADE VÁLIDO"
+                                : "🔴 TRADE NO VÁLIDO"
+                        }
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+
+            mostrarToast(
+                resultado.message
+            );
+        }
+    );
+
 
     window.addEventListener(
         "tmlfe-trade-updated",
         renderizar
     );
+
 
     renderizar();
 
