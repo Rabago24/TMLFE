@@ -1072,7 +1072,49 @@ const jugadores =
         }
     );
 }
+const botonTrade =
+    tarjeta.querySelector(
+        '[data-action="add-trade"]'
+    );
 
+if (botonTrade) {
+
+    botonTrade.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !window.TMLFETradeManager ||
+                typeof window.TMLFETradeManager.addPlayer !== "function"
+            ) {
+
+                mostrarToast(
+                    "No se ha podido cargar el gestor de traspasos."
+                );
+
+                return;
+            }
+
+            const resultado =
+                window.TMLFETradeManager.addPlayer(
+                    jugador
+                );
+
+            mostrarToast(
+                resultado.message
+            );
+
+            if (resultado.ok) {
+
+                botonTrade.textContent =
+                    "Añadido al Trade";
+
+                botonTrade.disabled =
+                    true;
+            }
+        }
+    );
+}
 
         return tarjeta;
     }
