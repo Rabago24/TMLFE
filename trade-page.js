@@ -456,36 +456,14 @@ window.addEventListener("load", function () {
         }
     );
 
-    botonValidar.addEventListener(
-        "click",
-        function () {
+    window.addEventListener(
+    "tmlfe-trade-updated",
+    renderizar
+);
 
-            const resumen =
-                manager.getSummary();
+renderizar();
 
-            if (
-                resumen.playersA === 0 ||
-                resumen.playersB === 0
-            ) {
-
-                mostrarToast(
-                    "Debes añadir jugadores de ambos equipos."
-                );
-
-                return;
-            }
-
-            estadoTrade.className =
-                "trade-status valid";
-
-            estadoTrade.textContent =
-                "Trade preparado. El validador salarial se añadirá en el siguiente paso.";
-
-            mostrarToast(
-                "Trade preparado correctamente."
-            );
-        }
-    );
+});
 
     window.addEventListener(
         "tmlfe-trade-updated",
