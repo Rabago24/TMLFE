@@ -983,18 +983,38 @@ window.addEventListener("load", function () {
             );
 
 
-        if (botonEditar) {
+      if (botonEditar) {
 
-            botonEditar.addEventListener(
-                "click",
+    botonEditar.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !window.TMLFEEditor ||
+                typeof window.TMLFEEditor.open !== "function"
+            ) {
+
+                mostrarToast(
+                    "No se ha podido cargar el editor de jugadores."
+                );
+
+                return;
+            }
+
+            window.TMLFEEditor.open(
+                jugador,
                 function () {
 
+                    aplicarFiltros();
+
                     mostrarToast(
-                        `La edición de ${nombre} se añadirá en el siguiente paso.`
+                        `${nombre} se ha actualizado correctamente.`
                     );
                 }
             );
         }
+    );
+}
 
 
         return tarjeta;
