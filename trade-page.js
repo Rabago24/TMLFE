@@ -6,9 +6,11 @@ window.addEventListener("load", function () {
         window.TMLFETradeManager;
 
     if (!manager) {
+
         console.error(
             "No se ha cargado TMLFETradeManager."
         );
+
         return;
     }
 
@@ -16,6 +18,7 @@ window.addEventListener("load", function () {
     const equipos =
         window.TMLFE &&
         Array.isArray(window.TMLFE.teams)
+
             ? window.TMLFE.teams
             : [];
 
@@ -90,6 +93,11 @@ window.addEventListener("load", function () {
             "validar-trade"
         );
 
+    const botonConfirmar =
+        document.getElementById(
+            "confirmar-trade"
+        );
+
 
     if (
         !jugadoresA ||
@@ -105,7 +113,8 @@ window.addEventListener("load", function () {
         !diferenciaSalarial ||
         !estadoTrade ||
         !botonVaciar ||
-        !botonValidar
+        !botonValidar ||
+        !botonConfirmar
     ) {
 
         console.error(
@@ -129,12 +138,70 @@ window.addEventListener("load", function () {
 
     function convertirNumero(valor) {
 
-        const numero =
-            Number(valor);
+        if (
+            valor === undefined ||
+            valor === null ||
+            valor === ""
+        ) {
+            return 0;
+        }
 
-        return Number.isFinite(numero)
-            ? numero
-            : 0;
+
+        if (typeof valor === "number") {
+
+            return Number.isFinite(valor)
+                ? valor
+                : 0;
+        }
+
+
+        const textoOriginal =
+            String(valor).trim();
+
+
+        let texto =
+            textoOriginal
+                .replace(/\s/g, "")
+                .replace(/[€$]/g, "");
+
+
+        if (
+            texto.includes(",") &&
+            texto.includes(".")
+        ) {
+
+            texto =
+                texto
+                    .replace(/\./g, "")
+                    .replace(",", ".");
+
+        } else if (texto.includes(",")) {
+
+            texto =
+                texto.replace(",", ".");
+        }
+
+
+        const coincidencia =
+            texto.match(/-?\d+(\.\d+)?/);
+
+
+        let numero =
+            coincidencia
+                ? Number(coincidencia[0]) || 0
+                : 0;
+
+
+        if (
+            /m(illones?)?$/i.test(textoOriginal) &&
+            Math.abs(numero) < 1000000
+        ) {
+
+            numero *= 1000000;
+        }
+
+
+        return numero;
     }
 
 
@@ -160,6 +227,7 @@ window.addEventListener("load", function () {
                 .trim()
                 .toLowerCase();
 
+
         return equipos.find(
             function (equipo) {
 
@@ -181,6 +249,7 @@ window.addEventListener("load", function () {
         const equipo =
             buscarEquipo(codigo);
 
+
         return equipo
             ? equipo.name
             : codigo || "Sin seleccionar";
@@ -194,8 +263,9 @@ window.addEventListener("load", function () {
                 .trim()
                 .toLowerCase();
 
+
         return limpio
-            ? `./assets/logos/${limpio}.png`
+            ? `./${limpio}.png`
             : "";
     }
 
@@ -203,20 +273,29 @@ window.addEventListener("load", function () {
     function mostrarToast(mensaje) {
 
         const toast =
-            document.getElementById("toast");
+            document.getElementById(
+                "toast"
+            );
+
 
         if (!toast) {
             return;
         }
 
+
         toast.textContent =
             mensaje;
 
-        toast.classList.add("show");
+
+        toast.classList.add(
+            "show"
+        );
+
 
         window.clearTimeout(
             mostrarToast.temporizador
         );
+
 
         mostrarToast.temporizador =
             window.setTimeout(
@@ -226,18 +305,29 @@ window.addEventListener("load", function () {
                         "show"
                     );
                 },
-                2500
+                2600
             );
+    }
+
+
+    function desactivarConfirmacion() {
+
+        botonConfirmar.disabled =
+            true;
     }
 
 
     function crearJugadorTrade(jugador) {
 
         const elemento =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         elemento.className =
             "trade-player-card";
+
 
         elemento.innerHTML = `
 
@@ -246,7 +336,10 @@ window.addEventListener("load", function () {
                 <div class="trade-player-rating">
 
                     ${escaparHTML(
-                        jugador.overall || "—"
+                        jugador.overall ||
+                        jugador.rating ||
+                        jugador.media ||
+                        "—"
                     )}
 
                 </div>
@@ -258,6 +351,8 @@ window.addEventListener("load", function () {
 
                         ${escaparHTML(
                             jugador.name ||
+                            jugador.nombre ||
+                            jugador.playerName ||
                             "Jugador sin nombre"
                         )}
 
@@ -267,13 +362,18 @@ window.addEventListener("load", function () {
                     <span>
 
                         ${escaparHTML(
-                            jugador.position || "—"
+                            jugador.position ||
+                            jugador.pos ||
+                            jugador.posicion ||
+                            "—"
                         )}
 
                         ·
 
                         ${formatearMillones(
-                            jugador.salary
+                            jugador.salary ||
+                            jugador.salario ||
+                            0
                         )}
 
                     </span>
@@ -310,9 +410,15 @@ window.addEventListener("load", function () {
                     jugador.id
                 );
 
+
                 mostrarToast(
-                    `${jugador.name} eliminado del trade.`
+                    `${
+                        jugador.name ||
+                        jugador.nombre ||
+                        "El jugador"
+                    } ha sido eliminado del trade.`
                 );
+
 
                 renderizar();
             }
@@ -355,7 +461,9 @@ window.addEventListener("load", function () {
             function (jugador) {
 
                 contenedor.appendChild(
-                    crearJugadorTrade(jugador)
+                    crearJugadorTrade(
+                        jugador
+                    )
                 );
             }
         );
@@ -382,10 +490,16 @@ window.addEventListener("load", function () {
 
 
         const imagen =
-            document.createElement("img");
+            document.createElement(
+                "img"
+            );
+
 
         imagen.src =
-            obtenerRutaEscudo(codigo);
+            obtenerRutaEscudo(
+                codigo
+            );
+
 
         imagen.alt =
             `Escudo de ${codigo}`;
@@ -418,6 +532,7 @@ window.addEventListener("load", function () {
         estadoTrade.className =
             "trade-status pending";
 
+
         estadoTrade.textContent =
             "Añade jugadores de dos franquicias para analizar el traspaso.";
     }
@@ -428,6 +543,7 @@ window.addEventListener("load", function () {
         const estado =
             manager.getState();
 
+
         const resumen =
             manager.getSummary();
 
@@ -436,6 +552,7 @@ window.addEventListener("load", function () {
             obtenerNombreEquipo(
                 estado.teamA
             );
+
 
         nombreEquipoB.textContent =
             obtenerNombreEquipo(
@@ -449,6 +566,7 @@ window.addEventListener("load", function () {
             "A"
         );
 
+
         actualizarLogo(
             logoEquipoB,
             estado.teamB,
@@ -461,6 +579,7 @@ window.addEventListener("load", function () {
             estado.playersA
         );
 
+
         renderizarLista(
             jugadoresB,
             estado.playersB
@@ -472,6 +591,7 @@ window.addEventListener("load", function () {
                 resumen.salaryA
             );
 
+
         salarioEquipoB.textContent =
             formatearMillones(
                 resumen.salaryB
@@ -480,6 +600,7 @@ window.addEventListener("load", function () {
 
         cantidadJugadoresA.textContent =
             resumen.playersA;
+
 
         cantidadJugadoresB.textContent =
             resumen.playersB;
@@ -493,7 +614,12 @@ window.addEventListener("load", function () {
             );
 
 
+        desactivarConfirmacion();
+
+
         if (
+            estado.teamA &&
+            estado.teamB &&
             resumen.playersA > 0 &&
             resumen.playersB > 0
         ) {
@@ -501,8 +627,10 @@ window.addEventListener("load", function () {
             estadoTrade.className =
                 "trade-status ready";
 
+
             estadoTrade.textContent =
                 "El traspaso está listo para validarse.";
+
 
             botonValidar.disabled =
                 false;
@@ -510,6 +638,7 @@ window.addEventListener("load", function () {
         } else {
 
             mostrarEstadoPendiente();
+
 
             botonValidar.disabled =
                 true;
@@ -523,9 +652,11 @@ window.addEventListener("load", function () {
 
             manager.clear();
 
+
             mostrarToast(
                 "El traspaso se ha vaciado."
             );
+
 
             renderizar();
         }
@@ -536,10 +667,14 @@ window.addEventListener("load", function () {
         "click",
         function () {
 
+            desactivarConfirmacion();
+
+
             if (
                 !window.TMLFETradeValidator ||
-                typeof window.TMLFETradeValidator.validate !==
-                    "function"
+                typeof window
+                    .TMLFETradeValidator
+                    .validate !== "function"
             ) {
 
                 mostrarToast(
@@ -551,7 +686,8 @@ window.addEventListener("load", function () {
 
 
             const resultado =
-                window.TMLFETradeValidator.validate();
+                window.TMLFETradeValidator
+                    .validate();
 
 
             if (
@@ -562,11 +698,15 @@ window.addEventListener("load", function () {
                 estadoTrade.className =
                     "trade-status invalid";
 
+
                 estadoTrade.textContent =
-                    resultado.message;
+                    resultado.message ||
+                    "No se ha podido validar el traspaso.";
+
 
                 mostrarToast(
-                    resultado.message
+                    resultado.message ||
+                    "No se ha podido validar el traspaso."
                 );
 
                 return;
@@ -577,6 +717,7 @@ window.addEventListener("load", function () {
                 obtenerNombreEquipo(
                     resultado.teamA.team
                 );
+
 
             const nombreB =
                 obtenerNombreEquipo(
@@ -593,7 +734,6 @@ window.addEventListener("load", function () {
             estadoTrade.innerHTML = `
 
                 <div class="trade-validation-result">
-
 
                     <div class="trade-validation-team">
 
@@ -633,7 +773,9 @@ window.addEventListener("load", function () {
 
                             ${
                                 resultado.teamA.valid
+
                                     ? "✅ Cumple la regla salarial."
+
                                     : "❌ No cumple la regla salarial."
                             }
 
@@ -680,7 +822,9 @@ window.addEventListener("load", function () {
 
                             ${
                                 resultado.teamB.valid
+
                                     ? "✅ Cumple la regla salarial."
+
                                     : "❌ No cumple la regla salarial."
                             }
 
@@ -699,15 +843,86 @@ window.addEventListener("load", function () {
 
                     </div>
 
-
                 </div>
 
             `;
 
 
+            botonConfirmar.disabled =
+                !resultado.valid;
+
+
+            mostrarToast(
+                resultado.message ||
+                (
+                    resultado.valid
+                        ? "El traspaso es válido."
+                        : "El traspaso no es válido."
+                )
+            );
+        }
+    );
+
+
+    botonConfirmar.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !window.TMLFETradeApply ||
+                typeof window
+                    .TMLFETradeApply
+                    .apply !== "function"
+            ) {
+
+                mostrarToast(
+                    "No se ha podido cargar el ejecutor de traspasos."
+                );
+
+                return;
+            }
+
+
+            botonConfirmar.disabled =
+                true;
+
+
+            const resultado =
+                window.TMLFETradeApply
+                    .apply();
+
+
             mostrarToast(
                 resultado.message
             );
+
+
+            if (!resultado.ok) {
+
+                botonConfirmar.disabled =
+                    false;
+
+                return;
+            }
+
+
+            renderizar();
+
+
+            estadoTrade.className =
+                "trade-status valid";
+
+
+            estadoTrade.textContent =
+                "✅ Traspaso aplicado correctamente. Las plantillas han sido actualizadas.";
+
+
+            botonValidar.disabled =
+                true;
+
+
+            botonConfirmar.disabled =
+                true;
         }
     );
 
@@ -715,6 +930,15 @@ window.addEventListener("load", function () {
     window.addEventListener(
         "tmlfe-trade-updated",
         renderizar
+    );
+
+
+    window.addEventListener(
+        "tmlfe-trade-applied",
+        function () {
+
+            renderizar();
+        }
     );
 
 
