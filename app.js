@@ -1,113 +1,4 @@
-// ========================================
-// TMLFE - DASHBOARD CONTROLLER
-// Trade Machine Liga Franquicia Extraditables
-// ========================================
-
-
-// ========================================
-// LOGOS REALES DE LAS 30 FRANQUICIAS
-// ========================================
-
-const LOGOS_NBA = {
-
-    "Atlanta Hawks":
-        "https://a.espncdn.com/i/teamlogos/nba/500/atl.png",
-
-    "Boston Celtics":
-        "https://a.espncdn.com/i/teamlogos/nba/500/bos.png",
-
-    "Brooklyn Nets":
-        "https://a.espncdn.com/i/teamlogos/nba/500/bkn.png",
-
-    "Charlotte Hornets":
-        "https://a.espncdn.com/i/teamlogos/nba/500/cha.png",
-
-    "Chicago Bulls":
-        "https://a.espncdn.com/i/teamlogos/nba/500/chi.png",
-
-    "Cleveland Cavaliers":
-        "https://a.espncdn.com/i/teamlogos/nba/500/cle.png",
-
-    "Dallas Mavericks":
-        "https://a.espncdn.com/i/teamlogos/nba/500/dal.png",
-
-    "Denver Nuggets":
-        "https://a.espncdn.com/i/teamlogos/nba/500/den.png",
-
-    "Detroit Pistons":
-        "https://a.espncdn.com/i/teamlogos/nba/500/det.png",
-
-    "Golden State Warriors":
-        "https://a.espncdn.com/i/teamlogos/nba/500/gs.png",
-
-    "Houston Rockets":
-        "https://a.espncdn.com/i/teamlogos/nba/500/hou.png",
-
-    "Indiana Pacers":
-        "https://a.espncdn.com/i/teamlogos/nba/500/ind.png",
-
-    "Los Angeles Clippers":
-        "https://a.espncdn.com/i/teamlogos/nba/500/lac.png",
-
-    "LA Clippers":
-        "https://a.espncdn.com/i/teamlogos/nba/500/lac.png",
-
-    "Los Angeles Lakers":
-        "https://a.espncdn.com/i/teamlogos/nba/500/lal.png",
-
-    "Memphis Grizzlies":
-        "https://a.espncdn.com/i/teamlogos/nba/500/mem.png",
-
-    "Miami Heat":
-        "https://a.espncdn.com/i/teamlogos/nba/500/mia.png",
-
-    "Milwaukee Bucks":
-        "https://a.espncdn.com/i/teamlogos/nba/500/mil.png",
-
-    "Minnesota Timberwolves":
-        "https://a.espncdn.com/i/teamlogos/nba/500/min.png",
-
-    "New Orleans Pelicans":
-        "https://a.espncdn.com/i/teamlogos/nba/500/no.png",
-
-    "New York Knicks":
-        "https://a.espncdn.com/i/teamlogos/nba/500/ny.png",
-
-    "Oklahoma City Thunder":
-        "https://a.espncdn.com/i/teamlogos/nba/500/okc.png",
-
-    "Orlando Magic":
-        "https://a.espncdn.com/i/teamlogos/nba/500/orl.png",
-
-    "Philadelphia 76ers":
-        "https://a.espncdn.com/i/teamlogos/nba/500/phi.png",
-
-    "Phoenix Suns":
-        "https://a.espncdn.com/i/teamlogos/nba/500/phx.png",
-
-    "Portland Trail Blazers":
-        "https://a.espncdn.com/i/teamlogos/nba/500/por.png",
-
-    "Sacramento Kings":
-        "https://a.espncdn.com/i/teamlogos/nba/500/sac.png",
-
-    "San Antonio Spurs":
-        "https://a.espncdn.com/i/teamlogos/nba/500/sa.png",
-
-    "Toronto Raptors":
-        "https://a.espncdn.com/i/teamlogos/nba/500/tor.png",
-
-    "Utah Jazz":
-        "https://a.espncdn.com/i/teamlogos/nba/500/utah.png",
-
-    "Washington Wizards":
-        "https://a.espncdn.com/i/teamlogos/nba/500/wsh.png"
-};
-
-
-// ========================================
-// INICIO DE LA APLICACIÓN
-// ========================================
+"use strict";
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -115,712 +6,1191 @@ document.addEventListener(
 );
 
 
-function iniciarDashboard() {
+(function () {
 
-    console.log(
-        "🏀 Iniciando Dashboard TMLFE"
-    );
+    const TEMPORADA =
+        "2026/27";
 
-    const datos = obtenerDatosTMLFE();
+    const SALARY_CAP =
+        170000000;
 
-    if (!datos) {
+    const STORAGE_KEY_EDICIONES =
+        "tmlfe-player-edits";
 
-        mostrarErrorDatabase();
-
-        return;
-    }
-
-    actualizarEstadisticas(datos);
-
-    renderizarEquiposDestacados(datos);
-
-    configurarBotones(datos);
-
-    console.log(
-        `✅ ${datos.equipos.length} equipos cargados`
-    );
-
-    console.log(
-        `✅ ${datos.jugadores.length} jugadores cargados`
-    );
-}
+    const STORAGE_KEY_HISTORIAL =
+        "tmlfe-trade-history";
 
 
-// ========================================
-// OBTENER BASE DE DATOS
-// ========================================
+    function iniciarDashboard() {
 
-function obtenerDatosTMLFE() {
+        const datos =
+            obtenerDatosTMLFE();
 
-    const base =
-        window.TMLFE ||
-        window.TMLFE_DATABASE;
+        if (!datos) {
 
-    if (!base) {
+            mostrarToast(
+                "No se ha podido cargar la base de datos."
+            );
 
-        console.error(
-            "❌ No se ha cargado database.js"
-        );
+            return;
+        }
 
-        return null;
-    }
-
-    const equipos =
-        base.teams ||
-        base.equipos ||
-        [];
-
-    const jugadores =
-        base.players ||
-        base.jugadores ||
-        [];
-
-    if (!Array.isArray(equipos)) {
-
-        console.error(
-            "❌ La lista de equipos no es válida"
-        );
-
-        return null;
-    }
-
-    if (!Array.isArray(jugadores)) {
-
-        console.error(
-            "❌ La lista de jugadores no es válida"
-        );
-
-        return null;
-    }
-
-    return {
-        base,
-        equipos,
-        jugadores
-    };
-}
-
-
-// ========================================
-// ESTADÍSTICAS DEL DASHBOARD
-// ========================================
-
-function actualizarEstadisticas(datos) {
-
-    const totalEquipos =
-        document.getElementById(
-            "total-equipos"
-        );
-
-    const totalJugadores =
-        document.getElementById(
-            "total-jugadores"
-        );
-
-    const ratingMedio =
-        document.getElementById(
-            "rating-medio"
-        );
-
-    const totalTrades =
-        document.getElementById(
-            "total-trades"
-        );
-
-    const estadoDatabase =
-        document.getElementById(
-            "estado-database"
-        );
-
-
-    if (totalEquipos) {
-
-        totalEquipos.textContent =
-            datos.equipos.length;
-    }
-
-
-    if (totalJugadores) {
-
-        totalJugadores.textContent =
-            datos.jugadores.length;
-    }
-
-
-    if (ratingMedio) {
-
-        ratingMedio.textContent =
-            calcularRatingMedio(
+        const jugadoresActualizados =
+            aplicarEdicionesGuardadas(
                 datos.jugadores
             );
+
+        const historial =
+            obtenerHistorialTrades();
+
+        actualizarContadores(
+            datos.equipos,
+            jugadoresActualizados,
+            historial
+        );
+
+        actualizarSituacionSalarial(
+            datos.equipos,
+            jugadoresActualizados
+        );
+
+        renderizarUltimoTrade(
+            historial,
+            datos.equipos
+        );
+
+        renderizarActividadReciente(
+            historial,
+            datos.equipos
+        );
     }
 
 
-    if (totalTrades) {
+    function obtenerDatosTMLFE() {
 
-        totalTrades.textContent =
-            obtenerTotalTrades();
-    }
+        const base =
+            window.TMLFE ||
+            window.TMLFE_DATABASE;
 
+        if (!base) {
 
-    if (estadoDatabase) {
-
-        estadoDatabase.textContent =
-            `${datos.equipos.length} equipos y ` +
-            `${datos.jugadores.length} jugadores`;
-    }
-}
-
-
-// ========================================
-// CALCULAR RATING MEDIO
-// ========================================
-
-function calcularRatingMedio(jugadores) {
-
-    if (jugadores.length === 0) {
-
-        return "0.0";
-    }
-
-    const suma = jugadores.reduce(
-        function(total, jugador) {
-
-            const rating = Number(
-
-                jugador.rating ??
-                jugador.overall ??
-                jugador.media ??
-                jugador.ovr ??
-                0
+            console.error(
+                "No se ha cargado database.js."
             );
 
-            return total + rating;
-        },
-        0
-    );
+            return null;
+        }
 
-    return (
-        suma / jugadores.length
-    ).toFixed(1);
-}
+        const equipos =
+            Array.isArray(base.teams)
+                ? base.teams
+                : (
+                    Array.isArray(base.equipos)
+                        ? base.equipos
+                        : []
+                );
 
+        const jugadores =
+            Array.isArray(base.players)
+                ? base.players
+                : (
+                    Array.isArray(base.jugadores)
+                        ? base.jugadores
+                        : []
+                );
 
-// ========================================
-// TOTAL DE TRASPASOS
-// ========================================
-
-function obtenerTotalTrades() {
-
-    if (
-        window.TradesDB &&
-        Array.isArray(
-            window.TradesDB.trades
-        )
-    ) {
-
-        return window.TradesDB.trades.length;
+        return {
+            equipos,
+            jugadores
+        };
     }
 
-    const guardados =
-        localStorage.getItem(
-            "TMLFE_TRADES"
-        );
 
-    if (!guardados) {
+    function cargarObjetoLocal(clave) {
 
-        return 0;
-    }
+        try {
 
-    try {
-
-        const trades =
-            JSON.parse(guardados);
-
-        return Array.isArray(trades)
-            ? trades.length
-            : 0;
-
-    } catch (error) {
-
-        console.error(
-            "Error leyendo los trades:",
-            error
-        );
-
-        return 0;
-    }
-}
-
-
-// ========================================
-// RENDERIZAR FRANQUICIAS DESTACADAS
-// ========================================
-
-function renderizarEquiposDestacados(datos) {
-
-    const contenedor =
-        document.getElementById(
-            "equipos-destacados"
-        );
-
-    if (!contenedor) {
-
-        return;
-    }
-
-    if (datos.equipos.length === 0) {
-
-        contenedor.innerHTML = `
-            <div class="error-message">
-                No hay franquicias registradas.
-            </div>
-        `;
-
-        return;
-    }
-
-    const equiposMostrar =
-        datos.equipos.slice(0, 6);
-
-    contenedor.innerHTML =
-        equiposMostrar.map(
-            function(equipo) {
-
-                const nombre =
-                    obtenerNombreEquipo(
-                        equipo
-                    );
-
-                const manager =
-                    equipo.manager ||
-                    equipo.generalManager ||
-                    equipo.gm ||
-                    "Sin manager";
-
-                const division =
-                    equipo.division ||
-                    equipo.conference ||
-                    "Liga Franquicia Extraditables";
-
-                const cantidadJugadores =
-                    contarJugadoresEquipo(
-                        equipo,
-                        datos.jugadores
-                    );
-
-                const logo =
-                    obtenerLogoEquipo(
-                        equipo
-                    );
-
-                const idEquipo =
-                    obtenerIdEquipo(
-                        equipo
-                    );
-
-                const logoHTML = logo
-                    ? `
-                        <img
-                            class="team-logo"
-                            src="${escaparHTML(logo)}"
-                            alt="Escudo de ${escaparHTML(nombre)}"
-                            loading="lazy"
-                            onerror="
-                                this.style.display='none';
-                                this.nextElementSibling.style.display='grid';
-                            "
-                        >
-
-                        <span
-                            class="team-logo-fallback"
-                            style="display:none;"
-                        >
-                            ${obtenerIniciales(nombre)}
-                        </span>
-                    `
-                    : `
-                        <span
-                            class="team-logo-fallback"
-                            style="display:grid;"
-                        >
-                            ${obtenerIniciales(nombre)}
-                        </span>
-                    `;
-
-                return `
-                    <a
-                        class="team-preview"
-                        href="./teams.html?team=${encodeURIComponent(idEquipo)}"
-                    >
-
-                        <div class="team-badge">
-                            ${logoHTML}
-                        </div>
-
-                        <div class="team-preview-info">
-
-                            <h4>
-                                ${escaparHTML(nombre)}
-                            </h4>
-
-                            <p>
-                                ${escaparHTML(division)}
-                            </p>
-
-                            <small>
-                                GM: ${escaparHTML(manager)}
-                            </small>
-
-                        </div>
-
-                        <span class="team-player-count">
-
-                            ${cantidadJugadores}
-                            jugadores
-
-                        </span>
-
-                    </a>
-                `;
-            }
-        ).join("");
-}
-
-
-// ========================================
-// DATOS DE CADA EQUIPO
-// ========================================
-
-function obtenerNombreEquipo(equipo) {
-
-    return (
-        equipo.name ||
-        equipo.nombre ||
-        equipo.teamName ||
-        equipo.fullName ||
-        "Franquicia"
-    );
-}
-
-
-function obtenerIdEquipo(equipo) {
-
-    return (
-        equipo.id ||
-        equipo.teamId ||
-        equipo.equipoId ||
-        equipo.slug ||
-        obtenerNombreEquipo(equipo)
-    );
-}
-
-
-function obtenerLogoEquipo(equipo) {
-
-    const nombre =
-        obtenerNombreEquipo(equipo)
-            .trim();
-
-    if (equipo.logo) {
-
-        return equipo.logo;
-    }
-
-    if (equipo.logoUrl) {
-
-        return equipo.logoUrl;
-    }
-
-    if (equipo.logoURL) {
-
-        return equipo.logoURL;
-    }
-
-    if (LOGOS_NBA[nombre]) {
-
-        return LOGOS_NBA[nombre];
-    }
-
-    return "";
-}
-
-
-// ========================================
-// CONTAR JUGADORES DE CADA EQUIPO
-// ========================================
-
-function contarJugadoresEquipo(
-    equipo,
-    jugadores
-) {
-
-    const idEquipo =
-        String(
-            obtenerIdEquipo(equipo)
-        ).toLowerCase();
-
-    const nombreEquipo =
-        obtenerNombreEquipo(equipo)
-            .toLowerCase()
-            .trim();
-
-    return jugadores.filter(
-        function(jugador) {
-
-            const jugadorEquipoId =
-                String(
-                    jugador.teamId ??
-                    jugador.equipoId ??
-                    jugador.team_id ??
-                    jugador.franchiseId ??
-                    ""
-                ).toLowerCase();
-
-            const jugadorEquipoNombre =
-                String(
-                    jugador.team ??
-                    jugador.equipo ??
-                    jugador.teamName ??
-                    jugador.franchise ??
-                    ""
-                )
-                .toLowerCase()
-                .trim();
+            const valor =
+                JSON.parse(
+                    localStorage.getItem(clave)
+                );
 
             return (
-                jugadorEquipoId === idEquipo ||
-                jugadorEquipoNombre === nombreEquipo
+                valor &&
+                typeof valor === "object"
+            )
+                ? valor
+                : {};
+
+        } catch (error) {
+
+            console.warn(
+                `No se pudo leer ${clave}.`,
+                error
+            );
+
+            return {};
+        }
+    }
+
+
+    function cargarListaLocal(clave) {
+
+        try {
+
+            const valor =
+                JSON.parse(
+                    localStorage.getItem(clave)
+                );
+
+            return Array.isArray(valor)
+                ? valor
+                : [];
+
+        } catch (error) {
+
+            console.warn(
+                `No se pudo leer ${clave}.`,
+                error
+            );
+
+            return [];
+        }
+    }
+
+
+    function obtenerHistorialTrades() {
+
+        return cargarListaLocal(
+            STORAGE_KEY_HISTORIAL
+        );
+    }
+
+
+    function obtenerValor(
+        objeto,
+        nombres,
+        defecto
+    ) {
+
+        for (const nombre of nombres) {
+
+            if (
+                objeto &&
+                objeto[nombre] !== undefined &&
+                objeto[nombre] !== null &&
+                objeto[nombre] !== ""
+            ) {
+
+                return objeto[nombre];
+            }
+        }
+
+        return defecto;
+    }
+
+
+    function obtenerIdJugador(jugador) {
+
+        return String(
+            obtenerValor(
+                jugador,
+                [
+                    "id",
+                    "playerId",
+                    "name",
+                    "nombre",
+                    "playerName",
+                    "fullName"
+                ],
+                ""
+            )
+        ).trim();
+    }
+
+
+    function aplicarEdicionesGuardadas(
+        jugadores
+    ) {
+
+        const ediciones =
+            cargarObjetoLocal(
+                STORAGE_KEY_EDICIONES
+            );
+
+        return jugadores.map(
+            function (jugador) {
+
+                const id =
+                    obtenerIdJugador(
+                        jugador
+                    );
+
+                if (
+                    id &&
+                    ediciones[id] &&
+                    typeof ediciones[id] ===
+                        "object"
+                ) {
+
+                    return {
+                        ...jugador,
+                        ...ediciones[id]
+                    };
+                }
+
+                return {
+                    ...jugador
+                };
+            }
+        );
+    }
+
+
+    function normalizar(valor) {
+
+        return String(valor || "")
+            .normalize("NFD")
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            )
+            .trim()
+            .toLowerCase();
+    }
+
+
+    function convertirNumero(valor) {
+
+        if (
+            valor === undefined ||
+            valor === null ||
+            valor === ""
+        ) {
+
+            return 0;
+        }
+
+        if (typeof valor === "number") {
+
+            return Number.isFinite(valor)
+                ? valor
+                : 0;
+        }
+
+        const textoOriginal =
+            String(valor).trim();
+
+        if (!textoOriginal) {
+
+            return 0;
+        }
+
+        let texto =
+            textoOriginal
+                .replace(/\s/g, "")
+                .replace(/[€$]/g, "");
+
+        if (
+            texto.includes(",") &&
+            texto.includes(".")
+        ) {
+
+            texto =
+                texto
+                    .replace(/\./g, "")
+                    .replace(",", ".");
+
+        } else if (
+            texto.includes(",")
+        ) {
+
+            texto =
+                texto.replace(",", ".");
+        }
+
+        const coincidencia =
+            texto.match(
+                /-?\d+(\.\d+)?/
+            );
+
+        let numero =
+            coincidencia
+                ? Number(
+                    coincidencia[0]
+                ) || 0
+                : 0;
+
+        if (
+            /m(illones?)?$/i.test(
+                textoOriginal
+            ) &&
+            Math.abs(numero) <
+                1000000
+        ) {
+
+            numero *=
+                1000000;
+        }
+
+        return numero;
+    }
+
+
+    function obtenerSalarioJugador(
+        jugador
+    ) {
+
+        if (
+            jugador.salaries &&
+            typeof jugador.salaries ===
+                "object" &&
+            jugador.salaries[TEMPORADA] !==
+                undefined
+        ) {
+
+            return convertirNumero(
+                jugador.salaries[
+                    TEMPORADA
+                ]
             );
         }
-    ).length;
-}
 
+        if (
+            jugador.salary &&
+            typeof jugador.salary ===
+                "object" &&
+            jugador.salary[TEMPORADA] !==
+                undefined
+        ) {
 
-// ========================================
-// INICIALES DEL EQUIPO
-// ========================================
+            return convertirNumero(
+                jugador.salary[
+                    TEMPORADA
+                ]
+            );
+        }
 
-function obtenerIniciales(nombre) {
-
-    const palabras =
-        nombre
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean);
-
-    if (palabras.length === 1) {
-
-        return palabras[0]
-            .slice(0, 3)
-            .toUpperCase();
+        return convertirNumero(
+            obtenerValor(
+                jugador,
+                [
+                    "salary",
+                    "salario",
+                    "currentSalary",
+                    "26/27"
+                ],
+                0
+            )
+        );
     }
 
-    return palabras
-        .slice(-2)
-        .map(
-            function(palabra) {
 
-                return palabra.charAt(0);
+    function obtenerCodigoEquipo(
+        equipo
+    ) {
+
+        return String(
+            obtenerValor(
+                equipo,
+                [
+                    "short",
+                    "code",
+                    "abbreviation",
+                    "id",
+                    "codigo"
+                ],
+                ""
+            )
+        ).trim();
+    }
+
+
+    function obtenerNombreEquipo(
+        equipo
+    ) {
+
+        return String(
+            obtenerValor(
+                equipo,
+                [
+                    "name",
+                    "nombre",
+                    "fullName",
+                    "franchise"
+                ],
+                obtenerCodigoEquipo(
+                    equipo
+                ) ||
+                "Franquicia"
+            )
+        ).trim();
+    }
+
+
+    function obtenerCodigoJugador(
+        jugador
+    ) {
+
+        return String(
+            obtenerValor(
+                jugador,
+                [
+                    "teamShort",
+                    "teamCode",
+                    "team",
+                    "equipo",
+                    "franchiseShort",
+                    "franchise"
+                ],
+                ""
+            )
+        ).trim();
+    }
+
+
+    function buscarEquipo(
+        equipos,
+        codigo
+    ) {
+
+        const buscado =
+            normalizar(codigo);
+
+        return equipos.find(
+            function (equipo) {
+
+                return (
+                    normalizar(
+                        obtenerCodigoEquipo(
+                            equipo
+                        )
+                    ) === buscado ||
+
+                    normalizar(
+                        obtenerNombreEquipo(
+                            equipo
+                        )
+                    ) === buscado
+                );
             }
-        )
-        .join("")
-        .toUpperCase();
-}
+        );
+    }
 
 
-// ========================================
-// BOTONES DEL DASHBOARD
-// ========================================
+    function obtenerNombreEquipoPorCodigo(
+        equipos,
+        codigo
+    ) {
 
-function configurarBotones(datos) {
+        const equipo =
+            buscarEquipo(
+                equipos,
+                codigo
+            );
 
-    const botonActualizar =
-        document.getElementById(
-            "actualizar-dashboard"
+        return equipo
+            ? obtenerNombreEquipo(
+                equipo
+            )
+            : codigo ||
+                "Franquicia";
+    }
+
+
+    function obtenerRutaEscudo(codigo) {
+
+        const limpio =
+            String(codigo || "")
+                .trim()
+                .toLowerCase();
+
+        return limpio
+            ? `./${limpio}.png`
+            : "";
+    }
+
+
+    function obtenerNominaEquipo(
+        jugadores,
+        codigoEquipo
+    ) {
+
+        const codigo =
+            normalizar(
+                codigoEquipo
+            );
+
+        return jugadores
+            .filter(
+                function (jugador) {
+
+                    return (
+                        normalizar(
+                            obtenerCodigoJugador(
+                                jugador
+                            )
+                        ) ===
+                        codigo
+                    );
+                }
+            )
+            .reduce(
+                function (
+                    total,
+                    jugador
+                ) {
+
+                    return (
+                        total +
+                        obtenerSalarioJugador(
+                            jugador
+                        )
+                    );
+                },
+                0
+            );
+    }
+
+
+    function actualizarContadores(
+        equipos,
+        jugadores,
+        historial
+    ) {
+
+        ponerTexto(
+            "total-equipos",
+            equipos.length
         );
 
-    const botonGuardar =
-        document.getElementById(
-            "guardar-datos"
+        ponerTexto(
+            "total-jugadores",
+            jugadores.length
         );
 
+        ponerTexto(
+            "total-trades",
+            historial.length
+        );
+    }
 
-    if (botonActualizar) {
 
-        botonActualizar.addEventListener(
-            "click",
-            function() {
+    function actualizarSituacionSalarial(
+        equipos,
+        jugadores
+    ) {
 
-                actualizarEstadisticas(
-                    datos
-                );
+        let bajoCap =
+            0;
 
-                renderizarEquiposDestacados(
-                    datos
-                );
+        let sobreCap =
+            0;
 
-                mostrarToast(
-                    "Dashboard actualizado"
-                );
+        equipos.forEach(
+            function (equipo) {
+
+                const codigo =
+                    obtenerCodigoEquipo(
+                        equipo
+                    );
+
+                const nomina =
+                    obtenerNominaEquipo(
+                        jugadores,
+                        codigo
+                    );
+
+                if (
+                    nomina <
+                    SALARY_CAP
+                ) {
+
+                    bajoCap += 1;
+
+                } else {
+
+                    sobreCap += 1;
+                }
             }
         );
-    }
 
+        ponerTexto(
+            "equipos-bajo-cap",
+            bajoCap
+        );
 
-    if (botonGuardar) {
+        ponerTexto(
+            "resumen-bajo-cap",
+            bajoCap
+        );
 
-        botonGuardar.addEventListener(
-            "click",
-            function() {
-
-                guardarLiga(
-                    datos.base
-                );
-            }
+        ponerTexto(
+            "equipos-sobre-cap",
+            sobreCap
         );
     }
-}
 
 
-// ========================================
-// GUARDAR LIGA
-// ========================================
+    function renderizarUltimoTrade(
+        historial,
+        equipos
+    ) {
 
-function guardarLiga(baseDatos) {
+        const contenedor =
+            document.getElementById(
+                "ultimo-trade"
+            );
 
-    try {
+        if (!contenedor) {
 
-        localStorage.setItem(
-            "TMLFE_DATA",
-            JSON.stringify(baseDatos)
-        );
+            return;
+        }
 
-        mostrarToast(
-            "Liga guardada correctamente"
-        );
+        if (
+            historial.length === 0
+        ) {
 
-        console.log(
-            "💾 Liga guardada"
-        );
+            contenedor.innerHTML = `
 
-    } catch (error) {
+                <div class="dashboard-empty-state">
 
-        console.error(
-            "❌ Error al guardar:",
-            error
-        );
+                    <strong>
+                        Todavía no hay traspasos
+                    </strong>
 
-        mostrarToast(
-            "No se ha podido guardar la liga"
-        );
-    }
-}
+                    <span>
+                        La primera operación confirmada
+                        aparecerá aquí automáticamente.
+                    </span>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+        const trade =
+            historial[0];
+
+        const nombreA =
+            obtenerNombreEquipoPorCodigo(
+                equipos,
+                trade.teamA
+            );
+
+        const nombreB =
+            obtenerNombreEquipoPorCodigo(
+                equipos,
+                trade.teamB
+            );
+
+        const jugadoresA =
+            Array.isArray(
+                trade.playersA
+            )
+                ? trade.playersA
+                : [];
+
+        const jugadoresB =
+            Array.isArray(
+                trade.playersB
+            )
+                ? trade.playersB
+                : [];
+
+        contenedor.innerHTML = `
+
+            <div class="latest-trade-header">
+
+                <div class="latest-trade-team">
+
+                    <img
+                        src="${escaparHTML(
+                            obtenerRutaEscudo(
+                                trade.teamA
+                            )
+                        )}"
+                        alt="${escaparHTML(
+                            nombreA
+                        )}"
+                        onerror="
+                            this.style.display='none';
+                        "
+                    >
+
+                    <div>
+
+                        <span>
+                            ${escaparHTML(
+                                trade.teamA
+                            )}
+                        </span>
+
+                        <strong>
+                            ${escaparHTML(
+                                nombreA
+                            )}
+                        </strong>
+
+                    </div>
+
+                </div>
 
 
-// ========================================
-// ERROR DE BASE DE DATOS
-// ========================================
-
-function mostrarErrorDatabase() {
-
-    const estado =
-        document.getElementById(
-            "estado-database"
-        );
-
-    const equipos =
-        document.getElementById(
-            "equipos-destacados"
-        );
+                <div class="latest-trade-arrow">
+                    ⇄
+                </div>
 
 
-    if (estado) {
+                <div class="latest-trade-team">
 
-        estado.textContent =
-            "Error al cargar database.js";
-    }
+                    <img
+                        src="${escaparHTML(
+                            obtenerRutaEscudo(
+                                trade.teamB
+                            )
+                        )}"
+                        alt="${escaparHTML(
+                            nombreB
+                        )}"
+                        onerror="
+                            this.style.display='none';
+                        "
+                    >
 
+                    <div>
 
-    if (equipos) {
+                        <span>
+                            ${escaparHTML(
+                                trade.teamB
+                            )}
+                        </span>
 
-        equipos.innerHTML = `
-            <div class="error-message">
+                        <strong>
+                            ${escaparHTML(
+                                nombreB
+                            )}
+                        </strong>
 
-                No se ha cargado database.js.
+                    </div>
 
-                Abre la consola del navegador
-                para ver el error.
+                </div>
 
             </div>
+
+
+            <div class="latest-trade-players">
+
+                <div>
+
+                    <span>
+                        ${escaparHTML(
+                            nombreA
+                        )} recibe
+                    </span>
+
+                    ${crearListaJugadores(
+                        jugadoresB
+                    )}
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        ${escaparHTML(
+                            nombreB
+                        )} recibe
+                    </span>
+
+                    ${crearListaJugadores(
+                        jugadoresA
+                    )}
+
+                </div>
+
+            </div>
+
+
+            <div class="latest-trade-footer">
+
+                <span class="status-pill">
+                    Trade confirmado
+                </span>
+
+                <time>
+                    ${escaparHTML(
+                        formatearFecha(
+                            trade.fecha
+                        )
+                    )}
+                </time>
+
+            </div>
+
         `;
     }
 
-    mostrarToast(
-        "Error al cargar la base de datos"
-    );
-}
 
+    function crearListaJugadores(
+        jugadores
+    ) {
 
-// ========================================
-// MENSAJE EMERGENTE
-// ========================================
+        if (
+            !Array.isArray(
+                jugadores
+            ) ||
+            jugadores.length === 0
+        ) {
 
-function mostrarToast(mensaje) {
+            return `
 
-    const toast =
-        document.getElementById(
-            "toast"
-        );
+                <p class="latest-trade-empty">
+                    Sin jugadores registrados
+                </p>
 
-    if (!toast) {
+            `;
+        }
 
-        return;
+        return `
+
+            <ul>
+
+                ${jugadores.map(
+                    function (jugador) {
+
+                        return `
+
+                            <li>
+
+                                <strong>
+                                    ${escaparHTML(
+                                        jugador.name ||
+                                        "Jugador"
+                                    )}
+                                </strong>
+
+                            </li>
+
+                        `;
+                    }
+                ).join("")}
+
+            </ul>
+
+        `;
     }
 
-    toast.textContent =
-        mensaje;
 
-    toast.classList.add(
-        "visible"
-    );
+    function renderizarActividadReciente(
+        historial,
+        equipos
+    ) {
 
-    window.clearTimeout(
-        mostrarToast.timeout
-    );
+        const contenedor =
+            document.getElementById(
+                "actividad-reciente"
+            );
 
-    mostrarToast.timeout =
-        window.setTimeout(
-            function() {
+        if (!contenedor) {
 
-                toast.classList.remove(
-                    "visible"
-                );
-            },
-            2500
+            return;
+        }
+
+        if (
+            historial.length === 0
+        ) {
+
+            contenedor.innerHTML = `
+
+                <div class="dashboard-empty-state">
+
+                    <strong>
+                        Sin movimientos recientes
+                    </strong>
+
+                    <span>
+                        Los jugadores traspasados aparecerán
+                        en esta sección.
+                    </span>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+        const movimientos =
+            [];
+
+        historial
+            .slice(0, 6)
+            .forEach(
+                function (trade) {
+
+                    const nombreA =
+                        obtenerNombreEquipoPorCodigo(
+                            equipos,
+                            trade.teamA
+                        );
+
+                    const nombreB =
+                        obtenerNombreEquipoPorCodigo(
+                            equipos,
+                            trade.teamB
+                        );
+
+                    const jugadoresA =
+                        Array.isArray(
+                            trade.playersA
+                        )
+                            ? trade.playersA
+                            : [];
+
+                    const jugadoresB =
+                        Array.isArray(
+                            trade.playersB
+                        )
+                            ? trade.playersB
+                            : [];
+
+                    jugadoresA.forEach(
+                        function (jugador) {
+
+                            movimientos.push({
+                                player:
+                                    jugador.name ||
+                                    "Jugador",
+
+                                team:
+                                    nombreB,
+
+                                code:
+                                    trade.teamB,
+
+                                date:
+                                    trade.fecha
+                            });
+                        }
+                    );
+
+                    jugadoresB.forEach(
+                        function (jugador) {
+
+                            movimientos.push({
+                                player:
+                                    jugador.name ||
+                                    "Jugador",
+
+                                team:
+                                    nombreA,
+
+                                code:
+                                    trade.teamA,
+
+                                date:
+                                    trade.fecha
+                            });
+                        }
+                    );
+                }
+            );
+
+        contenedor.innerHTML =
+            movimientos
+                .slice(0, 8)
+                .map(
+                    function (movimiento) {
+
+                        return `
+
+                            <div class="activity-item">
+
+                                <div class="activity-team-logo">
+
+                                    <img
+                                        src="${escaparHTML(
+                                            obtenerRutaEscudo(
+                                                movimiento.code
+                                            )
+                                        )}"
+                                        alt=""
+                                        onerror="
+                                            this.style.display='none';
+                                        "
+                                    >
+
+                                </div>
+
+
+                                <div class="activity-item-copy">
+
+                                    <strong>
+                                        ${escaparHTML(
+                                            movimiento.player
+                                        )}
+                                    </strong>
+
+                                    <span>
+                                        se incorpora a
+                                        ${escaparHTML(
+                                            movimiento.team
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                                <time>
+                                    ${escaparHTML(
+                                        formatearFechaCorta(
+                                            movimiento.date
+                                        )
+                                    )}
+                                </time>
+
+                            </div>
+
+                        `;
+                    }
+                )
+                .join("");
+    }
+
+
+    function formatearFecha(fecha) {
+
+        if (!fecha) {
+
+            return "Fecha no disponible";
+        }
+
+        const objetoFecha =
+            new Date(fecha);
+
+        if (
+            Number.isNaN(
+                objetoFecha.getTime()
+            )
+        ) {
+
+            return "Fecha no disponible";
+        }
+
+        return objetoFecha.toLocaleString(
+            "es-ES",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
         );
-}
+    }
 
 
-// ========================================
-// SEGURIDAD HTML
-// ========================================
+    function formatearFechaCorta(
+        fecha
+    ) {
 
-function escaparHTML(valor) {
+        if (!fecha) {
 
-    return String(valor)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
+            return "";
+        }
+
+        const objetoFecha =
+            new Date(fecha);
+
+        if (
+            Number.isNaN(
+                objetoFecha.getTime()
+            )
+        ) {
+
+            return "";
+        }
+
+        return objetoFecha.toLocaleDateString(
+            "es-ES",
+            {
+                day: "2-digit",
+                month: "2-digit"
+            }
+        );
+    }
 
 
-// ========================================
-// CONFIRMACIÓN DE CARGA
-// ========================================
+    function ponerTexto(
+        id,
+        valor
+    ) {
 
-console.log(
-    "⚙️ app.js cargado correctamente"
-);
+        const elemento =
+            document.getElementById(
+                id
+            );
+
+        if (elemento) {
+
+            elemento.textContent =
+                valor;
+        }
+    }
+
+
+    function mostrarToast(
+        mensaje
+    ) {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+        if (!toast) {
+
+            return;
+        }
+
+        toast.textContent =
+            mensaje;
+
+        toast.classList.add(
+            "show"
+        );
+
+        window.clearTimeout(
+            mostrarToast.temporizador
+        );
+
+        mostrarToast.temporizador =
+            window.setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+                },
+                2600
+            );
+    }
+
+
+    function escaparHTML(valor) {
+
+        return String(
+            valor ?? ""
+        )
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+})();
