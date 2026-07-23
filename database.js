@@ -10,7 +10,7 @@
 const TMLFE = {
   "version": "1.0",
   "season": "2026/27",
-  "salaryCap": 155000000,
+  "salaryCap": 170000000,
   "teams": [
     {
       "id": 1,
