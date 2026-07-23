@@ -1388,3 +1388,156 @@ button {
         text-align: left;
     }
 }
+/* ==================================================
+   CORRECCIÓN FINAL — ECONOMÍA DE FRANQUICIAS
+   ================================================== */
+
+.franchise-card .franchise-manager {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    min-height: 44px !important;
+    margin-top: 14px !important;
+    padding: 0 13px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.025) !important;
+}
+
+.franchise-card .franchise-manager span {
+    color: var(--muted) !important;
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+}
+
+.franchise-card .franchise-manager strong {
+    color: var(--text) !important;
+    font-size: 12px !important;
+}
+
+.franchise-card .franchise-numbers {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    margin-top: 11px !important;
+}
+
+.franchise-card .franchise-numbers > div {
+    display: block !important;
+    min-width: 0 !important;
+    padding: 12px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.025) !important;
+}
+
+.franchise-card .franchise-numbers span {
+    display: block !important;
+    color: var(--muted) !important;
+    font-size: 9px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+}
+
+.franchise-card .franchise-numbers strong {
+    display: inline-block !important;
+    margin-top: 7px !important;
+    color: var(--text) !important;
+    font-size: 16px !important;
+}
+
+.franchise-card .franchise-numbers small {
+    color: var(--muted) !important;
+    font-size: 9px !important;
+}
+
+.franchise-card .salary-progress {
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: 92px !important;
+    margin-top: 11px !important;
+    padding: 13px !important;
+    overflow: visible !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.025) !important;
+}
+
+.franchise-card .salary-progress-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    min-height: 18px !important;
+}
+
+.franchise-card .salary-progress-header span {
+    color: var(--muted) !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+}
+
+.franchise-card .salary-progress-header strong {
+    display: block !important;
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+}
+
+.franchise-card .salary-track {
+    display: block !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 7px !important;
+    margin: 11px 0 9px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.075) !important;
+}
+
+.franchise-card .salary-track span {
+    display: block !important;
+    height: 100% !important;
+    border-radius: 999px !important;
+    background: linear-gradient(
+        90deg,
+        var(--gold),
+        #e69e28
+    ) !important;
+}
+
+.franchise-card .salary-progress-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.franchise-card .salary-progress-footer span {
+    display: block !important;
+    color: var(--muted) !important;
+    font-size: 9px !important;
+}
+
+.franchise-card .franchise-footer {
+    display: block !important;
+    margin-top: 13px !important;
+    padding-top: 13px !important;
+}
+
+.franchise-card .franchise-open-button {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 42px !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 15px !important;
+}
+
+@media (max-width: 520px) {
+    .franchise-card .franchise-numbers {
+        grid-template-columns: 1fr !important;
+    }
+}
