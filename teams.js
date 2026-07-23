@@ -288,16 +288,19 @@ window.addEventListener("load", function () {
 
         const rutas = [
 
-            `assets/logos/${codigoMinusculas}.png`,
-            `assets/logos/${codigo}.png`,
+    `./${codigoMinusculas}.png`,
+    `./${codigo}.png`,
 
-            `logos/${codigoMinusculas}.png`,
-            `logos/${codigo}.png`,
+    `assets/logos/${codigoMinusculas}.png`,
+    `assets/logos/${codigo}.png`,
 
-            `assets/${codigoMinusculas}.png`,
-            `assets/${codigo}.png`
+    `logos/${codigoMinusculas}.png`,
+    `logos/${codigo}.png`,
 
-        ];
+    `assets/${codigoMinusculas}.png`,
+    `assets/${codigo}.png`
+
+];
 
 
         let posicion = 0;
