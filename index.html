@@ -2,15 +2,13 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TMLFE | Trade Machine Liga Franquicia Extraditables</title>
 
-    <link rel="stylesheet" href="styles.css?v=30">
-
+    <link rel="stylesheet" href="styles.css?v=31">
 </head>
 
 <body>
@@ -26,11 +24,8 @@
             </div>
 
             <div>
-
                 <h1>TMLFE</h1>
-
                 <span>Trade Machine</span>
-
             </div>
 
         </div>
@@ -55,83 +50,255 @@
 
         </nav>
 
-    </aside>
+        <div class="sidebar-footer">
+            <span>Temporada</span>
+            <strong>2026/27</strong>
+        </div>
 
+    </aside>
 
     <main class="main-content">
 
         <header class="topbar">
 
             <div>
-
                 <p class="eyebrow">
-                    DASHBOARD
+                    FRONT OFFICE
                 </p>
 
                 <h2>
                     Bienvenido al TMLFE
                 </h2>
 
+                <p class="topbar-subtitle">
+                    Gestión, análisis y validación de traspasos de la Liga Franquicia Extraditables.
+                </p>
+            </div>
+
+            <div class="season-badge">
+                <span>Salary Cap</span>
+                <strong>170,0 M</strong>
             </div>
 
         </header>
 
-
-
         <section class="dashboard-cards">
 
-            <div class="stat-card">
+            <article class="stat-card">
 
-                <h3 id="total-equipos">
-                    0
-                </h3>
+                <div class="stat-icon">
+                    🏀
+                </div>
 
-                <p>Franquicias</p>
+                <div>
+                    <h3 id="total-equipos">
+                        0
+                    </h3>
 
-            </div>
+                    <p>Franquicias</p>
+                </div>
 
+            </article>
 
-            <div class="stat-card">
+            <article class="stat-card">
 
-                <h3 id="total-jugadores">
-                    0
-                </h3>
+                <div class="stat-icon">
+                    👤
+                </div>
 
-                <p>Jugadores</p>
+                <div>
+                    <h3 id="total-jugadores">
+                        0
+                    </h3>
 
-            </div>
+                    <p>Jugadores</p>
+                </div>
 
+            </article>
 
-            <div class="stat-card">
+            <article class="stat-card">
 
-                <h3 id="total-trades">
-                    0
-                </h3>
+                <div class="stat-icon">
+                    🔄
+                </div>
 
-                <p>Traspasos</p>
+                <div>
+                    <h3 id="total-trades">
+                        0
+                    </h3>
 
-            </div>
+                    <p>Traspasos realizados</p>
+                </div>
+
+            </article>
+
+            <article class="stat-card">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <div>
+                    <h3>
+                        170,0 M
+                    </h3>
+
+                    <p>Límite salarial</p>
+                </div>
+
+            </article>
 
         </section>
 
+        <section class="dashboard-grid">
 
+            <article class="welcome-panel">
 
-        <section class="welcome-panel">
+                <div class="panel-heading">
 
-            <h2>
-                Trade Machine Liga Franquicia Extraditables
-            </h2>
+                    <div>
+                        <p class="eyebrow">
+                            CENTRO DE OPERACIONES
+                        </p>
 
-            <p>
+                        <h2>
+                            Trade Machine Liga Franquicia Extraditables
+                        </h2>
+                    </div>
 
-                Bienvenido al panel de control.
+                    <span class="status-pill">
+                        Sistema operativo
+                    </span>
 
-                Desde aquí podrás gestionar las 30 franquicias,
-                consultar plantillas,
-                controlar el Salary Cap
-                y realizar traspasos válidos automáticamente.
+                </div>
 
-            </p>
+                <p class="welcome-text">
+
+                    Gestiona las 30 franquicias de la liga, consulta plantillas,
+                    edita jugadores, controla el Salary Cap y comprueba
+                    automáticamente si un traspaso cumple todas las reglas de la LFE.
+
+                </p>
+
+                <div class="quick-actions">
+
+                    <a class="quick-action" href="teams.html">
+
+                        <span class="quick-action-icon">
+                            🏀
+                        </span>
+
+                        <div>
+                            <strong>Ver franquicias</strong>
+                            <small>Plantillas, managers y salarios</small>
+                        </div>
+
+                    </a>
+
+                    <a class="quick-action" href="players.html">
+
+                        <span class="quick-action-icon">
+                            👤
+                        </span>
+
+                        <div>
+                            <strong>Gestionar jugadores</strong>
+                            <small>Buscar, consultar y editar datos</small>
+                        </div>
+
+                    </a>
+
+                    <a class="quick-action" href="trade.html">
+
+                        <span class="quick-action-icon">
+                            🔄
+                        </span>
+
+                        <div>
+                            <strong>Abrir Trade Machine</strong>
+                            <small>Proponer y validar traspasos</small>
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </article>
+
+            <article class="system-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            ESTADO DEL SISTEMA
+                        </p>
+
+                        <h2>
+                            Base de datos
+                        </h2>
+                    </div>
+
+                </div>
+
+                <div class="system-list">
+
+                    <div class="system-row">
+                        <span>Franquicias</span>
+                        <strong>Conectadas</strong>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Plantillas</span>
+                        <strong>Cargadas</strong>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Escudos</span>
+                        <strong>Activos</strong>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Temporada</span>
+                        <strong>2026/27</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="legacy-banner">
+
+            <div class="legacy-overlay"></div>
+
+            <div class="legacy-content">
+
+                <p class="eyebrow">
+                    LEGACY COURT
+                </p>
+
+                <h2>
+                    Mentalidad, carácter y grandeza
+                </h2>
+
+                <p>
+                    Un homenaje a Kobe Bryant, Dirk Nowitzki, Allen Iverson,
+                    Jaycee Carroll y Shaquille O'Neal.
+                </p>
+
+                <div class="legacy-names">
+
+                    <span>KOBE</span>
+                    <span>DIRK</span>
+                    <span>IVERSON</span>
+                    <span>JAYCEE</span>
+                    <span>SHAQ</span>
+
+                </div>
+
+            </div>
 
         </section>
 
@@ -139,9 +306,8 @@
 
 </div>
 
-
-<script src="database.js?v=30"></script>
-<script src="app.js?v=30"></script>
+<script src="database.js?v=31"></script>
+<script src="app.js?v=31"></script>
 
 </body>
 </html>
