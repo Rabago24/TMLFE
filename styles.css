@@ -1108,3 +1108,283 @@ button {
         grid-template-columns: 1fr;
     }
 }
+/* ==================================================
+   AJUSTE EXACTO DE TARJETAS GENERADAS POR teams.js
+   ================================================== */
+
+.franchise-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 76px;
+    margin-bottom: 18px;
+}
+
+.franchise-logo-box {
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.franchise-logo-box .franchise-logo {
+    width: 52px;
+    height: 52px;
+    padding: 3px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    object-fit: contain;
+}
+
+.franchise-logo-fallback {
+    color: var(--gold);
+    font-size: 17px;
+    letter-spacing: 0.05em;
+}
+
+.franchise-identity {
+    min-width: 0;
+}
+
+.franchise-identity span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.franchise-identity h3 {
+    overflow: hidden;
+    margin: 0;
+    color: var(--text);
+    font-size: 19px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.franchise-identity p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.franchise-manager {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    min-height: 43px;
+    padding: 0 13px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.franchise-manager span {
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.franchise-manager strong {
+    overflow: hidden;
+    color: var(--text);
+    font-size: 12px;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.franchise-numbers {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.franchise-numbers > div {
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.franchise-numbers span {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.franchise-numbers strong {
+    display: inline-block;
+    margin-top: 7px;
+    color: var(--text);
+    font-size: 17px;
+}
+
+.franchise-numbers small {
+    margin-left: 4px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.salary-progress {
+    position: relative;
+    z-index: 2;
+    height: auto;
+    margin-top: 13px;
+    padding: 13px;
+    overflow: visible;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.salary-progress-header,
+.salary-progress-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.salary-progress-header span {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.salary-progress-header strong {
+    font-size: 10px;
+    text-align: right;
+}
+
+.salary-track {
+    overflow: hidden;
+    height: 7px;
+    margin: 11px 0 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.075);
+}
+
+.salary-track span {
+    display: block;
+    height: 100%;
+    min-width: 3px;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        var(--gold),
+        #e79e27
+    );
+}
+
+.salary-progress-footer span {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 750;
+}
+
+.salary-warning {
+    color: var(--gold) !important;
+}
+
+.franchise-footer {
+    position: relative;
+    z-index: 2;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.franchise-open-button {
+    width: 100%;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    color: #10131b;
+    border-radius: 11px;
+    background: linear-gradient(
+        135deg,
+        var(--gold),
+        #e6a72b
+    );
+    font-size: 11px;
+    font-weight: 900;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.franchise-open-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 11px 25px rgba(247, 200, 90, 0.19);
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 30px;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.02);
+    text-align: center;
+}
+
+.empty-state strong {
+    font-size: 17px;
+}
+
+.empty-state span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+@media (max-width: 520px) {
+    .franchise-numbers {
+        grid-template-columns: 1fr;
+    }
+
+    .franchise-manager {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 11px;
+        padding-bottom: 11px;
+    }
+
+    .franchise-manager strong {
+        text-align: left;
+    }
+}
