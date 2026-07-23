@@ -1968,3 +1968,69 @@ button {
         grid-template-columns: 1fr !important;
     }
 }
+/* =========================================================
+   TMLFE · ÚLTIMOS AJUSTES TRADE MACHINE
+   ========================================================= */
+
+.topbar #vaciar-trade {
+    min-height: 44px !important;
+    padding: 0 18px !important;
+    border: 1px solid rgba(248, 196, 79, 0.24) !important;
+    border-radius: 13px !important;
+    color: #f6c451 !important;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(248, 196, 79, 0.1),
+            rgba(255, 255, 255, 0.025)
+        ) !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.topbar #vaciar-trade:hover {
+    transform: translateY(-2px) !important;
+    border-color: rgba(248, 196, 79, 0.5) !important;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(248, 196, 79, 0.17),
+            rgba(255, 255, 255, 0.04)
+        ) !important;
+}
+
+.trade-action-buttons #validar-trade:disabled,
+.trade-action-buttons #confirmar-trade:disabled {
+    color: rgba(255, 255, 255, 0.28) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+}
+
+.trade-action-buttons #validar-trade:not(:disabled) {
+    color: #08111f !important;
+    background:
+        linear-gradient(
+            135deg,
+            #ffd261,
+            #e5aa30
+        ) !important;
+    border-color: rgba(255, 215, 110, 0.45) !important;
+    box-shadow:
+        0 12px 24px rgba(229, 170, 48, 0.18) !important;
+}
+
+.trade-action-buttons #confirmar-trade:not(:disabled) {
+    color: #d7ffe9 !important;
+    background: rgba(43, 210, 130, 0.12) !important;
+    border-color: rgba(43, 210, 130, 0.32) !important;
+    box-shadow:
+        0 12px 24px rgba(43, 210, 130, 0.08) !important;
+}
