@@ -695,4 +695,416 @@ button {
         font-size: 70px;
         right: -5%;
     }
+}/* ==================================================
+   TMLFE — PÁGINA DE FRANQUICIAS
+   ================================================== */
+
+.teams-hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(247, 200, 90, 0.13),
+            transparent 25%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.018)
+        ),
+        var(--panel);
+    box-shadow: var(--shadow);
+}
+
+.teams-hero h3 {
+    margin: 0;
+    font-size: clamp(24px, 3vw, 34px);
+    letter-spacing: -0.035em;
+}
+
+.teams-hero p:not(.hero-label) {
+    max-width: 680px;
+    margin: 12px 0 0;
+    color: var(--text-soft);
+    line-height: 1.7;
+}
+
+.hero-label {
+    margin: 0 0 9px;
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+}
+
+.teams-hero-number {
+    flex: 0 0 auto;
+    min-width: 155px;
+    padding: 20px;
+    border: 1px solid rgba(247, 200, 90, 0.2);
+    border-radius: var(--radius-md);
+    background: rgba(247, 200, 90, 0.075);
+    text-align: center;
+}
+
+.teams-hero-number strong {
+    display: block;
+    color: var(--gold);
+    font-size: 38px;
+    line-height: 1;
+}
+
+.teams-hero-number span {
+    display: block;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.teams-toolbar {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 220px 210px;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box span {
+    position: absolute;
+    left: 15px;
+    z-index: 2;
+    color: var(--gold);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.search-box input,
+.teams-toolbar select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 15px;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    background: #101827;
+}
+
+.search-box input {
+    padding-left: 43px;
+}
+
+.search-box input::placeholder {
+    color: var(--muted);
+}
+
+.franchises-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.franchise-card {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.018)
+        ),
+        var(--panel);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+    transition:
+        transform 0.24s ease,
+        border-color 0.24s ease,
+        background 0.24s ease;
+}
+
+.franchise-card::after {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -55px;
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    background: rgba(247, 200, 90, 0.075);
+}
+
+.franchise-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(247, 200, 90, 0.26);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.075),
+            rgba(255, 255, 255, 0.025)
+        ),
+        var(--panel-hover);
+}
+
+.franchise-card-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 19px;
+}
+
+.franchise-logo,
+.team-logo,
+.logo-equipo {
+    flex: 0 0 auto;
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.franchise-card h3,
+.franchise-name {
+    margin: 0;
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.25;
+}
+
+.franchise-code,
+.franchise-meta,
+.team-short,
+.team-conference,
+.team-division {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.05em;
+}
+
+.franchise-manager {
+    margin-top: 7px;
+    color: var(--text-soft);
+    font-size: 12px;
+}
+
+.franchise-manager strong {
+    color: var(--text);
+}
+
+.franchise-stats {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.franchise-stat {
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.franchise-stat span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.franchise-stat strong {
+    display: block;
+    overflow: hidden;
+    margin-top: 7px;
+    color: var(--text);
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.franchise-salary-bar,
+.salary-progress {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    height: 7px;
+    margin-top: 15px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.065);
+}
+
+.franchise-salary-fill,
+.salary-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--gold), #e69c25);
+}
+
+.franchise-footer,
+.franchise-card-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.franchise-link,
+.open-franchise,
+.view-roster,
+.franchise-card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 39px;
+    padding: 0 14px;
+    color: #10131b;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--gold), #e5a72c);
+    font-size: 11px;
+    font-weight: 900;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.franchise-link:hover,
+.open-franchise:hover,
+.view-roster:hover,
+.franchise-card a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(247, 200, 90, 0.18);
+}
+
+.salary-positive {
+    color: var(--green) !important;
+}
+
+.salary-negative,
+.salary-over {
+    color: #ff7d86 !important;
+}
+
+.loading-message,
+.empty-message,
+.no-results {
+    grid-column: 1 / -1;
+    padding: 45px 25px;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius-lg);
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.02);
+    text-align: center;
+}
+
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 17px;
+    color: #10131b;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--gold), #e6a82e);
+    font-size: 12px;
+    font-weight: 900;
+    box-shadow: 0 12px 28px rgba(247, 200, 90, 0.13);
+}
+
+.league-status {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.league-status strong,
+.league-status small {
+    display: block;
+}
+
+.league-status small {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 14px rgba(82, 209, 154, 0.75);
+}
+
+.nav-icon {
+    display: inline-flex;
+    width: 23px;
+    margin-right: 6px;
+    justify-content: center;
+}
+
+@media (max-width: 1320px) {
+    .franchises-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .teams-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .teams-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .teams-hero-number {
+        width: 100%;
+    }
+}
+
+@media (max-width: 680px) {
+    .franchises-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .franchise-stats {
+        grid-template-columns: 1fr;
+    }
 }
