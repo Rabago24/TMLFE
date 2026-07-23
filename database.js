@@ -10070,3 +10070,5 @@ window.getTeamSummary = getTeamSummary;
 console.log(
     `TMLFE cargada: ${TMLFE.teams.length} franquicias y ${TMLFE.players.length} jugadores.`
 );
+window.TMLFE = TMLFE;
+window.TMLFE_DATABASE = TMLFE;
