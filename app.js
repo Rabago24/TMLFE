@@ -1,9 +1,6 @@
 "use strict";
 
-document.addEventListener(
-    "DOMContentLoaded",
-    iniciarDashboard
-);
+(function () {
 
 
 (function () {
@@ -1192,5 +1189,9 @@ document.addEventListener(
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     }
-
+document.addEventListener(
+    "DOMContentLoaded",
+    iniciarDashboard
+);
+    
 })();
