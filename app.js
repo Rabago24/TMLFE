@@ -1189,9 +1189,9 @@
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     }
-document.addEventListener(
-    "DOMContentLoaded",
+window.addEventListener(
+    "load",
     iniciarDashboard
 );
-    
+
 })();
