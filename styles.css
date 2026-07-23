@@ -2034,3 +2034,34 @@ button {
     box-shadow:
         0 12px 24px rgba(43, 210, 130, 0.08) !important;
 }
+button#vaciar-trade.secondary-button {
+    appearance: none !important;
+    min-height: 44px !important;
+    padding: 0 18px !important;
+    border: 1px solid rgba(248, 196, 79, 0.32) !important;
+    border-radius: 13px !important;
+    color: #f8c44f !important;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(248, 196, 79, 0.12),
+            rgba(255, 255, 255, 0.03)
+        ) !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+}
+
+button#vaciar-trade.secondary-button:hover {
+    transform: translateY(-2px) !important;
+    border-color: rgba(248, 196, 79, 0.55) !important;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(248, 196, 79, 0.2),
+            rgba(255, 255, 255, 0.05)
+        ) !important;
+}
