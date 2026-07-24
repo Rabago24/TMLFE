@@ -239,221 +239,427 @@
             ? nombreEquipo(equipo)
             : codigo || "Franquicia";
     }
+function obtenerLogoEquipo(equipo) {
+    if (!equipo) {
+        return "";
+    }
 
-    function renderizarUltimoTrade(historial, equipos) {
-        const contenedor = document.getElementById("ultimo-trade");
+    const codigo = codigoEquipo(equipo)
+        .trim()
+        .toUpperCase();
 
-        if (!contenedor) {
-            return;
-        }
+    if (!codigo) {
+        return "";
+    }
 
-        if (historial.length === 0) {
-            contenedor.innerHTML = `
-                <div class="dashboard-empty-state">
-                    <strong>Todavía no hay traspasos</strong>
-                    <span>
-                        La primera operación confirmada aparecerá aquí
-                        automáticamente.
-                    </span>
-                </div>
-            `;
+    return `./assets/logos/${codigo}.png`;
+}
 
-            return;
-        }
 
-        const trade = historial[0];
+function inicialesEquipo(equipo) {
+    const codigo = codigoEquipo(equipo)
+        .trim()
+        .toUpperCase();
 
-        const equipoA = nombrePorCodigo(
-            equipos,
-            trade.teamA
-        );
+    return codigo || "LFE";
+}
 
-        const equipoB = nombrePorCodigo(
-            equipos,
-            trade.teamB
-        );
 
-        const jugadoresA = Array.isArray(trade.playersA)
+function renderizarUltimoTrade(historial, equipos) {
+    const contenedor =
+        document.getElementById("ultimo-trade");
+
+    if (!contenedor) {
+        return;
+    }
+
+    if (historial.length === 0) {
+        contenedor.innerHTML = `
+            <div class="dashboard-empty-state">
+
+                <strong>
+                    Todavía no hay traspasos
+                </strong>
+
+                <span>
+                    La primera operación confirmada aparecerá aquí
+                    automáticamente.
+                </span>
+
+            </div>
+        `;
+
+        return;
+    }
+
+    const trade = historial[0];
+
+    const equipoAObjeto =
+        buscarEquipo(equipos, trade.teamA);
+
+    const equipoBObjeto =
+        buscarEquipo(equipos, trade.teamB);
+
+    const equipoA = equipoAObjeto
+        ? nombreEquipo(equipoAObjeto)
+        : trade.teamA || "Franquicia";
+
+    const equipoB = equipoBObjeto
+        ? nombreEquipo(equipoBObjeto)
+        : trade.teamB || "Franquicia";
+
+    const logoA =
+        obtenerLogoEquipo(equipoAObjeto);
+
+    const logoB =
+        obtenerLogoEquipo(equipoBObjeto);
+
+    const inicialesA =
+        inicialesEquipo(equipoAObjeto || { id: trade.teamA });
+
+    const inicialesB =
+        inicialesEquipo(equipoBObjeto || { id: trade.teamB });
+
+    const jugadoresA =
+        Array.isArray(trade.playersA)
             ? trade.playersA
             : [];
 
-        const jugadoresB = Array.isArray(trade.playersB)
+    const jugadoresB =
+        Array.isArray(trade.playersB)
             ? trade.playersB
             : [];
 
-        contenedor.innerHTML = `
-            <div class="latest-trade-header">
+    contenedor.innerHTML = `
+        <div class="latest-trade-header">
 
-                <div class="latest-trade-team">
-                    <strong>${escapar(equipoA)}</strong>
+            <div class="latest-trade-team">
+
+                <div class="latest-trade-logo">
+
+                    ${
+                        logoA
+                            ? `
+                                <img
+                                    src="${escapar(logoA)}"
+                                    alt="${escapar(equipoA)}"
+                                    onerror="
+                                        this.style.display='none';
+                                        this.nextElementSibling.style.display='grid';
+                                    "
+                                >
+
+                                <span class="latest-trade-logo-fallback">
+                                    ${escapar(inicialesA)}
+                                </span>
+                            `
+                            : `
+                                <span class="latest-trade-logo-fallback visible">
+                                    ${escapar(inicialesA)}
+                                </span>
+                            `
+                    }
+
                 </div>
 
-                <div class="latest-trade-arrow">
-                    ⇄
-                </div>
+                <div class="latest-trade-team-copy">
 
-                <div class="latest-trade-team">
-                    <strong>${escapar(equipoB)}</strong>
+                    <span>
+                        Franquicia A
+                    </span>
+
+                    <strong>
+                        ${escapar(equipoA)}
+                    </strong>
+
                 </div>
 
             </div>
 
-            <div class="latest-trade-players">
 
-                <div>
-                    <span>${escapar(equipoA)} recibe</span>
-                    ${listaJugadores(jugadoresB)}
+            <div class="latest-trade-arrow">
+                ⇄
+            </div>
+
+
+            <div class="latest-trade-team">
+
+                <div class="latest-trade-logo">
+
+                    ${
+                        logoB
+                            ? `
+                                <img
+                                    src="${escapar(logoB)}"
+                                    alt="${escapar(equipoB)}"
+                                    onerror="
+                                        this.style.display='none';
+                                        this.nextElementSibling.style.display='grid';
+                                    "
+                                >
+
+                                <span class="latest-trade-logo-fallback">
+                                    ${escapar(inicialesB)}
+                                </span>
+                            `
+                            : `
+                                <span class="latest-trade-logo-fallback visible">
+                                    ${escapar(inicialesB)}
+                                </span>
+                            `
+                    }
+
                 </div>
 
-                <div>
-                    <span>${escapar(equipoB)} recibe</span>
-                    ${listaJugadores(jugadoresA)}
+                <div class="latest-trade-team-copy">
+
+                    <span>
+                        Franquicia B
+                    </span>
+
+                    <strong>
+                        ${escapar(equipoB)}
+                    </strong>
+
                 </div>
 
             </div>
 
-            <div class="latest-trade-footer">
+        </div>
 
-                <span class="status-pill">
-                    Trade confirmado
+
+        <div class="latest-trade-players">
+
+            <div>
+
+                <span>
+                    ${escapar(equipoA)} recibe
                 </span>
 
-                <time>
-                    ${escapar(formatearFecha(trade.fecha))}
-                </time>
+                ${listaJugadores(jugadoresB)}
 
             </div>
-        `;
-    }
 
-    function listaJugadores(jugadores) {
-        if (jugadores.length === 0) {
-            return `
-                <p class="latest-trade-empty">
-                    Sin jugadores registrados
-                </p>
-            `;
-        }
 
+            <div>
+
+                <span>
+                    ${escapar(equipoB)} recibe
+                </span>
+
+                ${listaJugadores(jugadoresA)}
+
+            </div>
+
+        </div>
+
+
+        <div class="latest-trade-footer">
+
+            <span class="status-pill">
+                Trade confirmado
+            </span>
+
+            <time>
+                ${escapar(formatearFecha(trade.fecha))}
+            </time>
+
+        </div>
+    `;
+}
+
+
+function listaJugadores(jugadores) {
+    if (jugadores.length === 0) {
         return `
-            <ul>
-                ${jugadores.map(function (jugador) {
-                    return `
-                        <li>
-                            <strong>
-                                ${escapar(
-                                    jugador.name ||
-                                    jugador.nombre ||
-                                    "Jugador"
-                                )}
-                            </strong>
-                        </li>
-                    `;
-                }).join("")}
-            </ul>
+            <p class="latest-trade-empty">
+                Sin jugadores registrados
+            </p>
         `;
     }
 
-    function renderizarActividadReciente(historial, equipos) {
-        const contenedor =
-            document.getElementById("actividad-reciente");
+    return `
+        <ul>
 
-        if (!contenedor) {
-            return;
-        }
+            ${jugadores.map(function (jugador) {
+                return `
+                    <li>
 
-        const movimientos = [];
+                        <strong>
+                            ${escapar(
+                                jugador.name ||
+                                jugador.nombre ||
+                                "Jugador"
+                            )}
+                        </strong>
 
-        historial.slice(0, 6).forEach(function (trade) {
-            const destinoA = nombrePorCodigo(
-                equipos,
-                trade.teamB
-            );
+                    </li>
+                `;
+            }).join("")}
 
-            const destinoB = nombrePorCodigo(
-                equipos,
-                trade.teamA
-            );
+        </ul>
+    `;
+}
 
-            const jugadoresA = Array.isArray(trade.playersA)
+
+function renderizarActividadReciente(historial, equipos) {
+    const contenedor =
+        document.getElementById("actividad-reciente");
+
+    if (!contenedor) {
+        return;
+    }
+
+    const movimientos = [];
+
+    historial.slice(0, 6).forEach(function (trade) {
+        const equipoDestinoA =
+            buscarEquipo(equipos, trade.teamB);
+
+        const equipoDestinoB =
+            buscarEquipo(equipos, trade.teamA);
+
+        const nombreDestinoA =
+            equipoDestinoA
+                ? nombreEquipo(equipoDestinoA)
+                : trade.teamB || "Franquicia";
+
+        const nombreDestinoB =
+            equipoDestinoB
+                ? nombreEquipo(equipoDestinoB)
+                : trade.teamA || "Franquicia";
+
+        const jugadoresA =
+            Array.isArray(trade.playersA)
                 ? trade.playersA
                 : [];
 
-            const jugadoresB = Array.isArray(trade.playersB)
+        const jugadoresB =
+            Array.isArray(trade.playersB)
                 ? trade.playersB
                 : [];
 
-            jugadoresA.forEach(function (jugador) {
-                movimientos.push({
-                    jugador:
-                        jugador.name ||
-                        jugador.nombre ||
-                        "Jugador",
+        jugadoresA.forEach(function (jugador) {
+            movimientos.push({
+                jugador:
+                    jugador.name ||
+                    jugador.nombre ||
+                    "Jugador",
 
-                    equipo: destinoA,
-                    fecha: trade.fecha
-                });
-            });
+                equipo: nombreDestinoA,
+                logo: obtenerLogoEquipo(equipoDestinoA),
 
-            jugadoresB.forEach(function (jugador) {
-                movimientos.push({
-                    jugador:
-                        jugador.name ||
-                        jugador.nombre ||
-                        "Jugador",
+                iniciales:
+                    inicialesEquipo(
+                        equipoDestinoA ||
+                        { id: trade.teamB }
+                    ),
 
-                    equipo: destinoB,
-                    fecha: trade.fecha
-                });
+                fecha: trade.fecha
             });
         });
 
-        if (movimientos.length === 0) {
-            contenedor.innerHTML = `
-                <div class="dashboard-empty-state">
-                    <strong>Sin movimientos recientes</strong>
-                    <span>
-                        Los jugadores traspasados aparecerán en esta sección.
-                    </span>
-                </div>
-            `;
+        jugadoresB.forEach(function (jugador) {
+            movimientos.push({
+                jugador:
+                    jugador.name ||
+                    jugador.nombre ||
+                    "Jugador",
 
-            return;
-        }
+                equipo: nombreDestinoB,
+                logo: obtenerLogoEquipo(equipoDestinoB),
 
-        contenedor.innerHTML = movimientos
-            .slice(0, 8)
-            .map(function (movimiento) {
-                return `
-                    <div class="activity-item">
+                iniciales:
+                    inicialesEquipo(
+                        equipoDestinoB ||
+                        { id: trade.teamA }
+                    ),
 
-                        <div class="activity-item-copy">
+                fecha: trade.fecha
+            });
+        });
+    });
 
-                            <strong>
-                                ${escapar(movimiento.jugador)}
-                            </strong>
+    if (movimientos.length === 0) {
+        contenedor.innerHTML = `
+            <div class="dashboard-empty-state">
 
-                            <span>
-                                se incorpora a
-                                ${escapar(movimiento.equipo)}
-                            </span>
+                <strong>
+                    Sin movimientos recientes
+                </strong>
 
-                        </div>
+                <span>
+                    Los jugadores traspasados aparecerán en esta sección.
+                </span>
 
-                        <time>
-                            ${escapar(
-                                formatearFechaCorta(
-                                    movimiento.fecha
-                                )
-                            )}
-                        </time>
+            </div>
+        `;
 
-                    </div>
-                `;
-            })
-            .join("");
+        return;
     }
 
+    contenedor.innerHTML = movimientos
+        .slice(0, 8)
+        .map(function (movimiento) {
+            return `
+                <div class="activity-item">
+
+                    <div class="activity-team-logo">
+
+                        ${
+                            movimiento.logo
+                                ? `
+                                    <img
+                                        src="${escapar(movimiento.logo)}"
+                                        alt="${escapar(movimiento.equipo)}"
+                                        onerror="
+                                            this.style.display='none';
+                                            this.nextElementSibling.style.display='grid';
+                                        "
+                                    >
+
+                                    <span class="activity-logo-fallback">
+                                        ${escapar(movimiento.iniciales)}
+                                    </span>
+                                `
+                                : `
+                                    <span class="activity-logo-fallback visible">
+                                        ${escapar(movimiento.iniciales)}
+                                    </span>
+                                `
+                        }
+
+                    </div>
+
+
+                    <div class="activity-item-copy">
+
+                        <strong>
+                            ${escapar(movimiento.jugador)}
+                        </strong>
+
+                        <span>
+                            Se incorpora a
+                            ${escapar(movimiento.equipo)}
+                        </span>
+
+                    </div>
+
+
+                    <time>
+                        ${escapar(
+                            formatearFechaCorta(
+                                movimiento.fecha
+                            )
+                        )}
+                    </time>
+
+                </div>
+            `;
+        })
+        .join("");
+}
+    
     function formatearFecha(fecha) {
         const valor = new Date(fecha);
 
