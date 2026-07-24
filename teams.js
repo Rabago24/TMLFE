@@ -187,20 +187,31 @@ window.addEventListener("load", function () {
 
     function obtenerSalarioEquipo(equipo) {
 
-        const plantilla =
-            obtenerJugadoresEquipo(equipo);
+    if (typeof window.getTeamPayroll === "function") {
 
-        return plantilla.reduce(
-            function (total, jugador) {
-
-                return (
-                    total +
-                    obtenerSalarioJugador(jugador)
-                );
-            },
-            0
+        return window.getTeamPayroll(
+            equipo.name,
+            TEMPORADA
         );
+
     }
+
+    const plantilla =
+        obtenerJugadoresEquipo(equipo);
+
+    return plantilla.reduce(
+        function (total, jugador) {
+
+            return (
+                total +
+                obtenerSalarioJugador(jugador)
+            );
+
+        },
+        0
+    );
+
+}
 
 
     function formatearMillones(cantidad) {
