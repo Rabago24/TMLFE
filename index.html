@@ -10,13 +10,18 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <meta
+        name="description"
+        content="TMLFE, centro de gestión de la Liga Franquicia Extraditables."
+    >
+
     <title>
         TMLFE | Front Office
     </title>
 
     <link
         rel="stylesheet"
-        href="styles.css?v=129"
+        href="styles.css?v=130"
     >
 
 </head>
@@ -48,11 +53,15 @@
             </div>
 
 
-            <nav class="sidebar-nav">
+            <nav
+                class="sidebar-nav"
+                aria-label="Navegación principal"
+            >
 
                 <a
                     class="nav-link active"
                     href="index.html"
+                    aria-current="page"
                 >
 
                     <span class="nav-icon">
@@ -104,18 +113,21 @@
                     Trade Machine
 
                 </a>
-<a
-    class="nav-link"
-    href="configuracion.html"
->
 
-    <span class="nav-icon">
-        ⚙
-    </span>
 
-    Configuración
+                <a
+                    class="nav-link"
+                    href="configuracion.html"
+                >
 
-</a>
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    Configuración
+
+                </a>
+
             </nav>
 
 
@@ -195,6 +207,15 @@
                     </p>
 
 
+                    <p class="dashboard-hero-status">
+                        30 franquicias activas
+                        <span>·</span>
+                        Salary Cap 170,0 M
+                        <span>·</span>
+                        Sistema operativo
+                    </p>
+
+
                     <div class="dashboard-hero-actions">
 
                         <a
@@ -219,7 +240,7 @@
                 <div class="dashboard-cap-card">
 
                     <span>
-                        Salary Cap
+                        Salary Cap oficial
                     </span>
 
                     <strong>
@@ -230,12 +251,19 @@
                         Temporada 2026/27
                     </small>
 
+                    <div class="dashboard-cap-status">
+                        Límite económico activo
+                    </div>
+
                 </div>
 
             </section>
 
 
-            <section class="dashboard-cards">
+            <section
+                class="dashboard-cards"
+                aria-label="Resumen de la liga"
+            >
 
                 <article class="stat-card">
 
@@ -243,7 +271,7 @@
                         ◆
                     </div>
 
-                    <div>
+                    <div class="stat-card-copy">
 
                         <h3 id="total-equipos">
                             0
@@ -252,6 +280,10 @@
                         <p>
                             Franquicias
                         </p>
+
+                        <small class="stat-card-detail">
+                            Liga completa
+                        </small>
 
                     </div>
 
@@ -264,7 +296,7 @@
                         ♙
                     </div>
 
-                    <div>
+                    <div class="stat-card-copy">
 
                         <h3 id="total-jugadores">
                             0
@@ -273,6 +305,10 @@
                         <p>
                             Jugadores
                         </p>
+
+                        <small class="stat-card-detail">
+                            Base oficial LFE
+                        </small>
 
                     </div>
 
@@ -285,7 +321,7 @@
                         ⇄
                     </div>
 
-                    <div>
+                    <div class="stat-card-copy">
 
                         <h3 id="total-trades">
                             0
@@ -294,6 +330,10 @@
                         <p>
                             Traspasos realizados
                         </p>
+
+                        <small class="stat-card-detail">
+                            Historial de la temporada
+                        </small>
 
                     </div>
 
@@ -306,7 +346,7 @@
                         $
                     </div>
 
-                    <div>
+                    <div class="stat-card-copy">
 
                         <h3 id="equipos-bajo-cap">
                             0
@@ -315,6 +355,10 @@
                         <p>
                             Equipos bajo el límite
                         </p>
+
+                        <small class="stat-card-detail">
+                            Situación económica actual
+                        </small>
 
                     </div>
 
@@ -360,12 +404,12 @@
                         <div class="dashboard-empty-state">
 
                             <strong>
-                                Todavía no hay traspasos
+                                La temporada está preparada
                             </strong>
 
                             <span>
-                                La primera operación confirmada
-                                aparecerá aquí automáticamente.
+                                El primer traspaso confirmado aparecerá
+                                aquí automáticamente.
                             </span>
 
                         </div>
@@ -382,11 +426,11 @@
                         <div>
 
                             <p class="eyebrow">
-                                CONTROL SALARIAL
+                                SALARY CENTER
                             </p>
 
                             <h2>
-                                Situación de la liga
+                                Situación económica
                             </h2>
 
                         </div>
@@ -422,7 +466,7 @@
                         </div>
 
 
-                        <div class="salary-dashboard-row">
+                        <div class="salary-dashboard-row salary-cap-highlight">
 
                             <span>
                                 Límite salarial
@@ -487,8 +531,8 @@
                             </strong>
 
                             <span>
-                                Los jugadores traspasados aparecerán
-                                en esta sección.
+                                Los jugadores involucrados en operaciones
+                                confirmadas aparecerán en esta sección.
                             </span>
 
                         </div>
@@ -608,13 +652,12 @@
                     </p>
 
                     <h2>
-                        Mentalidad, carácter y grandeza
+                        Championships are built through great decisions
                     </h2>
 
-                    <p>
-                        Un homenaje permanente a cinco jugadores
-                        que representan competitividad, talento,
-                        trabajo y personalidad.
+                    <p class="legacy-quote">
+                        Las decisiones más pequeñas pueden definir
+                        las dinastías más grandes.
                     </p>
 
 
@@ -646,6 +689,19 @@
 
             </section>
 
+
+            <footer class="tmlfe-footer">
+
+                <strong>
+                    TMLFE — Executive Edition
+                </strong>
+
+                <span>
+                    Versión 1.0 · Temporada 2026/27
+                </span>
+
+            </footer>
+
         </main>
 
     </div>
@@ -658,10 +714,9 @@
     ></div>
 
 
-   <script src="./database.js?v=107"></script>
-   <script src="./deadmoney.js?v=2"></script>
-
-   <script src="./app.js?v=33"></script>
+    <script src="./database.js?v=107"></script>
+    <script src="./deadmoney.js?v=2"></script>
+    <script src="./app.js?v=33"></script>
 
 </body>
 
