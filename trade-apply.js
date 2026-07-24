@@ -478,11 +478,25 @@
             STORAGE_KEY_HISTORIAL
         );
     }
+function limpiarHistorial() {
 
+    localStorage.removeItem(
+        STORAGE_KEY_HISTORIAL
+    );
 
-    window.TMLFETradeApply = {
-        apply: aplicarTrade,
-        getHistory: obtenerHistorial
-    };
+    window.dispatchEvent(
+        new CustomEvent(
+            "tmlfe-trade-history-cleared"
+        )
+    );
+
+    return true;
+}
+
+window.TMLFETradeApply = {
+    apply: aplicarTrade,
+    getHistory: obtenerHistorial,
+    clearHistory: limpiarHistorial
+};
 
 })();
