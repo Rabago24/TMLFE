@@ -1,49 +1,560 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>TMLFE | Configuración</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<link rel="stylesheet" href="./styles.css?v=200">
+    <title>
+        TMLFE | Configuración
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="./styles.css?v=129"
+    >
+
+    <style>
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .config-section {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .config-tool {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 22px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .config-tool-copy {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .config-tool-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            font-size: 21px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .config-tool h3 {
+            margin: 0 0 6px;
+            font-size: 16px;
+        }
+
+        .config-tool p {
+            margin: 0;
+            max-width: 600px;
+            font-size: 13px;
+            line-height: 1.6;
+            opacity: 0.68;
+        }
+
+        .config-danger-button {
+            min-width: 230px;
+            padding: 13px 18px;
+            border: 1px solid rgba(255, 104, 104, 0.35);
+            border-radius: 12px;
+            background: rgba(190, 45, 58, 0.14);
+            color: #ffb6bd;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .config-danger-button:hover {
+            transform: translateY(-2px);
+            background: rgba(190, 45, 58, 0.24);
+            border-color: rgba(255, 104, 104, 0.6);
+        }
+
+        .config-danger-button:disabled {
+            cursor: default;
+            opacity: 0.75;
+            transform: none;
+        }
+
+        .config-status-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .config-status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 17px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .config-status-row:last-child {
+            border-bottom: 0;
+        }
+
+        .config-status-row span {
+            font-size: 13px;
+            opacity: 0.68;
+        }
+
+        .config-status-row strong {
+            font-size: 13px;
+        }
+
+        .config-success {
+            color: #7ee7ad;
+        }
+
+        .config-warning {
+            color: #ffd382;
+        }
+
+        .config-notice {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(76, 118, 255, 0.08);
+            border: 1px solid rgba(105, 140, 255, 0.18);
+            font-size: 12px;
+            line-height: 1.7;
+            opacity: 0.82;
+        }
+
+        @media (max-width: 1000px) {
+
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .config-tool {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .config-danger-button {
+                width: 100%;
+                min-width: 0;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<header class="topbar">
+    <div class="app-shell">
 
-<h1>⚙ Configuración</h1>
+        <aside class="sidebar">
 
-<p>Panel de administración del TMLFE</p>
+            <div class="brand">
 
-</header>
+                <div class="brand-logo">
+                    T
+                </div>
+
+                <div>
+
+                    <h1>
+                        TMLFE
+                    </h1>
+
+                    <span>
+                        Front Office
+                    </span>
+
+                </div>
+
+            </div>
 
 
-<main class="config-container">
+            <nav class="sidebar-nav">
 
-<section class="config-card">
+                <a
+                    class="nav-link"
+                    href="index.html"
+                >
 
-<h2>Administración</h2>
+                    <span class="nav-icon">
+                        ⌂
+                    </span>
 
-<p>
-Herramientas para gestionar la liga.
-</p>
+                    Dashboard
 
-<button id="btn-borrar-historial">
+                </a>
 
-🗑 Reiniciar historial de traspasos
 
-</button>
+                <a
+                    class="nav-link"
+                    href="teams.html"
+                >
 
-</section>
+                    <span class="nav-icon">
+                        ◆
+                    </span>
 
-</main>
+                    Franquicias
 
-<script src="./trade-apply.js?v=200"></script>
-<script src="./configuracion.js?v=1"></script>
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="players.html"
+                >
+
+                    <span class="nav-icon">
+                        ♙
+                    </span>
+
+                    Jugadores
+
+                </a>
+
+
+                <a
+                    class="nav-link"
+                    href="trade.html"
+                >
+
+                    <span class="nav-icon">
+                        ⇄
+                    </span>
+
+                    Trade Machine
+
+                </a>
+
+
+                <a
+                    class="nav-link active"
+                    href="configuracion.html"
+                >
+
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    Configuración
+
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <div class="league-status">
+
+                    <span class="status-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Liga activa
+                        </strong>
+
+                        <small>
+                            Temporada 2026/27
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="eyebrow">
+                        FRONT OFFICE CONTROL PANEL
+                    </p>
+
+                    <h2>
+                        Configuración
+                    </h2>
+
+                    <p class="topbar-subtitle">
+                        Herramientas administrativas y control general
+                        de la Liga Franquicia Extraditables.
+                    </p>
+
+                </div>
+
+
+                <a
+                    class="secondary-button"
+                    href="index.html"
+                >
+                    Volver al Dashboard
+                </a>
+
+            </header>
+
+
+            <section class="dashboard-hero">
+
+                <div class="dashboard-hero-copy">
+
+                    <p class="hero-label">
+                        PANEL DE ADMINISTRACIÓN
+                    </p>
+
+                    <h1>
+                        Control total del TMLFE
+                    </h1>
+
+                    <p>
+                        Gestiona el historial de operaciones y prepara
+                        la aplicación para futuras herramientas de
+                        administración, seguridad y copias de respaldo.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-cap-card">
+
+                    <span>
+                        Estado del sistema
+                    </span>
+
+                    <strong>
+                        ACTIVO
+                    </strong>
+
+                    <small>
+                        Temporada 2026/27
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <section class="config-grid">
+
+                <article class="dashboard-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                HERRAMIENTAS DE ADMINISTRACIÓN
+                            </p>
+
+                            <h2>
+                                Gestión de la liga
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="config-section">
+
+                        <div class="config-tool">
+
+                            <div class="config-tool-copy">
+
+                                <div class="config-tool-icon">
+                                    🗑
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Reiniciar historial de traspasos
+                                    </h3>
+
+                                    <p>
+                                        Elimina todas las operaciones registradas,
+                                        el último traspaso confirmado y la actividad
+                                        reciente del Dashboard.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                id="btn-borrar-historial"
+                                class="config-danger-button"
+                                type="button"
+                            >
+                                Reiniciar historial
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="config-notice">
+
+                        Esta acción solamente elimina el historial de
+                        traspasos. Las plantillas actuales, los salarios,
+                        las ediciones de jugadores y el Dead Money
+                        permanecerán sin cambios.
+
+                    </div>
+
+                </article>
+
+
+                <article class="dashboard-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                INFORMACIÓN DEL SISTEMA
+                            </p>
+
+                            <h2>
+                                Estado actual
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="config-status-list">
+
+                        <div class="config-status-row">
+
+                            <span>
+                                Temporada
+                            </span>
+
+                            <strong>
+                                2026/27
+                            </strong>
+
+                        </div>
+
+
+                        <div class="config-status-row">
+
+                            <span>
+                                Salary Cap
+                            </span>
+
+                            <strong>
+                                170,0 M
+                            </strong>
+
+                        </div>
+
+
+                        <div class="config-status-row">
+
+                            <span>
+                                Base de datos
+                            </span>
+
+                            <strong class="config-success">
+                                Operativa
+                            </strong>
+
+                        </div>
+
+
+                        <div class="config-status-row">
+
+                            <span>
+                                Trade Machine
+                            </span>
+
+                            <strong class="config-success">
+                                Disponible
+                            </strong>
+
+                        </div>
+
+
+                        <div class="config-status-row">
+
+                            <span>
+                                Modo
+                            </span>
+
+                            <strong class="config-warning">
+                                Administrador
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <div
+        id="toast"
+        class="toast"
+        aria-live="polite"
+    ></div>
+
+
+    <script src="./trade-apply.js?v=201"></script>
+    <script src="./configuracion.js?v=2"></script>
 
 </body>
+
 </html>
