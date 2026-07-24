@@ -240,21 +240,22 @@
             : codigo || "Franquicia";
     }
 function obtenerLogoEquipo(equipo) {
+
     if (!equipo) {
         return "";
     }
 
     const codigo = codigoEquipo(equipo)
         .trim()
-        .toUpperCase();
+        .toLowerCase();
 
     if (!codigo) {
         return "";
     }
 
-    return `./assets/logos/${codigo}.png`;
-}
+    return `./${codigo}.png`;
 
+}
 
 function inicialesEquipo(equipo) {
     const codigo = codigoEquipo(equipo)
