@@ -4756,3 +4756,410 @@ button#vaciar-trade.secondary-button:hover {
     }
 
 }
+/* =========================================================
+   TMLFE · LEGENDS CONTINUOUS MURAL
+   ========================================================= */
+
+.legends-premium-content {
+    grid-template-columns:
+        minmax(330px, 0.78fr)
+        minmax(0, 1.65fr);
+
+    gap: 34px;
+    align-items: stretch;
+}
+
+
+/* Ocultamos el diseño anterior */
+
+.legends-values {
+    display: none;
+}
+
+
+/* Mural principal */
+
+.legends-mural {
+    position: relative;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    min-height: 330px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 24px;
+
+    background: #090d15;
+
+    box-shadow:
+        0 22px 50px rgba(0, 0, 0, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+/* Brillo superior del mural */
+
+.legends-mural::before {
+    content: "";
+
+    position: absolute;
+    z-index: 10;
+
+    top: 0;
+    left: 5%;
+    right: 5%;
+
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(244, 190, 60, 0.86),
+        transparent
+    );
+
+    box-shadow:
+        0 0 22px rgba(244, 190, 60, 0.38);
+
+    pointer-events: none;
+}
+
+
+/* Cada leyenda */
+
+.legend-mural-player {
+    position: relative;
+    overflow: hidden;
+
+    min-width: 0;
+    min-height: 330px;
+
+    border-right:
+        1px solid rgba(255, 255, 255, 0.075);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(7, 10, 17, 0.94)
+        );
+
+    transition:
+        flex 300ms ease,
+        transform 300ms ease,
+        filter 300ms ease;
+}
+
+.legend-mural-player:last-child {
+    border-right: 0;
+}
+
+
+/* Oscurecido cinematográfico */
+
+.legend-mural-player::before {
+    content: "";
+
+    position: absolute;
+    z-index: 2;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(4, 6, 11, 0.08) 15%,
+            rgba(4, 6, 11, 0.24) 48%,
+            rgba(4, 6, 11, 0.96) 100%
+        );
+
+    pointer-events: none;
+}
+
+
+/* Iluminación individual */
+
+.legend-mural-player::after {
+    content: "";
+
+    position: absolute;
+    z-index: 3;
+
+    inset: 0;
+
+    opacity: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 36%,
+            rgba(244, 190, 60, 0.2),
+            transparent 56%
+        );
+
+    transition:
+        opacity 300ms ease;
+
+    pointer-events: none;
+}
+
+.legend-mural-player:hover::after {
+    opacity: 1;
+}
+
+
+/* Imagen */
+
+.legend-mural-image {
+    position: absolute;
+
+    inset: 0;
+
+    background-position:
+        center top;
+
+    background-repeat:
+        no-repeat;
+
+    background-size:
+        cover;
+
+    filter:
+        grayscale(1)
+        contrast(1.06)
+        brightness(0.7);
+
+    transform:
+        scale(1.02);
+
+    transition:
+        transform 450ms ease,
+        filter 450ms ease;
+}
+
+.legend-mural-player:hover .legend-mural-image {
+    transform:
+        scale(1.08);
+
+    filter:
+        grayscale(0.25)
+        contrast(1.08)
+        brightness(0.86);
+}
+
+
+/* Número */
+
+.legend-mural-number {
+    position: absolute;
+    z-index: 4;
+
+    top: 18px;
+    left: 16px;
+
+    color: rgba(255, 255, 255, 0.13);
+
+    font-size: clamp(48px, 4vw, 76px);
+    font-weight: 950;
+    line-height: 0.9;
+    letter-spacing: -0.08em;
+
+    text-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.45);
+
+    transition:
+        color 300ms ease,
+        transform 300ms ease;
+}
+
+.legend-mural-player:hover .legend-mural-number {
+    color:
+        rgba(244, 190, 60, 0.52);
+
+    transform:
+        translateY(-3px);
+}
+
+
+/* Texto inferior */
+
+.legend-mural-copy {
+    position: absolute;
+    z-index: 5;
+
+    right: 14px;
+    bottom: 20px;
+    left: 14px;
+
+    text-align: center;
+}
+
+.legend-mural-copy strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: clamp(10px, 0.86vw, 15px);
+    font-weight: 950;
+    line-height: 1.15;
+    letter-spacing: 0.045em;
+}
+
+.legend-mural-copy small {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #949eaf;
+
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+
+    transition:
+        color 300ms ease;
+}
+
+.legend-mural-player:hover .legend-mural-copy small {
+    color: #f4be3c;
+}
+
+
+/* Fondos provisionales hasta añadir las fotos */
+
+.legend-kobe {
+    background:
+        radial-gradient(
+            circle at 50% 24%,
+            rgba(89, 45, 139, 0.38),
+            transparent 58%
+        ),
+        #0b0e16;
+}
+
+.legend-dirk {
+    background:
+        radial-gradient(
+            circle at 50% 24%,
+            rgba(35, 102, 180, 0.4),
+            transparent 58%
+        ),
+        #0b0e16;
+}
+
+.legend-iverson {
+    background:
+        radial-gradient(
+            circle at 50% 24%,
+            rgba(185, 34, 53, 0.35),
+            transparent 58%
+        ),
+        #0b0e16;
+}
+
+.legend-jaycee {
+    background:
+        radial-gradient(
+            circle at 50% 24%,
+            rgba(244, 190, 60, 0.27),
+            transparent 58%
+        ),
+        #0b0e16;
+}
+
+.legend-shaq {
+    background:
+        radial-gradient(
+            circle at 50% 24%,
+            rgba(70, 84, 118, 0.38),
+            transparent 58%
+        ),
+        #0b0e16;
+}
+
+
+/* Fotografías: se activarán al subir los archivos */
+
+.legend-kobe .legend-mural-image {
+    background-image:
+        url("./images/legends/kobe.png");
+}
+
+.legend-dirk .legend-mural-image {
+    background-image:
+        url("./images/legends/dirk.png");
+}
+
+.legend-iverson .legend-mural-image {
+    background-image:
+        url("./images/legends/iverson.png");
+}
+
+.legend-jaycee .legend-mural-image {
+    background-image:
+        url("./images/legends/jaycee.png");
+}
+
+.legend-shaq .legend-mural-image {
+    background-image:
+        url("./images/legends/shaq.png");
+}
+
+
+/* Responsive */
+
+@media (max-width: 1320px) {
+
+    .legends-premium-content {
+        grid-template-columns: 1fr;
+    }
+
+    .legends-mural {
+        min-height: 310px;
+    }
+
+    .legend-mural-player {
+        min-height: 310px;
+    }
+
+}
+
+
+@media (max-width: 820px) {
+
+    .legends-mural {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        min-height: auto;
+    }
+
+    .legend-mural-player {
+        min-height: 260px;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.075);
+    }
+
+    .legend-mural-player:last-child {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .legends-mural {
+        grid-template-columns: 1fr;
+    }
+
+    .legend-mural-player,
+    .legend-mural-player:last-child {
+        grid-column: auto;
+        min-height: 220px;
+    }
+
+}
