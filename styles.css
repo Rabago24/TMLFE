@@ -3165,3 +3165,271 @@ button#vaciar-trade.secondary-button:hover {
         font-size: 72px;
     }
 }
+/* =========================================================
+   TMLFE · EXECUTIVE KPI CARDS
+   ========================================================= */
+
+.dashboard-cards {
+    gap: 16px;
+}
+
+.stat-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 168px;
+    padding: 22px 22px 24px;
+    align-items: flex-start;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.065),
+            rgba(255, 255, 255, 0.018)
+        ),
+        rgba(12, 19, 31, 0.94);
+    box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition:
+        transform 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    background:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(247, 200, 90, 0.16),
+            transparent 34%
+        );
+    transition: opacity 0.28s ease;
+}
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 14px;
+    width: auto;
+    height: 3px;
+    border-radius: 999px;
+    background:
+        linear-gradient(
+            90deg,
+            var(--gold) 0%,
+            rgba(247, 200, 90, 0.45) 52%,
+            rgba(247, 200, 90, 0.06) 100%
+        );
+    filter: none;
+    transform: scaleX(0.42);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(247, 200, 90, 0.3);
+    box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.38),
+        0 0 28px rgba(247, 200, 90, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+.stat-card:hover::after {
+    transform: scaleX(1);
+}
+
+.stat-icon {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(247, 200, 90, 0.21);
+    border-radius: 15px;
+    color: var(--gold);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(247, 200, 90, 0.15),
+            rgba(247, 200, 90, 0.045)
+        );
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 10px 28px rgba(0, 0, 0, 0.18);
+    font-size: 20px;
+}
+
+.stat-card-copy {
+    flex: 1;
+    padding-top: 1px;
+}
+
+.stat-card h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(38px, 3.4vw, 52px);
+    font-weight: 950;
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+    text-shadow:
+        0 0 24px rgba(255, 255, 255, 0.035);
+}
+
+.stat-card p {
+    margin: 13px 0 0;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+}
+
+.stat-card-detail {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 9px;
+    color: rgba(255, 255, 255, 0.43);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+}
+
+.stat-card-detail::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px rgba(82, 209, 154, 0.72);
+}
+
+/* Personalidad de cada KPI */
+
+.stat-card:nth-child(1) {
+    background:
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(247, 200, 90, 0.11),
+            transparent 32%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.018)
+        ),
+        rgba(12, 19, 31, 0.95);
+}
+
+.stat-card:nth-child(2) {
+    background:
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(91, 140, 255, 0.12),
+            transparent 32%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.018)
+        ),
+        rgba(12, 19, 31, 0.95);
+}
+
+.stat-card:nth-child(3) {
+    background:
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(155, 124, 255, 0.12),
+            transparent 32%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.018)
+        ),
+        rgba(12, 19, 31, 0.95);
+}
+
+.stat-card:nth-child(4) {
+    background:
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(82, 209, 154, 0.11),
+            transparent 32%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.018)
+        ),
+        rgba(12, 19, 31, 0.95);
+}
+
+/* Entrada escalonada */
+
+.stat-card {
+    animation: executiveKpiEntry 0.55s ease both;
+}
+
+.stat-card:nth-child(1) {
+    animation-delay: 0.04s;
+}
+
+.stat-card:nth-child(2) {
+    animation-delay: 0.09s;
+}
+
+.stat-card:nth-child(3) {
+    animation-delay: 0.14s;
+}
+
+.stat-card:nth-child(4) {
+    animation-delay: 0.19s;
+}
+
+@keyframes executiveKpiEntry {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1180px) {
+    .stat-card {
+        min-height: 155px;
+    }
+}
+
+@media (max-width: 620px) {
+    .stat-card {
+        min-height: 145px;
+        padding: 20px;
+    }
+
+    .stat-card h3 {
+        font-size: 43px;
+    }
+}
