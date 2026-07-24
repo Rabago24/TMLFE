@@ -2401,3 +2401,331 @@ button#vaciar-trade.secondary-button:hover {
         text-align: center;
     }
 }
+/* =========================================================
+   TMLFE — DASHBOARD EXECUTIVE EDITION 1.0
+   Ajustes finales
+   ========================================================= */
+
+.dashboard-hero-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    margin: 18px 0 0 !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+    font-size: 12px !important;
+    font-weight: 750;
+}
+
+.dashboard-hero-status span {
+    color: var(--gold);
+    opacity: 0.8;
+}
+
+
+/* Tarjetas estadísticas */
+
+.stat-card-copy {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+}
+
+.stat-card-detail {
+    display: block;
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+
+/* Salary Cap principal */
+
+.dashboard-cap-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-cap-card::before {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    top: -95px;
+    right: -75px;
+    border-radius: 50%;
+    background: rgba(247, 200, 90, 0.16);
+    filter: blur(8px);
+}
+
+.dashboard-cap-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-cap-card > span {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.dashboard-cap-card > strong {
+    display: block;
+    margin: 11px 0 5px;
+    color: var(--gold);
+    font-size: clamp(38px, 4vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.055em;
+    text-shadow: 0 0 28px rgba(247, 200, 90, 0.14);
+}
+
+.dashboard-cap-card > small {
+    display: block;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 11px;
+}
+
+.dashboard-cap-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 17px;
+    padding: 8px 11px;
+    border: 1px solid rgba(82, 209, 154, 0.2);
+    border-radius: 999px;
+    color: var(--green);
+    background: rgba(82, 209, 154, 0.075);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.dashboard-cap-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px rgba(82, 209, 154, 0.85);
+}
+
+
+/* Panel económico */
+
+.salary-cap-highlight {
+    margin: 8px -12px;
+    padding: 17px 12px !important;
+    border: 1px solid rgba(247, 200, 90, 0.18) !important;
+    border-radius: 13px;
+    background: rgba(247, 200, 90, 0.065);
+}
+
+.salary-cap-highlight span {
+    color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.salary-cap-highlight strong {
+    color: var(--gold) !important;
+    font-size: 18px !important;
+}
+
+
+/* Estados vacíos */
+
+.dashboard-empty-state {
+    display: flex;
+    min-height: 145px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 26px;
+    border: 1px dashed rgba(255, 255, 255, 0.11);
+    border-radius: 16px;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(247, 200, 90, 0.065),
+            transparent 45%
+        ),
+        rgba(255, 255, 255, 0.018);
+    text-align: center;
+}
+
+.dashboard-empty-state strong {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 14px;
+}
+
+.dashboard-empty-state span {
+    max-width: 480px;
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+
+/* Legacy Court */
+
+.legacy-content {
+    position: relative;
+    z-index: 3;
+}
+
+.legacy-content h2 {
+    max-width: 800px;
+    margin-bottom: 12px;
+    font-size: clamp(27px, 4vw, 45px);
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+}
+
+.legacy-quote {
+    max-width: 650px;
+    margin: 0 !important;
+    color: rgba(255, 255, 255, 0.64) !important;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.7;
+}
+
+.legacy-names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 23px;
+}
+
+.legacy-names span {
+    display: inline-flex;
+    min-height: 31px;
+    align-items: center;
+    padding: 0 12px;
+    border: 1px solid rgba(247, 200, 90, 0.2);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.78);
+    background: rgba(247, 200, 90, 0.065);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+}
+
+
+/* Firma inferior */
+
+.tmlfe-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 21px;
+    padding: 17px 4px 3px;
+    border-top: 1px solid rgba(255, 255, 255, 0.065);
+}
+
+.tmlfe-footer strong {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tmlfe-footer span {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 10px;
+}
+
+
+/* Animaciones finales */
+
+.dashboard-hero,
+.dashboard-cards,
+.dashboard-live-grid,
+.legacy-banner,
+.tmlfe-footer {
+    animation: dashboardExecutiveFade 0.55s ease both;
+}
+
+.dashboard-cards {
+    animation-delay: 0.05s;
+}
+
+.dashboard-live-grid {
+    animation-delay: 0.1s;
+}
+
+.dashboard-lower-grid {
+    animation-delay: 0.15s;
+}
+
+.legacy-banner {
+    animation-delay: 0.2s;
+}
+
+.tmlfe-footer {
+    animation-delay: 0.25s;
+}
+
+@keyframes dashboardExecutiveFade {
+    from {
+        opacity: 0;
+        transform: translateY(9px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Responsive final */
+
+@media (max-width: 900px) {
+
+    .dashboard-hero-status {
+        justify-content: flex-start;
+    }
+
+    .tmlfe-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 7px;
+    }
+}
+
+@media (max-width: 620px) {
+
+    .dashboard-hero-status {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .dashboard-hero-status span {
+        display: none;
+    }
+
+    .dashboard-cap-card > strong {
+        font-size: 42px;
+    }
+
+    .legacy-names {
+        gap: 7px;
+    }
+
+    .legacy-names span {
+        padding: 0 9px;
+        font-size: 8px;
+    }
+
+    .stat-card-detail {
+        font-size: 9px;
+    }
+}
