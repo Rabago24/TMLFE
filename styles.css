@@ -3917,3 +3917,796 @@ button#vaciar-trade.secondary-button:hover {
         flex-direction: column;
     }
 }
+
+
+/* =========================================================
+   TMLFE · LEGENDS PREMIUM BANNER
+   ========================================================= */
+
+.legends-premium-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    margin-top: 24px;
+    min-height: 430px;
+
+    border: 1px solid rgba(244, 190, 60, 0.24);
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 12% 18%,
+            rgba(244, 190, 60, 0.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 88% 72%,
+            rgba(59, 93, 177, 0.17),
+            transparent 34%
+        ),
+        linear-gradient(
+            135deg,
+            #151923 0%,
+            #0b0f17 46%,
+            #121827 100%
+        );
+
+    box-shadow:
+        0 26px 70px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.045),
+        inset 0 0 70px rgba(0, 0, 0, 0.24);
+}
+
+
+/* Brillo superior */
+
+.legends-premium-banner::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    top: 0;
+    left: 4%;
+    right: 4%;
+
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(244, 190, 60, 0.8),
+        transparent
+    );
+
+    box-shadow:
+        0 0 24px rgba(244, 190, 60, 0.42);
+}
+
+
+/* Reflejo animado */
+
+.legends-premium-banner::after {
+    content: "";
+    position: absolute;
+    z-index: 5;
+
+    top: -60%;
+    bottom: -60%;
+    left: -34%;
+
+    width: 22%;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.055),
+        transparent
+    );
+
+    transform: rotate(17deg);
+
+    animation:
+        legendsPremiumShine 10s ease-in-out infinite;
+}
+
+
+/* Luces ambientales */
+
+.legends-light {
+    position: absolute;
+    z-index: -1;
+
+    width: 310px;
+    height: 310px;
+
+    border-radius: 50%;
+
+    filter: blur(88px);
+    opacity: 0.55;
+
+    pointer-events: none;
+}
+
+.legends-light-left {
+    top: -165px;
+    left: -120px;
+
+    background:
+        rgba(244, 190, 60, 0.34);
+}
+
+.legends-light-right {
+    right: -140px;
+    bottom: -180px;
+
+    background:
+        rgba(55, 93, 185, 0.34);
+}
+
+
+/* Cuadrícula técnica */
+
+.legends-grid-overlay {
+    position: absolute;
+    z-index: -2;
+
+    inset: 0;
+
+    opacity: 0.16;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.035) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        52px 52px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 24%,
+            black 78%,
+            transparent
+        );
+}
+
+
+/* Textura sutil */
+
+.legends-noise {
+    position: absolute;
+    z-index: -1;
+
+    inset: 0;
+
+    pointer-events: none;
+    opacity: 0.16;
+
+    background-image:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 255, 255, 0.08) 0 1px,
+            transparent 1.5px
+        );
+
+    background-size:
+        17px 17px;
+}
+
+
+/* Números gigantes de fondo */
+
+.legends-watermark {
+    position: absolute;
+    z-index: -1;
+
+    right: 26px;
+    top: 4px;
+
+    font-size: clamp(60px, 8vw, 138px);
+    font-weight: 950;
+    line-height: 1;
+
+    letter-spacing: -7px;
+    white-space: nowrap;
+
+    color: rgba(255, 255, 255, 0.022);
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* Contenido principal */
+
+.legends-premium-content {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns:
+        minmax(310px, 0.82fr)
+        minmax(520px, 1.35fr);
+
+    gap: 42px;
+    align-items: center;
+
+    min-height: 360px;
+
+    padding:
+        48px 48px 40px;
+}
+
+
+/* Zona de texto */
+
+.legends-premium-copy {
+    max-width: 540px;
+}
+
+.legends-premium-copy .eyebrow {
+    margin-bottom: 14px;
+
+    color: #f4be3c;
+    letter-spacing: 0.16em;
+}
+
+.legends-premium-copy h2 {
+    margin: 0;
+
+    max-width: 620px;
+
+    font-size: clamp(34px, 4vw, 62px);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+
+    color: #f8f9fc;
+
+    text-shadow:
+        0 5px 28px rgba(0, 0, 0, 0.34);
+}
+
+.legends-main-quote {
+    position: relative;
+
+    margin:
+        25px 0 22px;
+
+    padding-left: 20px;
+
+    max-width: 525px;
+
+    color: #aeb7c8;
+
+    font-size: 15px;
+    font-weight: 560;
+    line-height: 1.75;
+
+    border-left:
+        2px solid rgba(244, 190, 60, 0.58);
+}
+
+.legends-main-quote::before {
+    content: "“";
+
+    position: absolute;
+
+    left: 8px;
+    top: -25px;
+
+    color: rgba(244, 190, 60, 0.18);
+
+    font-size: 72px;
+    font-family: Georgia, serif;
+    line-height: 1;
+
+    pointer-events: none;
+}
+
+.legends-signature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #e3e7ef;
+
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+}
+
+.legends-signature span {
+    display: block;
+
+    width: 42px;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        #f4be3c,
+        transparent
+    );
+}
+
+
+/* Tarjetas de leyendas */
+
+.legends-values {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(92px, 1fr));
+    gap: 12px;
+
+    perspective: 1000px;
+}
+
+.legend-value-card {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    min-height: 230px;
+
+    padding: 18px 15px;
+
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.055);
+
+    transition:
+        transform 240ms ease,
+        border-color 240ms ease,
+        background 240ms ease,
+        box-shadow 240ms ease;
+}
+
+.legend-value-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent 24%,
+            rgba(4, 7, 12, 0.48) 67%,
+            rgba(4, 7, 12, 0.94) 100%
+        );
+
+    pointer-events: none;
+}
+
+.legend-value-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 14px;
+    right: 14px;
+    top: 0;
+
+    height: 2px;
+
+    border-radius: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(244, 190, 60, 0.78),
+        transparent
+    );
+
+    opacity: 0.45;
+
+    transition:
+        opacity 240ms ease,
+        box-shadow 240ms ease;
+}
+
+.legend-value-card:hover {
+    transform:
+        translateY(-7px)
+        rotateX(1.5deg);
+
+    border-color:
+        rgba(244, 190, 60, 0.42);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(244, 190, 60, 0.11),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    box-shadow:
+        0 24px 44px rgba(0, 0, 0, 0.34),
+        0 0 28px rgba(244, 190, 60, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.legend-value-card:hover::after {
+    opacity: 1;
+
+    box-shadow:
+        0 0 18px rgba(244, 190, 60, 0.52);
+}
+
+
+/* Número de cada leyenda */
+
+.legend-number {
+    position: absolute;
+
+    top: 20px;
+    left: 14px;
+
+    color: rgba(255, 255, 255, 0.1);
+
+    font-size: clamp(46px, 4.8vw, 78px);
+    font-weight: 950;
+    line-height: 0.9;
+    letter-spacing: -0.07em;
+
+    transition:
+        color 240ms ease,
+        transform 240ms ease;
+}
+
+.legend-value-card:hover .legend-number {
+    color: rgba(244, 190, 60, 0.26);
+
+    transform:
+        translateY(-3px)
+        scale(1.03);
+}
+
+
+/* Nombre y valor */
+
+.legend-value-card > div {
+    position: relative;
+    z-index: 2;
+}
+
+.legend-value-card strong {
+    display: block;
+
+    color: #f8f9fc;
+
+    font-size: 15px;
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: 0.06em;
+}
+
+.legend-value-card small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #8f99aa;
+
+    font-size: 10px;
+    font-weight: 760;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    transition:
+        color 240ms ease;
+}
+
+.legend-value-card:hover small {
+    color: #f4be3c;
+}
+
+
+/* Colores personales muy sutiles */
+
+.legend-value-card:nth-child(1) {
+    background:
+        radial-gradient(
+            circle at 50% 18%,
+            rgba(85, 37, 130, 0.22),
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.015)
+        );
+}
+
+.legend-value-card:nth-child(2) {
+    background:
+        radial-gradient(
+            circle at 50% 18%,
+            rgba(36, 97, 170, 0.23),
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.015)
+        );
+}
+
+.legend-value-card:nth-child(3) {
+    background:
+        radial-gradient(
+            circle at 50% 18%,
+            rgba(197, 37, 57, 0.19),
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.015)
+        );
+}
+
+.legend-value-card:nth-child(4) {
+    background:
+        radial-gradient(
+            circle at 50% 18%,
+            rgba(244, 190, 60, 0.16),
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.015)
+        );
+}
+
+.legend-value-card:nth-child(5) {
+    background:
+        radial-gradient(
+            circle at 50% 18%,
+            rgba(90, 104, 121, 0.25),
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.015)
+        );
+}
+
+
+/* Pie inferior del banner */
+
+.legends-premium-footer {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns:
+        1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+
+    min-height: 62px;
+
+    padding:
+        14px 48px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.07);
+
+    background:
+        rgba(5, 8, 14, 0.45);
+
+    backdrop-filter:
+        blur(15px);
+}
+
+.legends-premium-footer span {
+    color: #778195;
+
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.18em;
+}
+
+.legends-premium-footer span:last-child {
+    text-align: right;
+}
+
+.legends-premium-footer strong {
+    position: relative;
+
+    color: #f4be3c;
+
+    font-size: 10px;
+    font-weight: 950;
+    letter-spacing: 0.19em;
+}
+
+.legends-premium-footer strong::before,
+.legends-premium-footer strong::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+
+    width: 28px;
+    height: 1px;
+
+    background:
+        rgba(244, 190, 60, 0.4);
+}
+
+.legends-premium-footer strong::before {
+    right: calc(100% + 13px);
+}
+
+.legends-premium-footer strong::after {
+    left: calc(100% + 13px);
+}
+
+
+/* Animación del reflejo */
+
+@keyframes legendsPremiumShine {
+
+    0%,
+    68% {
+        left: -34%;
+        opacity: 0;
+    }
+
+    72% {
+        opacity: 1;
+    }
+
+    88% {
+        left: 116%;
+        opacity: 0;
+    }
+
+    100% {
+        left: 116%;
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1180px) {
+
+    .legends-premium-content {
+        grid-template-columns: 1fr;
+        gap: 34px;
+
+        padding:
+            42px 38px 34px;
+    }
+
+    .legends-premium-copy {
+        max-width: 720px;
+    }
+
+    .legends-main-quote {
+        max-width: 670px;
+    }
+
+    .legends-values {
+        grid-template-columns:
+            repeat(5, minmax(105px, 1fr));
+    }
+
+    .legend-value-card {
+        min-height: 190px;
+    }
+
+}
+
+
+@media (max-width: 820px) {
+
+    .legends-premium-banner {
+        border-radius: 22px;
+    }
+
+    .legends-premium-content {
+        padding:
+            34px 24px 28px;
+    }
+
+    .legends-values {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .legend-value-card {
+        min-height: 170px;
+    }
+
+    .legend-value-card:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .legends-premium-footer {
+        grid-template-columns: 1fr;
+        gap: 8px;
+
+        padding:
+            18px 24px;
+
+        text-align: center;
+    }
+
+    .legends-premium-footer span,
+    .legends-premium-footer span:last-child {
+        text-align: center;
+    }
+
+    .legends-premium-footer strong::before,
+    .legends-premium-footer strong::after {
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .legends-premium-content {
+        padding:
+            30px 18px 24px;
+    }
+
+    .legends-premium-copy h2 {
+        font-size: 36px;
+    }
+
+    .legends-main-quote {
+        font-size: 13px;
+    }
+
+    .legends-values {
+        grid-template-columns: 1fr;
+    }
+
+    .legend-value-card,
+    .legend-value-card:last-child {
+        grid-column: auto;
+        min-height: 138px;
+    }
+
+    .legend-number {
+        font-size: 58px;
+    }
+
+}
