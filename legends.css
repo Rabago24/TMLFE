@@ -1,0 +1,367 @@
+/* =========================================
+   TMLFE LEGENDS PREMIUM BANNER
+========================================= */
+
+.legends-premium-banner {
+    position: relative;
+    min-height: 440px;
+    margin-top: 28px;
+    padding: 46px;
+    display: grid;
+    grid-template-columns: minmax(260px, 0.88fr) minmax(420px, 1.35fr);
+    gap: 42px;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 30px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(12, 16, 30, 0.98),
+            rgba(22, 19, 42, 0.96)
+        );
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    isolation: isolate;
+}
+
+
+.legends-background,
+.legends-grid,
+.legends-orb {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+
+.legends-background {
+    z-index: -1;
+}
+
+
+.legends-grid {
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+    background-size: 34px 34px;
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent,
+            black 28%,
+            black
+        );
+}
+
+
+.legends-orb {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.32;
+}
+
+
+.legends-orb-one {
+    left: -180px;
+    top: -160px;
+    background: rgba(112, 72, 232, 0.88);
+}
+
+
+.legends-orb-two {
+    right: -160px;
+    bottom: -210px;
+    background: rgba(224, 177, 68, 0.70);
+}
+
+
+.legends-copy {
+    position: relative;
+    z-index: 3;
+}
+
+
+.legends-copy h2 {
+    margin: 10px 0 18px;
+    font-size: clamp(2rem, 4vw, 4.2rem);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    color: #ffffff;
+}
+
+
+.legends-description {
+    max-width: 590px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+
+.legends-signature {
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+
+.legends-signature span {
+    width: 42px;
+    height: 2px;
+    background:
+        linear-gradient(
+            90deg,
+            #f2c861,
+            rgba(242, 200, 97, 0)
+        );
+}
+
+
+.legends-controls {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.legends-control {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    font-size: 1.65rem;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.legends-control:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+
+.legends-dots {
+    display: flex;
+    gap: 8px;
+}
+
+
+.legends-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.24);
+    cursor: pointer;
+    transition:
+        width 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.legends-dot.active {
+    width: 28px;
+    background: #f2c861;
+}
+
+
+.legends-stage {
+    position: relative;
+    min-height: 350px;
+}
+
+
+.legend-card {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 26px;
+    opacity: 0;
+    transform: translateX(36px) scale(0.97);
+    pointer-events: none;
+    transition:
+        opacity 0.55s ease,
+        transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.44),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+
+
+.legend-card.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+}
+
+
+.legend-card img {
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter:
+        saturate(0.82)
+        contrast(1.06);
+    transform: scale(1.04);
+    transition: transform 8s ease;
+}
+
+
+.legend-card.active img {
+    transform: scale(1.12);
+}
+
+
+.legend-card-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 10, 18, 0.18),
+            rgba(8, 10, 18, 0.02) 48%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(7, 8, 15, 0.96),
+            rgba(7, 8, 15, 0.08) 60%
+        );
+}
+
+
+.legend-number {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    font-size: clamp(4rem, 8vw, 7rem);
+    line-height: 1;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.12);
+    letter-spacing: -0.08em;
+}
+
+
+.legend-card-copy {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 26px;
+}
+
+
+.legend-card-copy small {
+    display: block;
+    margin-bottom: 5px;
+    color: #f2c861;
+    font-size: 0.69rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+}
+
+
+.legend-card-copy strong {
+    display: block;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 3vw, 2.45rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+}
+
+
+.legend-card-copy p {
+    margin: 12px 0 0;
+    max-width: 450px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+}
+
+
+.legends-premium-footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+
+.legends-premium-footer strong {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+
+@media (max-width: 1050px) {
+
+    .legends-premium-banner {
+        grid-template-columns: 1fr;
+        padding: 34px;
+    }
+
+
+    .legends-stage {
+        min-height: 390px;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .legends-premium-banner {
+        min-height: auto;
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+
+    .legends-stage,
+    .legend-card img {
+        min-height: 320px;
+    }
+
+
+    .legends-premium-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .legend-card-copy {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+    }
+
+}
