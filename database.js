@@ -10022,39 +10022,99 @@ function getPlayerByName(playerName) {
     return TMLFE.players.find(player => player.name.toLowerCase() === query);
 }
 
-function getTeamPayroll(teamName, season = TMLFE.season) {
+function getTeamActivePayroll(teamName, season = TMLFE.season) {
     return getPlayersByTeam(teamName).reduce(
-        (total, player) => total + getSalaryAmount(player.salaries?.[season]),
+        (total, player) =>
+            total + getSalaryAmount(player.salaries?.[season]),
         0
     );
 }
 
+function getTeamDeadMoney(teamName, season = TMLFE.season) {
+
+    const team = getTeamByName(teamName);
+
+    if (!team) return 0;
+
+    if (typeof window.getDeadMoneyTotal !== "function") {
+        return 0;
+    }
+
+    return window.getDeadMoneyTotal(team.short, season);
+
+}
+
+function getTeamPayroll(teamName, season = TMLFE.season) {
+
+    return (
+        getTeamActivePayroll(teamName, season) +
+        getTeamDeadMoney(teamName, season)
+    );
+
+}
+
 function getTeamCapSpace(teamName, season = TMLFE.season) {
-    return TMLFE.salaryCap - getTeamPayroll(teamName, season);
+
+    return TMLFE.salaryCap -
+        getTeamPayroll(teamName, season);
+
 }
 
 function getTeamSummary(teamName, season = TMLFE.season) {
+
     const team = getTeamByName(teamName);
+
     if (!team) return null;
-    const players = getPlayersByTeam(team.name);
-    const payroll = getTeamPayroll(team.name, season);
+
+    const players =
+        getPlayersByTeam(team.name);
+
+    const activePayroll =
+        getTeamActivePayroll(team.name, season);
+
+    const deadMoney =
+        getTeamDeadMoney(team.name, season);
+
+    const payroll =
+        activePayroll + deadMoney;
+
     const averageRating = players.length
-        ? players.reduce((sum, player) => sum + player.rating, 0) / players.length
+        ? players.reduce(
+            (sum, player) => sum + player.rating,
+            0
+        ) / players.length
         : 0;
+
     const averageAge = players.length
-        ? players.reduce((sum, player) => sum + player.age, 0) / players.length
+        ? players.reduce(
+            (sum, player) => sum + player.age,
+            0
+        ) / players.length
         : 0;
 
     return {
-        ...team,
-        rosterSize: players.length,
-        payroll,
-        capSpace: TMLFE.salaryCap - payroll,
-        averageRating: Number(averageRating.toFixed(1)),
-        averageAge: Number(averageAge.toFixed(1))
-    };
-}
 
+        ...team,
+
+        rosterSize: players.length,
+
+        activePayroll,
+
+        deadMoney,
+
+        payroll,
+
+        capSpace: TMLFE.salaryCap - payroll,
+
+        averageRating:
+            Number(averageRating.toFixed(1)),
+
+        averageAge:
+            Number(averageAge.toFixed(1))
+
+    };
+
+}
 // API global para el resto de archivos JavaScript.
 window.TMLFE = TMLFE;
 window.getSalaryAmount = getSalaryAmount;
@@ -10070,5 +10130,11 @@ window.getTeamSummary = getTeamSummary;
 console.log(
     `TMLFE cargada: ${TMLFE.teams.length} franquicias y ${TMLFE.players.length} jugadores.`
 );
-window.TMLFE = TMLFE;
-window.TMLFE_DATABASE = TMLFE;
+window.getPlayerByName = getPlayerByName;
+
+window.getTeamActivePayroll = getTeamActivePayroll;
+window.getTeamDeadMoney = getTeamDeadMoney;
+
+window.getTeamPayroll = getTeamPayroll;
+window.getTeamCapSpace = getTeamCapSpace;
+window.getTeamSummary = getTeamSummary;
