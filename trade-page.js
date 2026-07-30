@@ -666,7 +666,7 @@ window.addEventListener("load", function () {
     botonValidar.addEventListener(
         "click",
         function () {
-
+console.log("VALIDAR EJECUTADO");
             desactivarConfirmacion();
 
 
