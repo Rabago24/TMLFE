@@ -5163,3 +5163,263 @@ button#vaciar-trade.secondary-button:hover {
     }
 
 }
+/* =======================================
+   TMLFE - Informe premium de validación
+======================================= */
+
+.trade-validation-report {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+}
+
+.trade-validation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trade-validation-eyebrow {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.trade-validation-header h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.trade-validation-badge {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+.trade-validation-badge.approved {
+    color: #8ff0b0;
+    background: rgba(34, 197, 94, 0.14);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.trade-validation-badge.rejected {
+    color: #ff9c9c;
+    background: rgba(239, 68, 68, 0.14);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.trade-validation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.trade-validation-team-card {
+    padding: 20px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.018)
+        );
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+}
+
+.trade-validation-team-card.team-valid {
+    border-color: rgba(34, 197, 94, 0.28);
+}
+
+.trade-validation-team-card.team-invalid {
+    border-color: rgba(239, 68, 68, 0.32);
+}
+
+.trade-validation-team-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.trade-validation-team-heading span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.48);
+}
+
+.trade-validation-team-heading strong {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.trade-validation-team-status {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.team-valid .trade-validation-team-status {
+    color: #7ee29f;
+    background: rgba(34, 197, 94, 0.14);
+}
+
+.team-invalid .trade-validation-team-status {
+    color: #ff8f8f;
+    background: rgba(239, 68, 68, 0.14);
+}
+
+.trade-validation-values {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.trade-validation-values > div {
+    padding: 13px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.trade-validation-values span,
+.trade-validation-limit span {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.trade-validation-values strong,
+.trade-validation-limit strong {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.trade-validation-after {
+    background: rgba(212, 175, 55, 0.08) !important;
+    border-color: rgba(212, 175, 55, 0.2) !important;
+}
+
+.trade-validation-after strong {
+    color: #e8c86b;
+}
+
+.trade-validation-limit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 12px;
+    padding: 13px 15px;
+    border-radius: 12px;
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+}
+
+.trade-validation-limit span {
+    margin: 0;
+}
+
+.trade-validation-message {
+    margin: 14px 0 0;
+    padding-top: 13px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.trade-validation-final {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 22px;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.trade-validation-final.valid {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34, 197, 94, 0.16),
+            rgba(34, 197, 94, 0.055)
+        );
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.trade-validation-final.invalid {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(239, 68, 68, 0.16),
+            rgba(239, 68, 68, 0.055)
+        );
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.trade-validation-final span {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.trade-validation-final strong {
+    font-size: 21px;
+    color: #ffffff;
+}
+
+.trade-validation-final p {
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.68);
+}
+
+@media (max-width: 850px) {
+
+    .trade-validation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-validation-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .trade-validation-values {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-validation-team-card {
+        padding: 16px;
+    }
+
+    .trade-validation-header h3 {
+        font-size: 20px;
+    }
+}
